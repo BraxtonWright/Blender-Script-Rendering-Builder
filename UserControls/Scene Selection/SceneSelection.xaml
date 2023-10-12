@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="Blender_Script_Rendering_Builder.UserControls.Scene_Selection.SceneSelection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Scene_Selection"
+             xmlns:RIC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Render_Info"
+             mc:Ignorable="d">
+    <!-- Set the property IsExpanded to false when building it or add code to collapse it when starting the program -->
+    <Expander HorizontalAlignment="Left" VerticalAlignment="Top" Height="auto" Width="auto" Background="green" IsExpanded="True">
+        <!-- The <Expander.Header></Expander.Header> will allow us to make a custom header for the <Expander></Expander> -->
+        <Expander.Header>
+            <!-- The below code will make it so that we can float the Delete button to the right side of the Expander.Header Source https://stackoverflow.com/a/17334355 -->
+            <DockPanel FlowDirection="LeftToRight"
+                       HorizontalAlignment="{Binding HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}"
+                       LastChildFill="True">
+                <Label Content="Scene name:"/>
+                <TextBox x:Name="txtSceneName" Text="Supply the scene's name" VerticalAlignment="Center" Padding="1"/>
+                <Button x:Name="btnSceneDelete" Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Center" DockPanel.Dock="Right" Click="btnSceneDelete_Click"/>
+            </DockPanel>
+        </Expander.Header>
+        <Expander.Content>
+            <Grid Margin="25,0,0,0">
+                <!-- Split the panel into 2 rows, the top for the UserControl RenderInfo and the bottom for the "Add new render info" button -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel x:Name="spRenderingInfo" Grid.Row="0">
+                    <RIC:RenderInfo/>
+                </StackPanel>
+                <Button x:Name="btnNewRenderInfo" Grid.Row="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Background="Blue" Content="Add new rendering info" Click="btnNewRenderInfo_Click"/>
+            </Grid>
+        </Expander.Content>
+    </Expander>
+</UserControl>

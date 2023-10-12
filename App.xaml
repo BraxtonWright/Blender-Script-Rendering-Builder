@@ -1,0 +1,9 @@
+﻿<Application x:Class="Blender_Script_Rendering_Builder.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Blender_Script_Rendering_Builder"
+             StartupUri="Main Window/wndMain.xaml">
+    <Application.Resources>
+
+    </Application.Resources>
+</Application>

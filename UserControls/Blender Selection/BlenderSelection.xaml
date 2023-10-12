@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="Blender_Script_Rendering_Builder.UserControls.Blender_Selection.BlenderSelection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Blender_Selection"
+             xmlns:SSC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Scene_Selection"
+             mc:Ignorable="d">
+    <!-- Set the property IsExpanded to false when building it or add code to collapse it when starting the program -->
+    <Expander x:Name="expBlender" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Red" IsExpanded="True">
+        <!-- The <Expander.Header></Expander.Header> will allow us to make a custom header for the <Expander></Expander> -->
+        <Expander.Header>
+            <!-- The below code will make it so that we can float the Delete button to the right side of the Expander.Header Source https://stackoverflow.com/a/17334355 -->
+            <DockPanel FlowDirection="LeftToRight"
+                       HorizontalAlignment="{Binding HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}"
+                       LastChildFill="True">
+                <Button x:Name="btnBlendBrowse" Content="Browse for Blender file" Padding="5,0,5,0" VerticalAlignment="Center" Click="btnBlendBrowse_Click"/>
+                <Label x:Name="lblFileName"/>
+                <Button x:Name="btnDeleteBlend" Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Center" DockPanel.Dock="Right" Click="btnDeleteBlend_Click"/>
+            </DockPanel>
+        </Expander.Header>
+        <Expander.Content>
+            <Grid Margin="25,0,0,0">
+                <!-- Split the panel into 2 rows, the top for the UserControl SceneSelection and the bottom for the "Add a new scene" button -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel x:Name="spScenes" Grid.Row="0">
+                    <SSC:SceneSelection/>
+                </StackPanel>
+                <Button x:Name="btnNewScene" Grid.Row="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Background="Green" Click="btnNewScene_Click">Add a new scene</Button>
+            </Grid>
+        </Expander.Content>
+    </Expander>
+</UserControl>
