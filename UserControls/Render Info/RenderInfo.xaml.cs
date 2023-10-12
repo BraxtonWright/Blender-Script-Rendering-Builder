@@ -44,8 +44,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             }
             catch (Exception ex)
             {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
         #endregion
@@ -67,8 +66,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             }
             catch (Exception ex)
             {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
@@ -80,10 +78,13 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
                 switch(comboBox.Name)
                 {
                     case "cmbAnimationOrFrame":
+                        
                         break;
                     case "cmbOutputFileType":
+
                         break;
                     case "cmbRenderEngine":
+
                         break;
                     default:
                         throw new Exception("Case doesn't exist for the combo box with the name of " + comboBox.Name);
@@ -91,8 +92,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             }
             catch (Exception ex)
             {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                      MethodInfo.GetCurrentMethod().Name, ex.Message);
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 

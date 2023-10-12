@@ -22,6 +22,13 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
     {
         #region Class Variables
         public RenderInstance renderInstance;
+
+        /*const List<string> AnimationOrFrameList = new List<string> {
+            "Use Blender configs",
+            "Animation",
+            "Frames",
+            "Frames (custom)",
+        };*/
         #endregion
 
         #region Constructor
@@ -36,8 +43,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             }
             catch (Exception ex)
             {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                               MethodInfo.GetCurrentMethod().Name, ex.Message);
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
         #endregion

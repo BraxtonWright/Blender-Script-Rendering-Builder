@@ -44,8 +44,8 @@ namespace Blender_Script_Rendering_Builder
             }
             catch (Exception ex)
             {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                            MethodInfo.GetCurrentMethod().Name, ex.Message);
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                            MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
         #endregion
@@ -64,8 +64,8 @@ namespace Blender_Script_Rendering_Builder
             }
             catch (Exception ex)
             {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                               MethodInfo.GetCurrentMethod().Name, ex.Message);
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                 MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
@@ -82,8 +82,8 @@ namespace Blender_Script_Rendering_Builder
             }
             catch (Exception ex)
             {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
-                                   MethodInfo.GetCurrentMethod().Name, ex.Message);
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                              MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
         #endregion
