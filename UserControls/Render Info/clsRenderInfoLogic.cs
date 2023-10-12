@@ -21,14 +21,10 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
     class clsRenderInfoLogic
     {
         #region Class Variables
+        /// <summary>
+        /// Will contain all the data about the rendering info found on the UI
+        /// </summary>
         public RenderInstance renderInstance;
-
-        /*const List<string> AnimationOrFrameList = new List<string> {
-            "Use Blender configs",
-            "Animation",
-            "Frames",
-            "Frames (custom)",
-        };*/
         #endregion
 
         #region Constructor
@@ -50,7 +46,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
 
         #region Functions
         /// <summary>
-        /// Makes a list of valid options to define what they want to render.
+        /// Makes a list of valid options to define what type of render the user wants to do.
         /// </summary>
         /// <returns>A list of valid options for the user to chose what render they want to do.</returns>
         /// <exception cref="Exception">Catches any exceptions that this method might come across.</exception>

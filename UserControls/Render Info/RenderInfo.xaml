@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Info.RenderInfo"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Render_Info"
              xmlns:NUPC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down"
+             xmlns:Collections="clr-namespace:System.Collections;assembly=System.Runtime" x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Info.RenderInfo"
              mc:Ignorable="d">
     <Grid ShowGridLines="True" Height="auto" Width="auto" Margin="0,0,0,5" Background="Blue">
         <!-- Define 4 columns and 2 rows for the data -->
@@ -22,7 +23,7 @@
         <!-- Column 0 (Type of render info) -->
         <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Animation or Frame(s)"/>
-            <ComboBox x:Name="cmbAnimationOrFrame" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
+            <ComboBox x:Name="cmbAnimationOrFrame" Width="120" SelectionChanged="cmbAnimationOrFrame_SelectionChanged"/>
         </StackPanel>
         <!-- Start and End frames -->
         <DockPanel x:Name="StartEndFrameDockPanel" Grid.Column="0" Grid.Row="1" Visibility="Visible">
@@ -51,7 +52,7 @@
         <!-- Column 1 (Output info) -->
         <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Output file type"/>
-            <ComboBox x:Name="cmbOutputFileType" SelectionChanged="ComboBox_SelectionChanged"/>
+            <ComboBox x:Name="cmbOutputFileType"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Output folder"/>
@@ -62,7 +63,7 @@
         <!-- Column 2 (Render engine info) -->
         <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Render Engine"/>
-            <ComboBox x:Name="cmbRenderEngine" SelectionChanged="ComboBox_SelectionChanged"/>
+            <ComboBox x:Name="cmbRenderEngine"/>
         </StackPanel>
 
         <!-- Column 3 (Delete the RenderInfo user control) -->

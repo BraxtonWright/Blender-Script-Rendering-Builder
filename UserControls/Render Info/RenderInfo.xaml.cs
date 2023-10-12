@@ -69,33 +69,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
                 ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                ComboBox comboBox = sender as ComboBox;
-                switch(comboBox.Name)
-                {
-                    case "cmbAnimationOrFrame":
-                        
-                        break;
-                    case "cmbOutputFileType":
-
-                        break;
-                    case "cmbRenderEngine":
-
-                        break;
-                    default:
-                        throw new Exception("Case doesn't exist for the combo box with the name of " + comboBox.Name);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
         #endregion
 
         #region Helper Functions
@@ -118,5 +91,15 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             }
         }
         #endregion
+
+        /// <summary>
+        /// This event listener will listen for when you change the item selected in the combo box and change the fields below it so it will best the use case
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbAnimationOrFrame_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
