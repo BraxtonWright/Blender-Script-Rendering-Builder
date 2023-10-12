@@ -28,7 +28,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
         /// Object to perform logic for the RenderInfo UserControl.
         /// </summary>
         private clsRenderInfoLogic logic;
-
         #endregion
 
         #region Constructor
@@ -72,6 +71,31 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
                             MethodInfo.GetCurrentMethod().Name, ex.Message);
             }
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ComboBox comboBox = sender as ComboBox;
+                switch(comboBox.Name)
+                {
+                    case "cmbAnimationOrFrame":
+                        break;
+                    case "cmbOutputFileType":
+                        break;
+                    case "cmbRenderEngine":
+                        break;
+                    default:
+                        throw new Exception("Case doesn't exist for the combo box with the name of " + comboBox.Name);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name,
+                      MethodInfo.GetCurrentMethod().Name, ex.Message);
+            }
+        }
+
         #endregion
 
         #region Helper Functions

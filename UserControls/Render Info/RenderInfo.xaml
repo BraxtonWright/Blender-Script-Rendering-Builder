@@ -22,7 +22,7 @@
         <!-- Column 0 (Type of render info) -->
         <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Animation or Frame(s)"/>
-            <ComboBox x:Name="cmbAnimationOrFrame" Width="120"/>
+            <ComboBox x:Name="cmbAnimationOrFrame" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
         </StackPanel>
         <!-- Start and End frames -->
         <DockPanel x:Name="StartEndFrameDockPanel" Grid.Column="0" Grid.Row="1" Visibility="Visible">
@@ -51,7 +51,7 @@
         <!-- Column 1 (Output info) -->
         <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Output file type"/>
-            <ComboBox x:Name="cmbOutputFileType"/>
+            <ComboBox x:Name="cmbOutputFileType" SelectionChanged="ComboBox_SelectionChanged"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Output folder"/>
@@ -62,10 +62,10 @@
         <!-- Column 2 (Render engine info) -->
         <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Render Engine"/>
-            <ComboBox x:Name="cmbRenderEngine"/>
+            <ComboBox x:Name="cmbRenderEngine" SelectionChanged="ComboBox_SelectionChanged"/>
         </StackPanel>
 
         <!-- Column 3 (Delete the RenderInfo user control) -->
-        <Button x:Name="btnRenderInfoDelete" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" Content="Delete" Padding="10,5,10,5" Click="btnRenderInfoDelete_Click"/>
+        <Button x:Name="btnRenderInfoDelete" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Content="Delete" Padding="10,5,10,5" Click="btnRenderInfoDelete_Click" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>
