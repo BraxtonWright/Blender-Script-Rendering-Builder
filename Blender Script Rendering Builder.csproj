@@ -6,6 +6,7 @@
     <RootNamespace>Blender_Script_Rendering_Builder</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
 </Project>

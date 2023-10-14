@@ -103,7 +103,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
                     string BlenderFilePath = openFileDialog.FileName;
                     string BlenderFileName = logic.ExtractFileName(BlenderFilePath);
 
-                    // Temporary, will be saved to an instance of the class BlenderInfo
+                    // Temporary, will be saved to an instance of the class clsBlender
                     lblFileName.Tag = BlenderFilePath;
                     lblFileName.Content = BlenderFileName;
                 }

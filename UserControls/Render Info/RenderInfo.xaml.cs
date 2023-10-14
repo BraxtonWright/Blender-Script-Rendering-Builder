@@ -11,6 +11,7 @@
  */
 using Blender_Script_Rendering_Builder.Main;
 using Blender_Script_Rendering_Builder.Shared;
+using Microsoft.Win32;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -69,6 +70,71 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
                 ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Open a folder browser dialog to allow the user to select a folder to output the renders to
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void btnOutputPathBrowse_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            try
+            {
+                System.Windows.Forms.FolderBrowserDialog outputPath = new System.Windows.Forms.FolderBrowserDialog();
+                if (outputPath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string folderPath = outputPath.SelectedPath;
+                    string folderName = logic.ExtractFolderName(folderPath);
+
+                    // Temporary, will be saved to an instance of the class clsRender
+                    lblOutputFolder.Tag = folderPath;
+                    lblOutputFolder.Content = folderName;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This event listener will listen for when you change the item selected in the combo box and change the fields below it so it will best the use case
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Selection Changed Event</param>
+        private void cmbAnimationOrFrame_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ComboBox cb = sender as ComboBox;
+
+                logic.HandleAnimationOrFrameSelected(cb.SelectedItem, grdStartEndFrames, grdCustomFrames);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Selection Changed Event</param>
+        private void cmbOutputFolder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ComboBox cb = sender as ComboBox;
+
+                logic.HandleOutputFolderChanged(cb.SelectedItem, grdOutputFolderInfo);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
         #endregion
 
         #region Helper Functions
@@ -84,6 +150,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
                 cmbAnimationOrFrame.ItemsSource = logic.AnimationOrFrameList();
                 cmbOutputFileType.ItemsSource = logic.OutputFileTypeList();
                 cmbRenderEngine.ItemsSource = logic.RenderingEngineList();
+                cmbOutputFolder.ItemsSource = logic.OutputFolderList();
             }
             catch (Exception ex)
             {
@@ -91,15 +158,5 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             }
         }
         #endregion
-
-        /// <summary>
-        /// This event listener will listen for when you change the item selected in the combo box and change the fields below it so it will best the use case
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cmbAnimationOrFrame_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

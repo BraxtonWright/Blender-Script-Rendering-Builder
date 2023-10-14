@@ -5,68 +5,110 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Render_Info"
              xmlns:NUPC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down"
-             xmlns:Collections="clr-namespace:System.Collections;assembly=System.Runtime" x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Info.RenderInfo"
+             x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Info.RenderInfo"
              mc:Ignorable="d">
-    <Grid ShowGridLines="True" Height="auto" Width="auto" Margin="0,0,0,5" Background="Blue">
+    <Grid ShowGridLines="True" Margin="0,0,0,5" Background="Blue">
         <!-- Define 4 columns and 2 rows for the data -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Column 0 (Type of render info) -->
-        <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Label Content="Animation or Frame(s)"/>
-            <ComboBox x:Name="cmbAnimationOrFrame" Width="120" SelectionChanged="cmbAnimationOrFrame_SelectionChanged"/>
-        </StackPanel>
-        <!-- Start and End frames -->
-        <DockPanel x:Name="StartEndFrameDockPanel" Grid.Column="0" Grid.Row="1" Visibility="Visible">
-            <Grid Grid.Column="0" Grid.Row="1" ShowGridLines="True">
+        <!-- Column 1 (Rendering Info) -->
+        <GroupBox x:Name="gbRenderType" Header="Render Info" MinWidth="230" Margin="5,0,5,0">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-                <StackPanel Grid.Column="0">
-                    <Label Content="Start Frame" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <NUPC:NumericUpDown x:Name="nupStartFrame"/>
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <Label Grid.Column="1" Content="End Frame" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <NUPC:NumericUpDown x:Name="nupEndFrame"/>
-                </StackPanel>
+                <!-- Render type inputs-->
+                <Label Content="Type: " HorizontalAlignment="Right"/>
+                <ComboBox x:Name="cmbAnimationOrFrame" SelectionChanged="cmbAnimationOrFrame_SelectionChanged" SelectedIndex="0" Grid.Column="1" VerticalAlignment="Center"/>
+
+                <!-- Render type additional fields -->
+                <!-- Start/End frames -->
+                <Grid x:Name="grdStartEndFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Start Frame:" HorizontalAlignment="Right"/>
+                    <NUPC:NumericUpDown x:Name="nupStartFrame" Grid.Column="1"/>
+
+                    <Label Content="End Frame:" Grid.Row="1" HorizontalAlignment="Right"/>
+                    <NUPC:NumericUpDown x:Name="nupEndFrame" Grid.Row="1" Grid.Column="1"/>
+                </Grid>
+                <!-- Custom frames -->
+                <Grid x:Name="grdCustomFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Custom Frame(s):" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="txtCustomFrames" Grid.Column="1" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Rendering engine -->
+                <Label Content="Rendering Engine:" Grid.Row="2" HorizontalAlignment="Right"/>
+                <ComboBox x:Name="cmbRenderEngine" SelectedIndex="0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
             </Grid>
-        </DockPanel>
-        <!-- Custom frames -->
-        <StackPanel x:Name="CustomFrameDockPanel" Grid.Column="0" Grid.Row="1" Visibility="Collapsed">
-            <Label Content="Custom Frame(s)" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtCustomFrames" TextWrapping="Wrap" HorizontalAlignment="Stretch" Width="auto"/>
-        </StackPanel>
+        </GroupBox>
 
         <!-- Column 1 (Output info) -->
-        <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Label Content="Output file type"/>
-            <ComboBox x:Name="cmbOutputFileType"/>
-        </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Label Content="Output folder"/>
-            <TextBox Text="Output path" IsReadOnly="True"/>
-            <Button Content="Browse"/>
-        </StackPanel>
+        <GroupBox x:Name="gbRenderOutput" Header="Output Info" Grid.Column="1" MinWidth="230" Margin="5,0,5,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-        <!-- Column 2 (Render engine info) -->
-        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Label Content="Render Engine"/>
-            <ComboBox x:Name="cmbRenderEngine"/>
-        </StackPanel>
+                <!-- Output file type -->
+                <Label Content="Output file type:" HorizontalAlignment="Right"/>
+                <ComboBox x:Name="cmbOutputFileType" Grid.Column="1" VerticalAlignment="Center" SelectedIndex="0"/>
 
-        <!-- Column 3 (Delete the RenderInfo user control) -->
-        <Button x:Name="btnRenderInfoDelete" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Content="Delete" Padding="10,5,10,5" Click="btnRenderInfoDelete_Click" VerticalAlignment="Top"/>
+                <!-- Output folder type -->
+                <Label Content="Output folder:" Grid.Row="1" HorizontalAlignment="Right"/>
+                <ComboBox x:Name="cmbOutputFolder" SelectedIndex="0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" SelectionChanged="cmbOutputFolder_SelectionChanged"/>
+
+                <!-- Output folder type additional info -->
+                <Grid x:Name="grdOutputFolderInfo" Grid.Row="2" Grid.ColumnSpan="2" Visibility="Visible">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Button x:Name="btnOutputPathBrowse" Content="Browse" Click="btnOutputPathBrowse_Click"/>
+                    <Label x:Name="lblOutputFolder" Content="TDB" Grid.Column="1"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+        <!-- Column 2 (Delete button) -->
+        <Button x:Name="btnRenderInfoDelete" Grid.Column="3" Content="Delete" Padding="10,5,10,5" Click="btnRenderInfoDelete_Click" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>
