@@ -14,18 +14,72 @@ using Blender_Script_Rendering_Builder.Modules;
 using Blender_Script_Rendering_Builder.Shared;
 using Microsoft.Win32;
 using System;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Controls;
+using static Blender_Script_Rendering_Builder.UserControls.Render_Info.clsRenderInfoLogic;
 
 namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
 {
+    #region Namespace Variables
+    //The reason why we have these here is so that we can access them both in the below class and the binding them to the UI file as shown here https://youtu.be/uWsvh5rEMRI?t=15
+
+    /// <summary>
+    /// A list of options that are valid for the type of render for the render data
+    /// </summary>
+    public enum enumAnimationOrFrameOptions
+    {
+        [Description("Use Blender configs")] UseBlender,
+        [Description("Animation")] Animation,
+        [Description("Frame Range")] FrameRange,
+        [Description("Frames Custom")] FrameCustom
+    }
+
+    /// <summary>
+    /// A list of valid options to define what output file type they want to output.
+    /// </summary>
+    public enum enumOutputFileOptions
+    {
+        [Description("Use Blender configs")] UseBlender,
+        [Description("avijpeg")] AVIJPEG,
+        [Description("aviraw")] AVIRAW,
+        [Description("bmp")] BMP,
+        [Description("iris")] IRIS,
+        [Description("iriz")] IRIZ,
+        [Description("jpeg")] JPEG,
+        [Description("png")] PNG,
+        [Description("rawtga")] RAWTGA,
+        [Description("tga")] TGA
+    }
+
+    /// <summary>
+    /// A list of valid options to define what rendering engine they want to use.
+    /// </summary>
+    public enum enumRenderEngineOptions
+    {
+        [Description("Use Blender configs")] UseBlender,
+        [Description("Cycles")] Cycles,
+        [Description("Eevee")] Eevee,
+        [Description("Workbench")] Workbench
+    }
+
+    /// <summary>
+    /// A list of valid options to define what output folder they want to use.
+    /// </summary>
+    public enum enumOutputFolderOptions
+    {
+        [Description("Use Blender configs")] UseBlender,
+        [Description("Browse for folder")] Browse
+    }
+    #endregion
+
     /// <summary>
     /// Interaction logic for RenderInfo.xaml
     /// </summary>
     public partial class RenderInfo : UserControl
     {
-        #region Variables
+        #region Class Variables
         /// <summary>
         /// Object to perform logic for the RenderInfo UserControl.
         /// </summary>
@@ -46,9 +100,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             try
             {
                 InitializeComponent();
-                logic = new clsRenderInfoLogic();
-                renderData = new RenderModel();
-                FillComboBoxes();
+                logic = new clsRenderInfoLogic();  // Make a new instance of the logic class for this user control
+                renderData = new RenderModel();  // make a new instance of the RenderModel class
+                //DataContext = this;  // Set the data context of this UserControl itself
             }
             catch (Exception ex)
             {
@@ -115,8 +169,26 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             try
             {
                 ComboBox cb = sender as ComboBox;
+                Object selectedItem = cb.SelectedItem;
 
-                logic.HandleAnimationOrFrameSelected(cb.SelectedItem, grdStartEndFrames, grdCustomFrames);
+                switch (selectedItem)
+                {
+                    case enumAnimationOrFrameOptions.UseBlender:
+                        grdStartEndFrames.Visibility = System.Windows.Visibility.Collapsed;
+                        grdCustomFrames.Visibility = System.Windows.Visibility.Collapsed;
+                        break;
+                    case enumAnimationOrFrameOptions.Animation:
+                    case enumAnimationOrFrameOptions.FrameRange:
+                        grdStartEndFrames.Visibility = System.Windows.Visibility.Visible;
+                        grdCustomFrames.Visibility = System.Windows.Visibility.Collapsed;
+                        break;
+                    case enumAnimationOrFrameOptions.FrameCustom:
+                        grdStartEndFrames.Visibility = System.Windows.Visibility.Collapsed;
+                        grdCustomFrames.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    default:
+                        throw new Exception("There is no option with the name " + selectedItem);
+                }
             }
             catch (Exception ex)
             {
@@ -134,8 +206,19 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             try
             {
                 ComboBox cb = sender as ComboBox;
+                Object selectedItem = cb.SelectedItem;
 
-                logic.HandleOutputFolderChanged(cb.SelectedItem, grdOutputFolderInfo);
+                switch (selectedItem)
+                {
+                    case enumOutputFolderOptions.UseBlender:
+                        grdOutputFolderInfo.Visibility = System.Windows.Visibility.Collapsed;
+                        break;
+                    case enumOutputFolderOptions.Browse:
+                        grdOutputFolderInfo.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    default:
+                        throw new Exception("There is no option with the name " + selectedItem);
+                }
             }
             catch (Exception ex)
             {
@@ -145,25 +228,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
         #endregion
 
         #region Helper Functions
-        /// <summary>
-        /// Populates all the ComboBoxes with the valid options
-        /// Call this function before showing this window
-        /// </summary>
-        /// <exception cref="Exception">Catches any exceptions that this method might come across.</exception>
-        private void FillComboBoxes()
-        {
-            try
-            {
-                cmbAnimationOrFrame.ItemsSource = logic.AnimationOrFrameList();
-                cmbOutputFileType.ItemsSource = logic.OutputFileTypeList();
-                cmbRenderEngine.ItemsSource = logic.RenderingEngineList();
-                cmbOutputFolder.ItemsSource = logic.OutputFolderList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
         #endregion
     }
 }

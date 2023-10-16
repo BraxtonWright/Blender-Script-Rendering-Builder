@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace Blender_Script_Rendering_Builder.Modules
 {
-    class BlenderModel
+    public class BlenderModel
     {
         /// <summary>
         /// Full Path to the Blender file

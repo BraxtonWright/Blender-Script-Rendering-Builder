@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Blender_Script_Rendering_Builder.Modules
 {
-    class RenderModel : INotifyPropertyChanged
+    public class RenderModel : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged members
         /// <summary>
@@ -43,7 +43,11 @@ namespace Blender_Script_Rendering_Builder.Modules
         public int StartFrame
         {
             get { return _startFrame; }
-            set { _startFrame = value;  OnPropertyChanged("StartFrame"); }
+            set
+            {
+                _startFrame = value;
+                OnPropertyChanged("StartFrame");
+            }
         }
         /// <summary>
         /// The ending frame for the render
@@ -51,7 +55,11 @@ namespace Blender_Script_Rendering_Builder.Modules
         public int EndFrame
         {
             get { return _endFrame; }
-            set { _endFrame = value; OnPropertyChanged("EndFrame"); }
+            set
+            {
+                _endFrame = value;
+                OnPropertyChanged("EndFrame");
+            }
         }
 
         /// <summary>
@@ -60,7 +68,11 @@ namespace Blender_Script_Rendering_Builder.Modules
         public string CustomFrames
         {
             get { return _customFrames; }
-            set { _customFrames = value; OnPropertyChanged("CustomFrames"); }
+            set
+            {
+                _customFrames = value;
+                OnPropertyChanged("CustomFrames");
+            }
         }
 
         /// <summary>
@@ -69,7 +81,11 @@ namespace Blender_Script_Rendering_Builder.Modules
         public string OutputFileType
         {
             get { return _outputFileType; }
-            set { _outputFileType = value; OnPropertyChanged("OutputFileType"); }
+            set
+            {
+                _outputFileType = value;
+                OnPropertyChanged("OutputFileType");
+            }
         }
 
         /// <summary>
@@ -78,7 +94,11 @@ namespace Blender_Script_Rendering_Builder.Modules
         public string OutputFullPath
         {
             get { return _outputFullPath; }
-            set { _outputFullPath = value; OnPropertyChanged("OutputFullPath"); }
+            set
+            {
+                _outputFullPath = value;
+                OnPropertyChanged("OutputFullPath");
+            }
         }
 
         /// <summary>
@@ -87,7 +107,11 @@ namespace Blender_Script_Rendering_Builder.Modules
         public string RenderEngine
         {
             get { return _renderEngine; }
-            set { _renderEngine = value; OnPropertyChanged("RenderEngine"); }
+            set
+            {
+                _renderEngine = value;
+                OnPropertyChanged("RenderEngine");
+            }
         }
         #endregion
     }

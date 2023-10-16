@@ -23,48 +23,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
 {
     class clsRenderInfoLogic
     {
-        #region Class Variables
-
-        /// <summary>
-        /// A list of options that are valid for the type of render for the render data
-        /// </summary>
-        public enum enumAnimationOrFrameOptions
-        {
-            [Description("Use Blender configs")] UseBlender,
-            [Description("Animation")] Animation,
-            [Description("Frame Range")] FrameRange,
-            [Description("Frames Custom")] FrameCustom
-        }
-
-        public enum enumOutputFileOptions
-        {
-            [Description("Use Blender configs")] UseBlender,
-            [Description("avijpeg")] AVIJPEG,
-            [Description("aviraw")] AVIRAW,
-            [Description("bmp")] BMP,
-            [Description("iris")] IRIS,
-            [Description("iriz")] IRIZ,
-            [Description("jpeg")] JPEG,
-            [Description("png")] PNG,
-            [Description("rawtga")] RAWTGA,
-            [Description("tga")] TGA
-        }
-
-        public enum enumRenderEngineOptions
-        {
-            [Description("Use Blender configs")] UseBlender,
-            [Description("Cycles")] Cycles,
-            [Description("Eevee")] Eevee,
-            [Description("Workbench")] Workbench
-        }
-
-        public enum enumOutputFolderOptions
-        {
-            [Description("Use Blender configs")] UseBlender,
-            [Description("Browse for folder")] Browse
-        }
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Default constructor
@@ -169,58 +127,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-        }
-
-        public void HandleAnimationOrFrameSelected(Object selectedItem, Grid StartEndGrid, Grid CustomGrid)
-        {
-            try
-            {
-                switch (selectedItem)
-                {
-                    case enumAnimationOrFrameOptions.UseBlender:
-                        StartEndGrid.Visibility = System.Windows.Visibility.Collapsed;
-                        CustomGrid.Visibility = System.Windows.Visibility.Collapsed;
-                        break;
-                    case enumAnimationOrFrameOptions.Animation:
-                    case enumAnimationOrFrameOptions.FrameRange:
-                        StartEndGrid.Visibility = System.Windows.Visibility.Visible;
-                        CustomGrid.Visibility = System.Windows.Visibility.Collapsed;
-                        break;
-                    case enumAnimationOrFrameOptions.FrameCustom:
-                        StartEndGrid.Visibility = System.Windows.Visibility.Collapsed;
-                        CustomGrid.Visibility = System.Windows.Visibility.Visible;
-                        break;
-                    default:
-                        throw new Exception("There is no option with the name " + selectedItem);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        public void HandleOutputFolderChanged(Object selectedItem, Grid OutputFolderInfoGrid)
-        {
-            try
-            {
-                switch (selectedItem)
-                {
-                    case enumOutputFolderOptions.UseBlender:
-                        OutputFolderInfoGrid.Visibility = System.Windows.Visibility.Collapsed;
-                        break;
-                    case enumOutputFolderOptions.Browse:
-                        OutputFolderInfoGrid.Visibility = System.Windows.Visibility.Visible;
-                        break;
-                    default:
-                        throw new Exception("There is no option with the name " + selectedItem);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-
         }
 
         /// <summary>

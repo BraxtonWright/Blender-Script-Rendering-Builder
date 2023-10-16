@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Blender_Script_Rendering_Builder.Modules
 {
-    class SceneModel
+    public class SceneModel
     {
         /// <summary>
         /// The name of the scene

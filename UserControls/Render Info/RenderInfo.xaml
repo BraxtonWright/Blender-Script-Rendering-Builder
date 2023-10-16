@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Render_Info"
              xmlns:NUPC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down"
+             xmlns:Shared="clr-namespace:Blender_Script_Rendering_Builder.Shared"
              x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Info.RenderInfo"
              mc:Ignorable="d">
     <Grid ShowGridLines="True" Margin="0,0,0,5" Background="Blue">
@@ -33,7 +34,8 @@
 
                 <!-- Render type inputs-->
                 <Label Content="Type: " HorizontalAlignment="Right"/>
-                <ComboBox x:Name="cmbAnimationOrFrame" SelectionChanged="cmbAnimationOrFrame_SelectionChanged" SelectedIndex="0" Grid.Column="1" VerticalAlignment="Center"/>
+                <!-- Make the Item source for the below combo box to be the enum enumAnimationOrFrameOptions defined in the .xaml.cs file of this window and use the EnumBindingSourceExtension (it drops the Extension portion of the class name) to convert the enum to an array, which the combobox can use -->
+                <ComboBox x:Name="cmbAnimationOrFrame" SelectionChanged="cmbAnimationOrFrame_SelectionChanged" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Source={Shared:EnumBindingSource {x:Type local:enumAnimationOrFrameOptions}}}" SelectedIndex="0"/>
 
                 <!-- Render type additional fields -->
                 <!-- Start/End frames -->
@@ -61,12 +63,13 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Custom Frame(s):" HorizontalAlignment="Right"/>
-                    <TextBox x:Name="txtCustomFrames" Grid.Column="1" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtCustomFrames" Grid.Column="1" VerticalAlignment="Center" Text="{Binding CustomFrames}"/>
                 </Grid>
 
                 <!-- Rendering engine -->
                 <Label Content="Rendering Engine:" Grid.Row="2" HorizontalAlignment="Right"/>
-                <ComboBox x:Name="cmbRenderEngine" SelectedIndex="0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+                <!-- Make the Item source for the below combo box to be the enum enumRenderEngineOptions defined in the .xaml.cs file of this window and use the EnumBindingSourceExtension (it drops the Extension portion of the class name) to convert the enum to an array, which the combobox can use -->
+                <ComboBox x:Name="cmbRenderEngine" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Source={Shared:EnumBindingSource {x:Type local:enumRenderEngineOptions}}}" SelectedIndex="0"/>
             </Grid>
         </GroupBox>
 
@@ -85,14 +88,16 @@
 
                 <!-- Output file type -->
                 <Label Content="Output file type:" HorizontalAlignment="Right"/>
-                <ComboBox x:Name="cmbOutputFileType" Grid.Column="1" VerticalAlignment="Center" SelectedIndex="0"/>
+                <!-- Make the Item source for the below combo box to be the enum enumOutputFileOptions defined in the .xaml.cs file of this window and use the EnumBindingSourceExtension (it drops the Extension portion of the class name) to convert the enum to an array, which the combobox can use -->
+                <ComboBox x:Name="cmbOutputFileType" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Source={Shared:EnumBindingSource {x:Type local:enumOutputFileOptions}}}" SelectedIndex="0"/>
 
                 <!-- Output folder type -->
                 <Label Content="Output folder:" Grid.Row="1" HorizontalAlignment="Right"/>
-                <ComboBox x:Name="cmbOutputFolder" SelectedIndex="0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" SelectionChanged="cmbOutputFolder_SelectionChanged"/>
+                <!-- Make the Item source for the below combo box to be the enum enumOutputFolderOptions defined in the .xaml.cs file of this window and use the EnumBindingSourceExtension (it drops the Extension portion of the class name) to convert the enum to an array, which the combobox can use -->
+                <ComboBox x:Name="cmbOutputFolder" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Source={Shared:EnumBindingSource {x:Type local:enumOutputFolderOptions}}}" SelectionChanged="cmbOutputFolder_SelectionChanged" SelectedIndex="0"/>
 
                 <!-- Output folder type additional info -->
-                <Grid x:Name="grdOutputFolderInfo" Grid.Row="2" Grid.ColumnSpan="2" Visibility="Visible">
+                <Grid x:Name="grdOutputFolderInfo" Grid.Row="2" Grid.ColumnSpan="2" Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -101,7 +106,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Button x:Name="btnOutputPathBrowse" Content="Browse" Click="btnOutputPathBrowse_Click"/>
                     <Label x:Name="lblOutputFolder" Content="TDB" Grid.Column="1"/>
                 </Grid>
