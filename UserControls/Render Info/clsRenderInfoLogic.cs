@@ -63,11 +63,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             [Description("Use Blender configs")] UseBlender,
             [Description("Browse for folder")] Browse
         }
-
-        /// <summary>
-        /// Will contain all the data about the rendering info found on the UI
-        /// </summary>
-        public RenderModel renderData;
         #endregion
 
         #region Constructor
@@ -76,14 +71,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
         /// </summary>
         public clsRenderInfoLogic()
         {
-            try
-            {
-                renderData = new RenderModel();
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
+
         }
         #endregion
 

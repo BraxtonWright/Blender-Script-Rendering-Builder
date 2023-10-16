@@ -22,25 +22,14 @@ namespace Blender_Script_Rendering_Builder.Modules
 {
     class BlenderModel
     {
-        private string _fullPath;
-        private List<SceneModel> _scenes; 
-
         /// <summary>
         /// Full Path to the Blender file
         /// </summary>
-        public string FullPath
-        {
-            get { return _fullPath; }
-            set { _fullPath = value; }
-        }
+        public string FullPath { get; set; }
 
         /// <summary>
         /// A list of scenes we want to render from in the Blender file
         /// </summary>
-        public List<SceneModel> Scenes
-        {
-            get { return _scenes; }
-            set { _scenes = value; }
-        }
+        public List<SceneModel> Scenes { get; set; }
     }
 }

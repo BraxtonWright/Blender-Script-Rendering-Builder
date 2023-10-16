@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:Blender_Script_Rendering_Builder"
         xmlns:BSC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Blender_Selection"
         mc:Ignorable="d"
-        Title="Blender Script Rendering Builder" Height="450" Width="800">
+        Title="Blender Script Rendering Builder" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid ShowGridLines="True">
             <!--Split the window into 4 parts, the top 2 for the rendering information and the bottom left for the "Add new Blender file" button and the bottom right for the "Create script file" button".-->

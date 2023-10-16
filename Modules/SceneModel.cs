@@ -9,25 +9,14 @@ namespace Blender_Script_Rendering_Builder.Modules
 {
     class SceneModel
     {
-        private string _sceneName;
-        private List<RenderModel> _renders;
-
         /// <summary>
         /// The name of the scene
         /// </summary>
-        public string SceneName
-        {
-            get { return _sceneName; }
-            set { _sceneName = value; }
-        }
+        public string SceneName { get; set; }
 
         /// <summary>
         /// A list of rendering information for the scene what we want to render
         /// </summary>
-        public List<RenderModel> Renders
-        {
-            get { return _renders; }
-            set { _renders = value; }
-        }
+        public List<RenderModel> RenderData { get; set; }
     }
 }

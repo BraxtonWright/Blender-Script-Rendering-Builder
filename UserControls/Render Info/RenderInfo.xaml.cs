@@ -10,6 +10,7 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 using Blender_Script_Rendering_Builder.Main;
+using Blender_Script_Rendering_Builder.Modules;
 using Blender_Script_Rendering_Builder.Shared;
 using Microsoft.Win32;
 using System;
@@ -29,6 +30,11 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
         /// Object to perform logic for the RenderInfo UserControl.
         /// </summary>
         private clsRenderInfoLogic logic;
+
+        /// <summary>
+        /// Will contain all the data about the rendering info found on the UI
+        /// </summary>
+        public RenderModel renderData;
         #endregion
 
         #region Constructor
@@ -41,6 +47,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             {
                 InitializeComponent();
                 logic = new clsRenderInfoLogic();
+                renderData = new RenderModel();
                 FillComboBoxes();
             }
             catch (Exception ex)
