@@ -114,5 +114,47 @@ namespace Blender_Script_Rendering_Builder.Modules
             }
         }
         #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        public RenderModel()
+        {
+
+        }
+
+        /// <summary>
+        /// Overloaded constructor for renders with a start and end frames
+        /// </summary>
+        /// <param name="startFrame">Starting frame to render from</param>
+        /// <param name="endFrame">Ending frame to render to</param>
+        /// <param name="outputFileType">The output file type</param>
+        /// <param name="outputFullPath">The output folder path</param>
+        /// <param name="renderEngine">The render engine to use</param>
+        public RenderModel(int startFrame, int endFrame, string outputFileType, string outputFullPath, string renderEngine)
+        {
+            _startFrame = startFrame;
+            _endFrame = endFrame;
+            _outputFileType = outputFileType;
+            _outputFullPath = outputFullPath;
+            _renderEngine = renderEngine;
+        }
+
+        /// <summary>
+        /// Overloaded constructor for renders with a custom defined set of frames
+        /// </summary>
+        /// <param name="customFrames">A string to represent a custom set of frames to render</param>
+        /// <param name="outputFileType">The output file type</param>
+        /// <param name="outputFullPath">The output folder path</param>
+        /// <param name="renderEngine">The render engine to use</param>
+        public RenderModel(string customFrames, string outputFileType, string outputFullPath, string renderEngine)
+        {
+            _customFrames = customFrames;
+            _outputFileType = outputFileType;
+            _outputFullPath = outputFullPath;
+            _renderEngine = renderEngine;
+        }
+        #endregion
     }
 }
