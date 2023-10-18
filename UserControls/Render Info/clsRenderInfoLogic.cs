@@ -10,14 +10,9 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
-using Blender_Script_Rendering_Builder.Modules;
-using Blender_Script_Rendering_Builder.Shared;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Windows.Controls;
 
 namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
 {
@@ -34,101 +29,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
         #endregion
 
         #region Functions
-        /// <summary>
-        /// Returns a list of valid options to define what type of render the user wants to do.
-        /// </summary>
-        /// <returns>A list of valid options for the user to chose what render they want to do.</returns>
-        /// <exception cref="Exception">Catches any exceptions that this method might come across.</exception>
-        public List<string> AnimationOrFrameList()
-        {
-            try
-            {
-                return new List<string>()
-                {
-                    "Use Blender configs",
-                    "Animation",
-                    "Frame Range",
-                    "Frames Custom"
-                };
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Returns a list of valid options to define what output file type they want to output.
-        /// </summary>
-        /// <returns>A list of valid options for the user to chose what output file type they want to output.</returns>
-        /// <exception cref="Exception">Catches any exceptions that this method might come across.</exception>
-        public List<string> OutputFileTypeList()
-        {
-            try
-            {
-                return new List<string>()
-                {
-                    "Use Blender configs",
-                    "avijpeg",
-                    "aviraw",
-                    "bmp",
-                    "iris",
-                    "iriz",
-                    "jpeg",
-                    "png",
-                    "rawtga",
-                    "tga"
-                };
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Returns a list of valid options to define what rendering engine they want to use.
-        /// </summary>
-        /// <returns>A list of valid options for the user to chose what rendering engine they want to use.</returns>
-        /// <exception cref="Exception">Catches any exceptions that this method might come across.</exception>
-        public List<string> RenderingEngineList()
-        {
-            try
-            {
-                return new List<string>
-                {
-                    "Use Blender configs",
-                    "Cycles",
-                    "Eevee",
-                    "Workbench"
-                };
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<string> OutputFolderList()
-        {
-            try
-            {
-                return new List<string>
-                {
-                    "Use Blender configs",
-                    "Browse for folder"
-                };
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
         /// <summary>
         /// Will grab lowest child folder's name from the path supplied
         /// Source https://stackoverflow.com/a/29901348

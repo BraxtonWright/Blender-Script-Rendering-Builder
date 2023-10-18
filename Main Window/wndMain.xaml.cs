@@ -11,11 +11,11 @@
  */
 
 using Blender_Script_Rendering_Builder.Main;
-using Blender_Script_Rendering_Builder.Shared;
 using Blender_Script_Rendering_Builder.UserControls.Blender_Selection;
 using System;
 using System.Reflection;
 using System.Windows;
+using Blender_Script_Rendering_Builder.Classes.Shared;
 
 namespace Blender_Script_Rendering_Builder
 {

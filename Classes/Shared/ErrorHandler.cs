@@ -18,7 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Blender_Script_Rendering_Builder.Shared
+namespace Blender_Script_Rendering_Builder.Classes.Shared
 {
     /// <summary>
     /// We make this an abstract class so that we don't need to make an instance of the class to call the below function
@@ -42,11 +42,10 @@ namespace Blender_Script_Rendering_Builder.Shared
             catch (Exception ex)
             {
                 // The base directory for this project
-                string SavePath = System.AppDomain.CurrentDomain.BaseDirectory + "Error.txt";
+                string SavePath = AppDomain.CurrentDomain.BaseDirectory + "Error.txt";
 
                 // Make/append the exception to the file Error.txt
-                System.IO.File.AppendAllText(SavePath, Environment.NewLine +
-                                             "HandleError Exception: " + ex.Message);
+                System.IO.File.AppendAllText(SavePath, Environment.NewLine + "HandleError Exception: " + ex.Message);
             }
         }
     }

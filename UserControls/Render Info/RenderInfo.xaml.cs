@@ -10,8 +10,7 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 using Blender_Script_Rendering_Builder.Main;
-using Blender_Script_Rendering_Builder.Modules;
-using Blender_Script_Rendering_Builder.Shared;
+using Blender_Script_Rendering_Builder.Classes.Modules;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
@@ -19,6 +18,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Controls;
 using static Blender_Script_Rendering_Builder.UserControls.Render_Info.clsRenderInfoLogic;
+using Blender_Script_Rendering_Builder.Classes.Shared;
 
 namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
 {
@@ -88,7 +88,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
         /// <summary>
         /// Will contain all the data about the rendering info found on the UI
         /// </summary>
-        public RenderModel renderData;
+        public clsRender renderData;
         #endregion
 
         #region Constructor
@@ -101,7 +101,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             {
                 InitializeComponent();
                 logic = new clsRenderInfoLogic();  // Make a new instance of the logic class for this user control
-                renderData = new RenderModel();  // make a new instance of the RenderModel class
+                renderData = new clsRender();  // make a new instance of the RenderModel class
                 //DataContext = this;  // Set the data context of this UserControl itself
             }
             catch (Exception ex)

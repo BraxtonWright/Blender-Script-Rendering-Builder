@@ -1,14 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ * Braxton Wright
+ * CS 3650
+ * Blender Script Rendering Builder class clsRender
+ * Dr. Nichole Anderson
+ * Due: 12/6/2023
+ * Version: 0.5
+ * -----------------------------------------------------------------------------------------------------------
+ * This file contains the variables and functions that are required make the rendering data for the UI when
+ * outputting to a script file.
+ * -----------------------------------------------------------------------------------------------------------
+ */
 
-namespace Blender_Script_Rendering_Builder.Modules
+using System;
+using System.ComponentModel;
+
+namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
-    public class RenderModel : INotifyPropertyChanged
+    public class clsRender : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged members
         /// <summary>
@@ -119,7 +127,7 @@ namespace Blender_Script_Rendering_Builder.Modules
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public RenderModel()
+        public clsRender()
         {
 
         }
@@ -132,7 +140,7 @@ namespace Blender_Script_Rendering_Builder.Modules
         /// <param name="outputFileType">The output file type</param>
         /// <param name="outputFullPath">The output folder path</param>
         /// <param name="renderEngine">The render engine to use</param>
-        public RenderModel(int startFrame, int endFrame, string outputFileType, string outputFullPath, string renderEngine)
+        public clsRender(int startFrame, int endFrame, string outputFileType, string outputFullPath, string renderEngine)
         {
             _startFrame = startFrame;
             _endFrame = endFrame;
@@ -148,7 +156,7 @@ namespace Blender_Script_Rendering_Builder.Modules
         /// <param name="outputFileType">The output file type</param>
         /// <param name="outputFullPath">The output folder path</param>
         /// <param name="renderEngine">The render engine to use</param>
-        public RenderModel(string customFrames, string outputFileType, string outputFullPath, string renderEngine)
+        public clsRender(string customFrames, string outputFileType, string outputFullPath, string renderEngine)
         {
             _customFrames = customFrames;
             _outputFileType = outputFileType;

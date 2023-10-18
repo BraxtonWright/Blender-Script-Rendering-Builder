@@ -1,14 +1,23 @@
-﻿using System;
+﻿/*
+ * Braxton Wright
+ * CS 3650
+ * Blender Script Rendering Builder class clsScene
+ * Dr. Nichole Anderson
+ * Due: 12/6/2023
+ * Version: 0.5
+ * -----------------------------------------------------------------------------------------------------------
+ * This file contains the variables and functions that are required make the scene data for the UI when
+ * outputting to a script file.
+ * -----------------------------------------------------------------------------------------------------------
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Blender_Script_Rendering_Builder.Modules
+namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
-    public class SceneModel : INotifyPropertyChanged
+    public class clsScene : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged members
         /// <summary>
@@ -29,7 +38,7 @@ namespace Blender_Script_Rendering_Builder.Modules
 
         #region Private class variables
         private string _sceneName;
-        private List<RenderModel> _renderData;
+        private List<clsRender> _renderData;
         #endregion
         /// <summary>
         /// The name of the scene
@@ -46,7 +55,7 @@ namespace Blender_Script_Rendering_Builder.Modules
         /// <summary>
         /// A list of rendering information for the scene what we want to render
         /// </summary>
-        public List<RenderModel> RenderData
+        public List<clsRender> RenderData
         {
             get { return _renderData; }
             set
@@ -60,9 +69,9 @@ namespace Blender_Script_Rendering_Builder.Modules
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public SceneModel()
+        public clsScene()
         {
-
+            _renderData = new List<clsRender>();
         }
 
         /// <summary>
@@ -70,7 +79,7 @@ namespace Blender_Script_Rendering_Builder.Modules
         /// </summary>
         /// <param name="sceneName">The name of the scene</param>
         /// <param name="renderData">A list of rendering information for the scene</param>
-        public SceneModel(string sceneName, List<RenderModel> renderData)
+        public clsScene(string sceneName, List<clsRender> renderData)
         {
             _sceneName = sceneName;
             _renderData = renderData;

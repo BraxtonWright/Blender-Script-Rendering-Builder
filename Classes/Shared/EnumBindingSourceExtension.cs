@@ -12,14 +12,9 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Markup;
 
-namespace Blender_Script_Rendering_Builder.Shared
+namespace Blender_Script_Rendering_Builder.Classes.Shared
 {
     class EnumBindingSourceExtension : MarkupExtension
     {

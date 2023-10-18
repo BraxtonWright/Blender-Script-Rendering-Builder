@@ -10,7 +10,9 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
-using Blender_Script_Rendering_Builder.Shared;
+using Blender_Script_Rendering_Builder.Classes.Modules;
+using Blender_Script_Rendering_Builder.Classes.Shared;
+using Blender_Script_Rendering_Builder.Classes.View_Models;
 using Blender_Script_Rendering_Builder.UserControls.Scene_Selection;
 using Microsoft.Win32;
 using System;
@@ -41,6 +43,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
             {
                 InitializeComponent();
                 logic = new clsBlenderSelectionLogic();
+                //DataContext = this;  // Set the data context for the window to be itself
             }
             catch (Exception ex)
             {
@@ -100,12 +103,8 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
                 openFileDialog.Filter = "Blender files (*.blend)|*.blend";
                 if (openFileDialog.ShowDialog() == true)
                 {
-                    string BlenderFilePath = openFileDialog.FileName;
-                    string BlenderFileName = logic.ExtractFileName(BlenderFilePath);
-
-                    // Temporary, will be saved to an instance of the class clsBlender
-                    lblFileName.Tag = BlenderFilePath;
-                    lblFileName.Content = BlenderFileName;
+                    //? = openFileDialog.FileName;
+                    //lblFileName.Content = logic.ExtractFileName(blenderData.FullPath);
                 }
             }
             catch (Exception ex)

@@ -6,22 +6,18 @@
  * Due: 12/6/2023
  * Version: 0.5
  * -----------------------------------------------------------------------------------------------------------
- * This file contains the variables and functions that are required make an Blender File for the UI when outputting
- * to a script file.
+ * This file contains the variables and functions that are required make an Blender data for the UI when
+ * outputting to a script file.
  * -----------------------------------------------------------------------------------------------------------
  */
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Blender_Script_Rendering_Builder.Modules
+namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
-    public class BlenderModel : INotifyPropertyChanged
+    public class clsBlender : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged members
         /// <summary>
@@ -33,7 +29,7 @@ namespace Blender_Script_Rendering_Builder.Modules
         /// A reusable set of code so that we can attach the PropertyChangedEventHandler to the below properties, without having to type out this code multiple times
         /// </summary>
         /// <param name="propertyName">The name of the property</param>
-        private void OnPropertyChanged(String propertyName)
+        private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
@@ -42,7 +38,7 @@ namespace Blender_Script_Rendering_Builder.Modules
 
         #region Private class variables
         private string _fullPath;
-        private List<SceneModel> _scenes;
+        //private List<clsScene> _scenes;
         #endregion
 
         #region Getters/Setters for private class variables
@@ -55,31 +51,34 @@ namespace Blender_Script_Rendering_Builder.Modules
             set
             {
                 _fullPath = value;
-                OnPropertyChanged("FullPath");
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("FullPath"));
+
+                //OnPropertyChanged("FullPath");
             }
         }
 
         /// <summary>
         /// A list of scenes we want to render from in the Blender file
         /// </summary>
-        public List<SceneModel> Scenes
+        /*public List<clsScene> Scenes
         {
             get { return _scenes; }
             set
             {
                 _scenes = value;
-                OnPropertyChanged("FullPath");
+                OnPropertyChanged("Scenes");
             }
-        }
+        }*/
         #endregion
 
         #region Constructors
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public BlenderModel()
+        public clsBlender()
         {
-
+            //_scenes = new List<clsScene>();
         }
 
         /// <summary>
@@ -87,10 +86,10 @@ namespace Blender_Script_Rendering_Builder.Modules
         /// </summary>
         /// <param name="fullPath">The full path to the blender file</param>
         /// <param name="scenes">A list of scenes for the blender file</param>
-        public BlenderModel(string fullPath, List<SceneModel> scenes)
+        public clsBlender(string fullPath, List<clsScene> scenes)
         {
             _fullPath = fullPath;
-            _scenes = scenes;
+            //_scenes = scenes;
         }
         #endregion
     }
