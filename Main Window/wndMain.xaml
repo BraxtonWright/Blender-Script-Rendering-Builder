@@ -13,12 +13,13 @@
         <Grid ShowGridLines="True">
             <!--Split the window into 4 parts, the top 2 for the rendering information and the bottom left for the "Add new Blender file" button and the bottom right for the "Create script file" button".-->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <StackPanel x:Name="spBlenderFiles" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="2">
@@ -26,7 +27,13 @@
             </StackPanel>
 
             <Button x:Name="btnAddNewBlenderFile" Grid.Row="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Background="Red" Content="Add a new Blender file" Click="btnAddNewBlenderFile_Click" />
-            <Button x:Name="btnCreateScriptFile" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Padding="5" Background="Red" Content="Build script file" HorizontalAlignment="Left" Click="btnCreateScriptFile_Click"/>
+
+            <StackPanel Grid.Row="2">
+                <CheckBox x:Name="chkShutdownPC"  VerticalContentAlignment="Center">
+                    <Label Content="Shutdown PC after rendering"/>
+                </CheckBox>
+                <Button x:Name="btnCreateScriptFile" Grid.Row="2" Padding="5" Background="Red" Content="Build script file" Click="btnCreateScriptFile_Click" HorizontalAlignment="Left"/>
+            </StackPanel>
         </Grid>
     </ScrollViewer>
 </Window>
