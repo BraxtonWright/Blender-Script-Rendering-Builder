@@ -35,8 +35,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             {
                 _fullPath = value;
                 OnPropertyChanged(nameof(FullPath));
-                _fileName = ExtractFileName(_fullPath);
-                OnPropertyChanged(nameof(FileName));  // This is here instead of the coresponding getter becuase when we set the FullPath, the FileName also changes along side it. 
+                FileName = ExtractFileName(_fullPath);
             }
         }
 
@@ -46,6 +45,11 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         public string FileName
         {
             get { return _fileName; }
+            private set  // We have this set as private because we don't want to have it be set from outside this file.  This is because when the FullPath property changes, this property is automatically updated.
+            {
+                _fileName = value;
+                OnPropertyChanged(nameof(FileName));
+            }
         }
         #endregion
 
