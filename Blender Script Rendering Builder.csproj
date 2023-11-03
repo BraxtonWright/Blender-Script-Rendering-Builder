@@ -9,4 +9,8 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Classes\View Models\" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,7 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder class clsRender
+ * Blender Script Rendering Builder class Render
  * Dr. Nichole Anderson
  * Due: 12/6/2023
  * Version: 0.5
@@ -16,7 +16,7 @@ using System.ComponentModel;
 
 namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
-    public class clsRender : INotifyPropertyChanged
+    public class Render : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged members
         /// <summary>
@@ -127,7 +127,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public clsRender()
+        public Render()
         {
 
         }
@@ -140,7 +140,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <param name="outputFileType">The output file type</param>
         /// <param name="outputFullPath">The output folder path</param>
         /// <param name="renderEngine">The render engine to use</param>
-        public clsRender(int startFrame, int endFrame, string outputFileType, string outputFullPath, string renderEngine)
+        public Render(int startFrame, int endFrame, string outputFileType, string outputFullPath, string renderEngine)
         {
             _startFrame = startFrame;
             _endFrame = endFrame;
@@ -156,7 +156,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <param name="outputFileType">The output file type</param>
         /// <param name="outputFullPath">The output folder path</param>
         /// <param name="renderEngine">The render engine to use</param>
-        public clsRender(string customFrames, string outputFileType, string outputFullPath, string renderEngine)
+        public Render(string customFrames, string outputFileType, string outputFullPath, string renderEngine)
         {
             _customFrames = customFrames;
             _outputFileType = outputFileType;

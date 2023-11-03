@@ -12,7 +12,6 @@
 
 using Blender_Script_Rendering_Builder.Classes.Modules;
 using Blender_Script_Rendering_Builder.Classes.Shared;
-using Blender_Script_Rendering_Builder.Classes.View_Models;
 using Blender_Script_Rendering_Builder.UserControls.Scene_Selection;
 using Microsoft.Win32;
 using System;
@@ -30,7 +29,12 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
         /// <summary>
         /// Object to perform logic for the BlenderSelection UserControl.
         /// </summary>
-        clsBlenderSelectionLogic logic;
+        BlenderSelectionLogic logic;
+
+        /// <summary>
+        /// Object to contain all the data nessary for the blender file
+        /// </summary>
+        Blender blendData;
         #endregion
 
         #region Constructor
@@ -42,8 +46,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
             try
             {
                 InitializeComponent();
-                logic = new clsBlenderSelectionLogic();
-                //DataContext = this;  // Set the data context for the window to be itself
+                logic = new BlenderSelectionLogic();
+                blendData = new Blender();
+                DataContext = blendData;
             }
             catch (Exception ex)
             {
@@ -103,6 +108,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
                 openFileDialog.Filter = "Blender files (*.blend)|*.blend";
                 if (openFileDialog.ShowDialog() == true)
                 {
+                    blendData.FullPath = openFileDialog.FileName;
                     //? = openFileDialog.FileName;
                     //lblFileName.Content = logic.ExtractFileName(blenderData.FullPath);
                 }

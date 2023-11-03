@@ -33,7 +33,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
         /// <summary>
         /// Object to perform logic for the NumericUpDown UserControl.
         /// </summary>
-        clsNumericUpDownLogic logic;
+        NumericUpDownLogic logic;
         #endregion
 
         #region Dispatch timers

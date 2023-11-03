@@ -1,7 +1,7 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder class clsSceneSelectionLogic
+ * Blender Script Rendering Builder class SceneSelectionLogic
  * Dr. Nichole Anderson
  * Due: 12/6/2023
  * Version: 0.5
@@ -12,7 +12,7 @@
 
 namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
 {
-    class clsSceneSelectionLogic
+    class SceneSelectionLogic
     {
         #region Class Variables
         #endregion
@@ -21,10 +21,13 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public clsSceneSelectionLogic()
+        public SceneSelectionLogic()
         {
 
         }
+        #endregion
+
+        #region Functions
         #endregion
     }
 }

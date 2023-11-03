@@ -14,9 +14,9 @@
             <DockPanel FlowDirection="LeftToRight"
                        HorizontalAlignment="{Binding HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}"
                        LastChildFill="True">
-                <Label Content="Scene name:"/>
-                <TextBox x:Name="txtSceneName" Text="Supply the scene's name" VerticalAlignment="Center" Padding="1"/>
-                <Button x:Name="btnSceneDelete" Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Center" DockPanel.Dock="Right" Click="btnSceneDelete_Click"/>
+                <!-- The data context is set inside the .xmal.cs file for this user control in the constructor -->
+                <TextBox x:Name="txtSceneName" Text="{Binding Path=SceneName}" VerticalAlignment="Center" Padding="1"/>
+                <Button x:Name="btnSceneDelete" Content="Delete Scene" HorizontalAlignment="Right" VerticalAlignment="Center" DockPanel.Dock="Right" Click="btnSceneDelete_Click" Margin="0,0,4,0"/>
             </DockPanel>
         </Expander.Header>
         <Expander.Content>

@@ -5,14 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Blender_Selection"
              xmlns:SSC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Scene_Selection"
-             xmlns:viewmodel="clr-namespace:Blender_Script_Rendering_Builder.Classes.View_Models"
              mc:Ignorable="d">
     <!-- Source https://stackoverflow.com/questions/15419646/in-wpf-how-to-access-window-resources-in-usercontrol -->
-    <Control.Resources>
+    <!--<Control.Resources>
         <viewmodel:clsBlenderViewModel x:Key="ViewModel"/>
-    </Control.Resources>
+    </Control.Resources>-->
     <!-- Set the property IsExpanded to false when building it or add code to collapse it when starting the program -->
-    <Expander x:Name="expBlender" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Red" IsExpanded="True" DataContext="{Binding Source={StaticResource ViewModel}}">
+    <Expander x:Name="expBlender" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Red" IsExpanded="True">
         <!-- The <Expander.Header></Expander.Header> will allow us to make a custom header for the <Expander></Expander> -->
         <Expander.Header>
             <!-- The below code will make it so that we can float the Delete button to the right side of the Expander.Header Source https://stackoverflow.com/a/17334355 -->
@@ -20,8 +19,8 @@
                        HorizontalAlignment="{Binding HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}"
                        LastChildFill="True">
                 <Button x:Name="btnBlendBrowse" Content="Browse for Blender file" Padding="5,0,5,0" VerticalAlignment="Center" Click="btnBlendBrowse_Click"/>
-                <Label x:Name="lblFileName" Content="{Binding Path=BlenderData.FullPath}"/>
-                <Button x:Name="btnDeleteBlend" Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Center" DockPanel.Dock="Right" Click="btnDeleteBlend_Click"/>
+                <Label x:Name="lblFileName" Content="{Binding Path=FileName}"/> <!-- The data context is set inside the .xmal.cs file for this user control in the constructor -->
+                <Button x:Name="btnDeleteBlend" Content="Delete Blender file" HorizontalAlignment="Right" VerticalAlignment="Center" Click="btnDeleteBlend_Click" Margin="0,0,5,0"/>
             </DockPanel>
         </Expander.Header>
         <Expander.Content>

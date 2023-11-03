@@ -10,6 +10,7 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
+using Blender_Script_Rendering_Builder.Classes.Modules;
 using Blender_Script_Rendering_Builder.Classes.Shared;
 using Blender_Script_Rendering_Builder.UserControls.Render_Info;
 using System;
@@ -28,7 +29,12 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         /// <summary>
         /// Object to perform logic for the SceneSelection UserControl.
         /// </summary>
-        clsSceneSelectionLogic logic;
+        SceneSelectionLogic logic;
+
+        /// <summary>
+        /// Object to contain all the data nessary for the scene
+        /// </summary>
+        Scene sceneData;
         #endregion
 
         #region Constructor
@@ -40,7 +46,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
             try
             {
                 InitializeComponent();
-                logic = new clsSceneSelectionLogic();
+                logic = new SceneSelectionLogic();
+                sceneData = new Scene();
+                DataContext = sceneData;
             }
             catch (Exception ex)
             {

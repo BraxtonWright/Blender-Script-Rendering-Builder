@@ -9,6 +9,7 @@
  * This file contains the required event listeners for the UserControl RenderInfo.
  * -----------------------------------------------------------------------------------------------------------
  */
+
 using Blender_Script_Rendering_Builder.Main;
 using Blender_Script_Rendering_Builder.Classes.Modules;
 using Microsoft.Win32;
@@ -17,8 +18,11 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Controls;
-using static Blender_Script_Rendering_Builder.UserControls.Render_Info.clsRenderInfoLogic;
+using static Blender_Script_Rendering_Builder.UserControls.Render_Info.RenderInfoLogic;
 using Blender_Script_Rendering_Builder.Classes.Shared;
+using System.Windows.Media.Animation;
+using System.Collections.Generic;
+using System.Net.NetworkInformation;
 
 namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
 {
@@ -30,10 +34,10 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
     /// </summary>
     public enum enumAnimationOrFrameOptions
     {
-        [Description("Use Blender configs")] UseBlender,
-        [Description("Animation")] Animation,
-        [Description("Frame Range")] FrameRange,
-        [Description("Frames Custom")] FrameCustom
+        UseBlender,
+        Animation,
+        FrameRange,
+        FrameCustom
     }
 
     /// <summary>
@@ -41,16 +45,16 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
     /// </summary>
     public enum enumOutputFileOptions
     {
-        [Description("Use Blender configs")] UseBlender,
-        [Description("avijpeg")] AVIJPEG,
-        [Description("aviraw")] AVIRAW,
-        [Description("bmp")] BMP,
-        [Description("iris")] IRIS,
-        [Description("iriz")] IRIZ,
-        [Description("jpeg")] JPEG,
-        [Description("png")] PNG,
-        [Description("rawtga")] RAWTGA,
-        [Description("tga")] TGA
+        UseBlender,
+        AVIJPEG,
+        AVIRAW,
+        BMP,
+        IRIS,
+        IRIZ,
+        JPEG,
+        PNG,
+        RAWTGA,
+        TGA
     }
 
     /// <summary>
@@ -58,10 +62,10 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
     /// </summary>
     public enum enumRenderEngineOptions
     {
-        [Description("Use Blender configs")] UseBlender,
-        [Description("Cycles")] Cycles,
-        [Description("Eevee")] Eevee,
-        [Description("Workbench")] Workbench
+        UseBlender,
+        Cycles,
+        Eevee,
+        Workbench
     }
 
     /// <summary>
@@ -69,8 +73,8 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
     /// </summary>
     public enum enumOutputFolderOptions
     {
-        [Description("Use Blender configs")] UseBlender,
-        [Description("Browse for folder")] Browse
+        UseBlender,
+        Browse
     }
     #endregion
 
@@ -83,12 +87,12 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
         /// <summary>
         /// Object to perform logic for the RenderInfo UserControl.
         /// </summary>
-        private clsRenderInfoLogic logic;
+        private RenderInfoLogic logic;
 
         /// <summary>
         /// Will contain all the data about the rendering info found on the UI
         /// </summary>
-        public clsRender renderData;
+        public Classes.Modules.Render renderData;
         #endregion
 
         #region Constructor
@@ -100,8 +104,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             try
             {
                 InitializeComponent();
-                logic = new clsRenderInfoLogic();  // Make a new instance of the logic class for this user control
-                renderData = new clsRender();  // make a new instance of the RenderModel class
+                logic = new RenderInfoLogic();  // Make a new instance of the logic class for this user control
+                renderData = new Classes.Modules.Render();  // make a new instance of the RenderModel class
+                FillComboBoxes();
                 //DataContext = this;  // Set the data context of this UserControl itself
             }
             catch (Exception ex)
@@ -125,6 +130,73 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
                 UserControl UC = this;
                 //Grab the parent of the UserControl, cast it as a StackPanel, and remove the UserControl from it
                 ((StackPanel)(UC.Parent)).Children.Remove(UC);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This event listener will listen for when you change the item selected in the combo box and change the fields below it so it will use the desired fields
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Selection Changed Event</param>
+        private void cmbAnimationOrFrame_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ComboBox cb = sender as ComboBox;
+                object selectedItem = cb.SelectedItem;
+
+                switch (selectedItem)
+                {
+                    case "Use Blender configs":
+                        grdStartEndFrames.Visibility = System.Windows.Visibility.Collapsed;
+                        grdCustomFrames.Visibility = System.Windows.Visibility.Collapsed;
+                        break;
+                    case "Animation":
+                    case "Frame Range":
+                        grdStartEndFrames.Visibility = System.Windows.Visibility.Visible;
+                        grdCustomFrames.Visibility = System.Windows.Visibility.Collapsed;
+                        break;
+                    case "Frames Custom":
+                        grdStartEndFrames.Visibility = System.Windows.Visibility.Collapsed;
+                        grdCustomFrames.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    default:
+                        throw new Exception("There is no option with the name " + selectedItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This event listener will listen for when you change the item selected in the combo box and change the fields below it so it will use the desired fields
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Selection Changed Event</param>
+        private void cmbOutputFolder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ComboBox cb = sender as ComboBox;
+                Object selectedItem = cb.SelectedItem;
+
+                switch (selectedItem)
+                {
+                    case enumOutputFolderOptions.UseBlender:
+                        grdOutputFolderInfo.Visibility = System.Windows.Visibility.Collapsed;
+                        break;
+                    case enumOutputFolderOptions.Browse:
+                        grdOutputFolderInfo.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    default:
+                        throw new Exception("There is no option with the name " + selectedItem);
+                }
             }
             catch (Exception ex)
             {
@@ -158,76 +230,72 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
                 ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
-
-        /// <summary>
-        /// This event listener will listen for when you change the item selected in the combo box and change the fields below it so it will best the use case
-        /// </summary>
-        /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Selection Changed Event</param>
-        private void cmbAnimationOrFrame_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                ComboBox cb = sender as ComboBox;
-                Object selectedItem = cb.SelectedItem;
-
-                switch (selectedItem)
-                {
-                    case enumAnimationOrFrameOptions.UseBlender:
-                        grdStartEndFrames.Visibility = System.Windows.Visibility.Collapsed;
-                        grdCustomFrames.Visibility = System.Windows.Visibility.Collapsed;
-                        break;
-                    case enumAnimationOrFrameOptions.Animation:
-                    case enumAnimationOrFrameOptions.FrameRange:
-                        grdStartEndFrames.Visibility = System.Windows.Visibility.Visible;
-                        grdCustomFrames.Visibility = System.Windows.Visibility.Collapsed;
-                        break;
-                    case enumAnimationOrFrameOptions.FrameCustom:
-                        grdStartEndFrames.Visibility = System.Windows.Visibility.Collapsed;
-                        grdCustomFrames.Visibility = System.Windows.Visibility.Visible;
-                        break;
-                    default:
-                        throw new Exception("There is no option with the name " + selectedItem);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Selection Changed Event</param>
-        private void cmbOutputFolder_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                ComboBox cb = sender as ComboBox;
-                Object selectedItem = cb.SelectedItem;
-
-                switch (selectedItem)
-                {
-                    case enumOutputFolderOptions.UseBlender:
-                        grdOutputFolderInfo.Visibility = System.Windows.Visibility.Collapsed;
-                        break;
-                    case enumOutputFolderOptions.Browse:
-                        grdOutputFolderInfo.Visibility = System.Windows.Visibility.Visible;
-                        break;
-                    default:
-                        throw new Exception("There is no option with the name " + selectedItem);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
         #endregion
 
         #region Helper Functions
+        private void FillComboBoxes()
+        {
+            FillAnimationOrFrameCombobox();
+            FillRenderEngineCombobox();
+            FillOutputFileTypeComboBox();
+            FillOutputFolderComboBox();
+        }
+
+        private void FillAnimationOrFrameCombobox()
+        {
+            List<string> list = new List<string>
+            {
+                "Use Blender configs",
+                "Animation",
+                "Frame Range",
+                "Frames Custom"
+            };
+
+            cmbAnimationOrFrame.ItemsSource = list;
+        }
+
+        private void FillRenderEngineCombobox()
+        {
+            List<string> list = new List<string>
+            {
+                "Use Blender configs",
+                "Cycles",
+                "Eevee",
+                "Workbench"
+            };
+
+            cmbRenderEngine.ItemsSource = list;
+        }
+
+        private void FillOutputFileTypeComboBox()
+        {
+            List<string> list = new List<string>
+            {
+                "Use Blender configs",
+                "avijpeg",
+                "aviraw",
+                "bmp",
+                "iris",
+                "iriz",
+                "jpeg",
+                "png",
+                "rawtga",
+                "tga"
+            };
+
+            cmbOutputFileType.ItemsSource = list;
+        }
+
+        private void FillOutputFolderComboBox()
+        {
+            List<string> list = new List<string>
+            {
+                "Use Blender configs",
+                "Browse for folder",
+            };
+
+            cmbOutputFolder.ItemsSource = list;
+        }
         #endregion
     }
 }

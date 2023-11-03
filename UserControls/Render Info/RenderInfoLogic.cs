@@ -1,7 +1,7 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder class clsRenderInfoLogic
+ * Blender Script Rendering Builder class RenderInfoLogic
  * Dr. Nichole Anderson
  * Due: 12/6/2023
  * Version: 0.5
@@ -16,13 +16,13 @@ using System.Text.RegularExpressions;
 
 namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
 {
-    class clsRenderInfoLogic
+    class RenderInfoLogic
     {
         #region Constructor
         /// <summary>
         /// Default constructor
         /// </summary>
-        public clsRenderInfoLogic()
+        public RenderInfoLogic()
         {
 
         }
