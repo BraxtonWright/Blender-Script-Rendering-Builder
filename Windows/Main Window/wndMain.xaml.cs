@@ -1,7 +1,7 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder Window MainWindow
+ * Blender Script Rendering Builder Window wndMain
  * Dr. Nichole Anderson
  * Due: 12/6/2023
  * Version: 0.5
@@ -15,7 +15,14 @@ using Blender_Script_Rendering_Builder.UserControls.Blender_Selection;
 using System;
 using System.Reflection;
 using System.Windows;
+using System.Configuration;
 using Blender_Script_Rendering_Builder.Classes.Shared;
+using Blender_Script_Rendering_Builder.Classes.Modules;
+using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Collections;
+using System.IO;
+using Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible;
 
 namespace Blender_Script_Rendering_Builder
 {
@@ -26,7 +33,7 @@ namespace Blender_Script_Rendering_Builder
     {
         #region Variables
         /// <summary>
-        /// Object to perform logic for the main window.
+        /// Object to perform logic for this window.
         /// </summary>
         clsMainLogic logic;
         #endregion
@@ -40,7 +47,16 @@ namespace Blender_Script_Rendering_Builder
             try
             {
                 InitializeComponent();
+
                 logic = new clsMainLogic();
+
+                BrowseBlenderExe browseBlenderExe = logic.ShouldOpenBlendApplictionWindow();
+                if (browseBlenderExe.needToOpenWindow)
+                {
+                    wndBrowseBlenderExecutible wndBrowseBlenderExecutible = new wndBrowseBlenderExecutible(browseBlenderExe.windowTitle, browseBlenderExe.windowMessage);
+
+                    wndBrowseBlenderExecutible.ShowDialog();  //open this new window and pause here in the code until the window is closed
+                }
             }
             catch (Exception ex)
             {
@@ -87,5 +103,22 @@ namespace Blender_Script_Rendering_Builder
             }
         }
         #endregion
+
+        private void ChangeBlendExeLocation_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string windowMessage = "Here you can redefine where the Blender executiable file is located if you installed a new version of Blender or you mis-configured the setting.  If you wish to change it, click the browse button.";
+                wndBrowseBlenderExecutible browseBlenderExecutible = new wndBrowseBlenderExecutible("Change executible location", windowMessage);
+                browseBlenderExecutible.Owner = this;  //this sets it so that the search window owner is this window (so it loads where this window is currently)
+
+                browseBlenderExecutible.ShowDialog();  //open this new window and pause here in the code until the window is closed
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                              MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
     }
 }

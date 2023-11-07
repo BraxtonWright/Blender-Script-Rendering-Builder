@@ -14,8 +14,12 @@
             <DockPanel FlowDirection="LeftToRight"
                        HorizontalAlignment="{Binding HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}"
                        LastChildFill="True">
-                <!-- The data context is set inside the .xmal.cs file for this user control in the constructor -->
-                <TextBox x:Name="txtSceneName" Text="{Binding Path=SceneName}" VerticalAlignment="Center" Padding="1"/>
+                <!-- We place the below items in a grid so the label shows inside the textbox https://codingguides.quinnscomputing.com/2022/05/how-to-show-placeholder-text-in-wpf.html -->
+                <Grid>
+                    <!-- The data context is set inside the .xmal.cs file for this user control in the constructor -->
+                    <TextBox x:Name="txtSceneName" Text="{Binding Path=SceneName}" VerticalAlignment="Center" Padding="1" MinWidth="100" TextChanged="txtSceneName_TextChanged" LostFocus="txtSceneName_LostFocus"/>
+                    <Label x:Name="lblSceneNamePlacholder" Content="Scene's name (spaces not allowed)..." Opacity="0.5" IsHitTestVisible="False"/>
+                </Grid>
                 <Button x:Name="btnSceneDelete" Content="Delete Scene" HorizontalAlignment="Right" VerticalAlignment="Center" DockPanel.Dock="Right" Click="btnSceneDelete_Click" Margin="0,0,4,0"/>
             </DockPanel>
         </Expander.Header>

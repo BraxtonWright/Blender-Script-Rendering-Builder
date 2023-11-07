@@ -21,9 +21,9 @@
 
         <!-- Column 1 (Rendering Info) -->
         <GroupBox x:Name="gbRenderType" Header="Render Info" MinWidth="230" Margin="5,0,5,0" Grid.Row="1">
-            <Grid>
+            <Grid ShowGridLines="True">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -55,19 +55,21 @@
                     <NUPC:NumericUpDown x:Name="nupEndFrame" Grid.Row="1" Grid.Column="1"/>
                 </Grid>
                 <!-- Custom frames -->
-                <Grid x:Name="grdCustomFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid x:Name="grdCustomFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="53*"/>
+                        <ColumnDefinition Width="56*"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Custom Frame(s):" HorizontalAlignment="Right"/>
-                    <TextBox x:Name="txtCustomFrames" Grid.Column="1" VerticalAlignment="Center" Text="{Binding CustomFrames}"/>
+                    <ScrollViewer x:Name="scrollViewer" Grid.Column="1" VerticalScrollBarVisibility="Disabled">
+                        <TextBox x:Name="txtCustomFrames" Text="{Binding CustomFrames}" LostFocus="txtCustomFrames_LostFocus" VerticalAlignment="Center" MaxWidth="{Binding ActualWidth, ElementName=scrollViewer, Mode=OneWay}"/>
+                    </ScrollViewer>
                 </Grid>
 
                 <!-- Rendering engine -->
                 <Label Content="Rendering Engine:" Grid.Row="2" HorizontalAlignment="Right"/>
-                <ComboBox x:Name="cmbRenderEngine" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cmbRenderEngine" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" SelectedItem="{Binding RenderEngine}"/>
             </Grid>
         </GroupBox>
 
@@ -86,14 +88,14 @@
 
                 <!-- Output file type -->
                 <Label Content="Output file type:" HorizontalAlignment="Right"/>
-                <ComboBox x:Name="cmbOutputFileType" Grid.Column="1" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cmbOutputFileType" Grid.Column="1" VerticalAlignment="Center" SelectedItem="{Binding OutputFileType}"/>
 
                 <!-- Output folder type -->
                 <Label Content="Output folder:" Grid.Row="1" HorizontalAlignment="Right"/>
                 <ComboBox x:Name="cmbOutputFolder" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" SelectionChanged="cmbOutputFolder_SelectionChanged"/>
 
-                    <!-- Output folder type additional info -->
-                <Grid x:Name="grdOutputFolderInfo" Grid.Row="2" Grid.ColumnSpan="2" Visibility="Visible">
+                <!-- Output folder type additional info -->
+                <Grid x:Name="grdOutputFolderInfo" Grid.Row="2" Grid.ColumnSpan="2" Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -103,7 +105,7 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <Label x:Name="lblOutputFolder" Content="TDB" Grid.Column="1"/>
+                    <Label x:Name="lblOutputFolder" Content="{Binding OutputFolderName}" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
         </GroupBox>

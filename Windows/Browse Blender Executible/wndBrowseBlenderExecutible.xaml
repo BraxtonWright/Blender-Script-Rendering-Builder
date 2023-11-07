@@ -1,0 +1,26 @@
+﻿<Window x:Name="window" x:Class="Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible.wndBrowseBlenderExecutible"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible"
+        mc:Ignorable="d"
+        Title="Lorem ipsum" Height="250" Width="500" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="tbMessage" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." Margin="15,0,15,0" FontSize="18"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10,0,10" Click="btnBrowse_Click"/>
+            <Button x:Name="btnSave" Content="Save" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10,0,10" Click="btnSave_Click" IsEnabled="False"/>
+        </Grid>
+    </Grid>
+</Window>

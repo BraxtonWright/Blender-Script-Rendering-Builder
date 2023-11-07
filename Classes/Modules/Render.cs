@@ -11,40 +11,18 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
+using Blender_Script_Rendering_Builder.Classes.Shared;
 using System;
 using System.ComponentModel;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
-    public class Render : INotifyPropertyChanged
+    public class Render : INotifyPropertyChangedImplmented
     {
-        #region INotifyPropertyChanged members
-        /// <summary>
-        /// This is the contract we have to make with the compiler because we are implementing the interface "INotifyPropertyChanged".  So we must have this event defined.  We will raise this event anytime one of our properties changes.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// A reusable set of code so that we can attach the PropertyChangedEventHandler to the below properties, without having to type out this code multiple times
-        /// </summary>
-        /// <param name="propertyName">The name of the property</param>
-        private void OnPropertyChanged(String propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
-        #region Private class variables
+        #region Class variables
         private int _startFrame;
-        private int _endFrame;
-        private string _customFrames;
-        private string _outputFileType;
-        private string _outputFullPath;
-        private string _renderEngine;
-        #endregion
-
-        #region Getters/Setters for private class variables
         /// <summary>
         /// The starting frame for the render
         /// </summary>
@@ -54,9 +32,11 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _startFrame = value;
-                OnPropertyChanged("StartFrame");
+                OnPropertyChanged(nameof(StartFrame));
             }
         }
+
+        private int _endFrame;
         /// <summary>
         /// The ending frame for the render
         /// </summary>
@@ -66,10 +46,11 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _endFrame = value;
-                OnPropertyChanged("EndFrame");
+                OnPropertyChanged(nameof(EndFrame));
             }
         }
 
+        private string _customFrames;
         /// <summary>
         /// A string that will represent any combination of frames using a ',' between entries and a '-' to represent a range of frames
         /// </summary>
@@ -79,10 +60,11 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _customFrames = value;
-                OnPropertyChanged("CustomFrames");
+                OnPropertyChanged(nameof(CustomFrames));
             }
         }
 
+        private string _outputFileType;
         /// <summary>
         /// The file type that the render will output
         /// </summary>
@@ -92,10 +74,11 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _outputFileType = value;
-                OnPropertyChanged("OutputFileType");
+                OnPropertyChanged(nameof(OutputFileType));
             }
         }
 
+        private string _outputFullPath;
         /// <summary>
         /// The full path to the output folder
         /// </summary>
@@ -105,10 +88,23 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _outputFullPath = value;
-                OnPropertyChanged("OutputFullPath");
+                OnPropertyChanged(nameof(OutputFullPath));
+                OutputFolderName = GetFolderName(value);
             }
         }
 
+        private string _outputFolderName;
+        public string OutputFolderName
+        {
+            get { return _outputFolderName; }
+            private set  // We have this set as private because we don't want to have it be set from outside this file.  This is because when the OutputFullPath property changes, this property is automatically updated.
+            {
+                _outputFolderName = value;
+                OnPropertyChanged(nameof(OutputFolderName));
+            }
+        }
+
+        private string _renderEngine;
         /// <summary>
         /// The rendering engine that will be used to make the render
         /// </summary>
@@ -118,7 +114,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _renderEngine = value;
-                OnPropertyChanged("RenderEngine");
+                OnPropertyChanged(nameof(RenderEngine));
             }
         }
         #endregion
@@ -133,6 +129,26 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         }
 
         /// <summary>
+        /// Private constructor so we simply inherite from it using the below two constructors for the common fields
+        /// </summary>
+        /// <param name="outputFileType">The output file type</param>
+        /// <param name="outputFullPath">The output folder path</param>
+        /// <param name="renderEngine">The render engine to use</param>
+        private Render(string outputFileType, string outputFullPath, string renderEngine)
+        {
+            try
+            {
+                _outputFileType = outputFileType;
+                _outputFullPath = outputFullPath;
+                _renderEngine = renderEngine;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Overloaded constructor for renders with a start and end frames
         /// </summary>
         /// <param name="startFrame">Starting frame to render from</param>
@@ -140,13 +156,17 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <param name="outputFileType">The output file type</param>
         /// <param name="outputFullPath">The output folder path</param>
         /// <param name="renderEngine">The render engine to use</param>
-        public Render(int startFrame, int endFrame, string outputFileType, string outputFullPath, string renderEngine)
+        public Render(int startFrame, int endFrame, string outputFileType, string outputFullPath, string renderEngine) : this(outputFileType, outputFullPath, renderEngine)
         {
-            _startFrame = startFrame;
-            _endFrame = endFrame;
-            _outputFileType = outputFileType;
-            _outputFullPath = outputFullPath;
-            _renderEngine = renderEngine;
+            try
+            {
+                _startFrame = startFrame;
+                _endFrame = endFrame;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -156,12 +176,37 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <param name="outputFileType">The output file type</param>
         /// <param name="outputFullPath">The output folder path</param>
         /// <param name="renderEngine">The render engine to use</param>
-        public Render(string customFrames, string outputFileType, string outputFullPath, string renderEngine)
+        public Render(string customFrames, string outputFileType, string outputFullPath, string renderEngine) : this(outputFileType, outputFullPath, renderEngine)
         {
-            _customFrames = customFrames;
-            _outputFileType = outputFileType;
-            _outputFullPath = outputFullPath;
-            _renderEngine = renderEngine;
+            try
+            {
+                _customFrames = customFrames;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+        #endregion
+
+        #region Functions
+        /// <summary>
+        /// Grabs the name of the file from the full path to the file.
+        /// Source (using a file name, but the same thing applies here) https://forum.uipath.com/t/regex-getting-filename-out-from-filepath/190312/3
+        /// </summary>
+        /// <param name="FullPath">The full path to the folder</param>
+        /// <returns>The name of the folder</returns>
+        private string GetFolderName(string FullPath)
+        {
+            try
+            {
+                return System.IO.Path.GetFileName(FullPath);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                return "";
+            }
         }
         #endregion
     }

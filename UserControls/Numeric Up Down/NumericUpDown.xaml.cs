@@ -7,22 +7,25 @@
  * Version: 0.5
  *  ----------------------------------------------------------------------------------------------------------
  * This file contains the required event listeners for the UserControl NumericUpDown.
+ * Original source for this code with some modifications
+ * https://www.philosophicalgeek.com/2009/11/16/a-wpf-numeric-entry-control/
  * -----------------------------------------------------------------------------------------------------------
  */
 
 using Blender_Script_Rendering_Builder.Classes.Shared;
 using System;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
 {
     /// <summary>
     /// Interaction logic for NumericUpDown.xaml
-    /// Original source for this code with some modifications https://www.philosophicalgeek.com/2009/11/16/a-wpf-numeric-entry-control/
     /// </summary>
     public partial class NumericUpDown : UserControl
     {
@@ -133,6 +136,8 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
 
                 // Add an event lister to the DispatcherTimer for every tick it makes
                 _timer.Tick += new EventHandler(_timer_Tick);
+
+                DataContext = this;  //This makes it so regardless of where you use this UserControl, binding for this user control will stay inside here
             }
             catch (Exception ex)
             {
@@ -374,14 +379,19 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
         {
             try
             {
-                foreach (char c in text)
+                // If the text supplied contains only digits, return true otherwise false
+                Match regexResults = Regex.Match(text, "^\\d+$");
+
+                // The input is valid
+                if (regexResults.Success)
                 {
-                    if (!char.IsDigit(c))
-                    {
-                        return false;
-                    }
+                    return true;
                 }
-                return true;
+                // The input is invalid
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {

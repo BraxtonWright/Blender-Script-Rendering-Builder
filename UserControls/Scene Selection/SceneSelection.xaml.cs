@@ -16,7 +16,9 @@ using Blender_Script_Rendering_Builder.UserControls.Render_Info;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
 {
@@ -58,6 +60,11 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         #endregion
 
         #region Event Listeners
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void btnSceneDelete_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             try
@@ -73,11 +80,68 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void btnNewRenderInfo_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             try
             {
                 spRenderingInfo.Children.Add(new RenderInfo());
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This event listener will hide or show the placeholder text for the textbox depending on if the textbox is empty
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Text Changed Event</param>
+        private void txtSceneName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                if (txtSceneName.Text.Length < 1)
+                {
+                    lblSceneNamePlacholder.Visibility = System.Windows.Visibility.Visible;
+                }
+                else
+                {
+                    lblSceneNamePlacholder.Visibility = System.Windows.Visibility.Hidden;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Determines if the scene name is valid, I.E. it does not contain any spaces inside it
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void txtSceneName_LostFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            try
+            {
+                // The below regex command searches for spaces inside the text
+                Match regexResults = Regex.Match(txtSceneName.Text, " ");
+                // The input contains a space, so it is invalid
+                if (regexResults.Success)
+                {
+                    txtSceneName.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));
+                }
+                // The input is valid
+                else
+                {
+                    txtSceneName.Background = Brushes.White;
+                }
             }
             catch (Exception ex)
             {

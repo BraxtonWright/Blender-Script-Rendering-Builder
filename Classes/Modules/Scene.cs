@@ -20,12 +20,8 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
     public class Scene : INotifyPropertyChangedImplmented
     {
-        #region Private class variables
+        #region Class variables
         private string _sceneName;
-        private string _defaultSceneText = "Scene's name (spaces not allowed)...";
-        #endregion
-
-        #region Getters/Setters
         /// <summary>
         /// The name of the scene
         /// </summary>
@@ -37,6 +33,11 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
                 OnPropertyChanged(nameof(SceneName));
             }
         }
+
+        /// <summary>
+        /// A list of rendering information for the scene
+        /// </summary>
+        public List<Render> renderInfo = new List<Render>();
         #endregion
 
         #region Constructors
@@ -45,19 +46,22 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// </summary>
         public Scene()
         {
-            SceneName = _defaultSceneText;
+            
+        }
+
+        /// <summary>
+        /// Overloaded constructor to define both the scene's name and the rendering information for that scene
+        /// </summary>
+        /// <param name="sceneName">The name of the scene</param>
+        /// <param name="renderInfo">A list of rendering information for the scene</param>
+        public Scene(string sceneName, List<Render> renderInfo)
+        {
+            SceneName = sceneName;
+            this.renderInfo = renderInfo;
         }
         #endregion
 
         #region Functions
-        /// <summary>
-        /// Extract all the nessary information required for the script
-        /// </summary>
-        /// <returns>The name of the scene</returns>
-        public string ExtractData()
-        {
-            return SceneName;
-        }
         #endregion
     }
 }

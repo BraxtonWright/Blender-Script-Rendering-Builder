@@ -109,8 +109,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
                 if (openFileDialog.ShowDialog() == true)
                 {
                     blendData.FullPath = openFileDialog.FileName;
-                    //? = openFileDialog.FileName;
-                    //lblFileName.Content = logic.ExtractFileName(blenderData.FullPath);
                 }
             }
             catch (Exception ex)

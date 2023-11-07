@@ -11,6 +11,7 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
+using Blender_Script_Rendering_Builder.Classes.Shared;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -19,12 +20,8 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
     internal class Blender : INotifyPropertyChangedImplmented
     {
-        #region Private class variables
+        #region Class variables
         string _fullPath;
-        string _fileName;
-        #endregion
-
-        #region Getters/Setters
         /// <summary>
         /// The full path to the blender file
         /// </summary>
@@ -35,10 +32,11 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             {
                 _fullPath = value;
                 OnPropertyChanged(nameof(FullPath));
-                FileName = ExtractFileName(_fullPath);
+                FileName = GetFileName(value);
             }
         }
 
+        string _fileName;
         /// <summary>
         /// The name of the blender file
         /// </summary>
@@ -51,6 +49,11 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
                 OnPropertyChanged(nameof(FileName));
             }
         }
+
+        /// <summary>
+        /// A list of scenes for the blender file
+        /// </summary>
+        public List<Scene> scenes = new List<Scene>();
         #endregion
 
         #region Constructors
@@ -61,6 +64,17 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         {
             // do nothing
         }
+
+        /// <summary>
+        /// Overloaded constructor to define both the blender full path and the scenes for that blender file
+        /// </summary>
+        /// <param name="fullPath">The full path to the blender file</param>
+        /// <param name="scenes">A list of scenes for the blender file</param>
+        public Blender(string fullPath, List<Scene> scenes)
+        {
+            _fullPath = fullPath;
+            this.scenes = scenes;
+        }
         #endregion
 
         #region Functions
@@ -68,9 +82,9 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// Grabs the name of the file from the full path to the file.
         /// Source https://forum.uipath.com/t/regex-getting-filename-out-from-filepath/190312/3
         /// </summary>
-        /// <param name="FullPath">The full path to the file.</param>
-        /// <exception cref="Exception">Catches any exceptions that this method might come across.</exception>
-        private string ExtractFileName(string FullPath)
+        /// <param name="FullPath">The full path to the file</param>
+        /// <returns>The name of the file including it's extention</returns>
+        private string GetFileName(string FullPath)
         {
             try
             {
@@ -78,17 +92,9 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             }
             catch (Exception ex)
             {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                return "";
             }
-        }
-
-        /// <summary>
-        /// Extract all the nessary information required for the script
-        /// </summary>
-        /// <returns>The full path to the blender file</returns>
-        public string ExtractData()
-        {
-            return FullPath;
         }
         #endregion
     }

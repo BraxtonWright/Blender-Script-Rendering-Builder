@@ -10,19 +10,15 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
-using Blender_Script_Rendering_Builder.Main;
-using Blender_Script_Rendering_Builder.Classes.Modules;
-using Microsoft.Win32;
 using System;
-using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Controls;
-using static Blender_Script_Rendering_Builder.UserControls.Render_Info.RenderInfoLogic;
-using Blender_Script_Rendering_Builder.Classes.Shared;
-using System.Windows.Media.Animation;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
+using System.Windows.Media;
+using Blender_Script_Rendering_Builder.Classes.Shared;
+using Blender_Script_Rendering_Builder.Classes.Modules;
+
 
 namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
 {
@@ -92,7 +88,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
         /// <summary>
         /// Will contain all the data about the rendering info found on the UI
         /// </summary>
-        public Classes.Modules.Render renderData;
+        public Render renderData;
         #endregion
 
         #region Constructor
@@ -105,9 +101,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             {
                 InitializeComponent();
                 logic = new RenderInfoLogic();  // Make a new instance of the logic class for this user control
-                renderData = new Classes.Modules.Render();  // make a new instance of the RenderModel class
+                renderData = new Render();  // make a new instance of the RenderModel class
                 FillComboBoxes();
-                //DataContext = this;  // Set the data context of this UserControl itself
+                DataContext = renderData;
             }
             catch (Exception ex)
             {
@@ -188,10 +184,23 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
 
                 switch (selectedItem)
                 {
-                    case enumOutputFolderOptions.UseBlender:
+                    case "Use Blender configs":
                         grdOutputFolderInfo.Visibility = System.Windows.Visibility.Collapsed;
                         break;
-                    case enumOutputFolderOptions.Browse:
+                    case "Browse for folder":
+                        try
+                        {
+                            System.Windows.Forms.FolderBrowserDialog outputPath = new System.Windows.Forms.FolderBrowserDialog();
+                            if (outputPath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                            {
+                                renderData.OutputFullPath = outputPath.SelectedPath;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                        }
+
                         grdOutputFolderInfo.Visibility = System.Windows.Visibility.Visible;
                         break;
                     default:
@@ -204,30 +213,22 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             }
         }
 
-        /// <summary>
-        /// Open a folder browser dialog to allow the user to select a folder to output the renders to
-        /// </summary>
-        /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Routed Event</param>
-        private void btnOutputPathBrowse_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void txtCustomFrames_LostFocus(object sender, System.Windows.RoutedEventArgs e)
         {
-            try
+            // If the text in the textbox matches the following regex pattern
+            // One or more digites at the start
+            // followed by ",'one or more digits'" OR ", 'one or more digits'" OR "-'one or more digits'" zero or more times and the string ends
+            Match regexResults = Regex.Match(txtCustomFrames.Text, "^\\d+(?:,\\d+|, \\d+|-\\d+)*$");
+
+            // The input is valid
+            if (regexResults.Success)
             {
-                System.Windows.Forms.FolderBrowserDialog outputPath = new System.Windows.Forms.FolderBrowserDialog();
-                if (outputPath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    string folderPath = outputPath.SelectedPath;
-                    string folderName = logic.ExtractFolderName(folderPath);
-
-                    // Temporary, will be saved to an instance of the class clsRender
-                    lblOutputFolder.Tag = folderPath;
-                    lblOutputFolder.Content = folderName;
-                }
-
+                txtCustomFrames.Background = Brushes.White;
             }
-            catch (Exception ex)
+            // The input is invalid
+            else
             {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                txtCustomFrames.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));
             }
         }
         #endregion
