@@ -6,12 +6,8 @@
              xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Blender_Selection"
              xmlns:SSC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Scene_Selection"
              mc:Ignorable="d">
-    <!-- Source https://stackoverflow.com/questions/15419646/in-wpf-how-to-access-window-resources-in-usercontrol -->
-    <!--<Control.Resources>
-        <viewmodel:clsBlenderViewModel x:Key="ViewModel"/>
-    </Control.Resources>-->
     <!-- Set the property IsExpanded to false when building it or add code to collapse it when starting the program -->
-    <Expander x:Name="expBlender" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Red" IsExpanded="True">
+    <Expander x:Name="expBlender" Background="Red" IsExpanded="True">
         <!-- The <Expander.Header></Expander.Header> will allow us to make a custom header for the <Expander></Expander> -->
         <Expander.Header>
             <!-- The below code will make it so that we can float the Delete button to the right side of the Expander.Header Source https://stackoverflow.com/a/17334355 -->
@@ -31,10 +27,10 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel x:Name="spScenes" Grid.Row="0">
+                <StackPanel x:Name="spScenes">
                     <SSC:SceneSelection/>
                 </StackPanel>
-                <Button x:Name="btnNewScene" Grid.Row="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Background="Green" Click="btnNewScene_Click">Add a new scene</Button>
+                <Button x:Name="btnNewScene" Grid.Row="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Background="Green" Click="btnNewScene_Click" Content="Add a new scene"/>
             </Grid>
         </Expander.Content>
     </Expander>

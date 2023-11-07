@@ -8,11 +8,12 @@
              xmlns:Shared="clr-namespace:Blender_Script_Rendering_Builder.Classes.Shared"
              x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Info.RenderInfo"
              mc:Ignorable="d">
-    <Grid ShowGridLines="True" Margin="0,0,0,5" Background="Blue">
+    <Grid ShowGridLines="True" Background="Blue">
         <!-- Define 4 columns and 2 rows for the data -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -74,7 +75,7 @@
         </GroupBox>
 
         <!-- Column 1 (Output info) -->
-        <GroupBox x:Name="gbRenderOutput" Header="Output Info" Grid.Column="1" MinWidth="230" Margin="5,0,5,0" Grid.Row="1">
+        <GroupBox x:Name="gbRenderOutput" Header="Output Info" Grid.Column="1" MinWidth="230" Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -111,6 +112,6 @@
         </GroupBox>
 
         <!-- Column 2 (Delete button) -->
-        <Button x:Name="btnRenderInfoDelete" Content="Delete Info" Padding="10,5,10,5" Click="btnRenderInfoDelete_Click" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+        <Button x:Name="btnRenderInfoDelete" Content="Delete Info" Padding="10,5,10,5" Click="btnRenderInfoDelete_Click" Grid.Column="1" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

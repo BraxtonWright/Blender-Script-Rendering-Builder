@@ -61,8 +61,8 @@ namespace Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible
         /// <summary>
         /// This event listener will listen for when you press the button to browse for a blender application's executible.
         /// </summary>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">The event's information, I.E. a Routed Event.</param>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void btnBrowse_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -85,8 +85,8 @@ namespace Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible
         /// <summary>
         /// This event listener will listen for when you press the button to save the changes to the .
         /// </summary>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">The event's information, I.E. a Routed Event.</param>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.BlenderApplicationPath = blenderApplicationPath;

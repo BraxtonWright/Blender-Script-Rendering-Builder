@@ -70,8 +70,8 @@ namespace Blender_Script_Rendering_Builder
         /// <summary>
         /// This event listener will listen for when you press the button to add a new blender file to be processed.
         /// </summary>
-        /// <param name="sender">The object that called the event.</param>
-        /// <param name="e">Contains the event data for the event.</param>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void btnAddNewBlenderFile_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -88,13 +88,13 @@ namespace Blender_Script_Rendering_Builder
         /// <summary>
         /// This event listener will listen for then you press the button to create the script file from the information you supplied
         /// </summary>
-        /// <param name="sender">The object that called the event.</param>
-        /// <param name="e">Contains the event data for the event.</param>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void btnCreateScriptFile_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-
+                // TBD
             }
             catch (Exception ex)
             {
@@ -102,9 +102,13 @@ namespace Blender_Script_Rendering_Builder
                               MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
-        #endregion
 
-        private void ChangeBlendExeLocation_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// This event listener listens for when you press the menu item to change the Blender executible file location
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void miChangeBlendExeLocation_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -120,5 +124,26 @@ namespace Blender_Script_Rendering_Builder
                               MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void checkShutdownPC_Checked(object sender, RoutedEventArgs e)
+        {
+            dpShutdown.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void checkShutdownPC_Unchecked(object sender, RoutedEventArgs e)
+        {
+            dpShutdown.Visibility = Visibility.Collapsed;
+        }
+        #endregion
     }
 }

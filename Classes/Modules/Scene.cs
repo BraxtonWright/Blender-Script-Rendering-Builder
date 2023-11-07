@@ -11,10 +11,7 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Reflection;
 
 namespace Blender_Script_Rendering_Builder.Classes.Modules
 {

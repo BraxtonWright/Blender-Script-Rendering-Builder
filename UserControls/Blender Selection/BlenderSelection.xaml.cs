@@ -29,12 +29,12 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
         /// <summary>
         /// Object to perform logic for the BlenderSelection UserControl.
         /// </summary>
-        BlenderSelectionLogic logic;
+        private BlenderSelectionLogic logic;
 
         /// <summary>
         /// Object to contain all the data nessary for the blender file
         /// </summary>
-        Blender blendData;
+        private Blender blendData;
         #endregion
 
         #region Constructor
@@ -61,8 +61,8 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
         /// <summary>
         /// Deletes the user control from the parent's stack panel
         /// </summary>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">The event's information, I.E. a Routed Event.</param>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void btnDeleteBlend_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             try
@@ -81,13 +81,14 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
         /// <summary>
         /// Adds a new scene user control to the stack panel
         /// </summary>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">The event's information, I.E. a Routed Event.</param>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void btnNewScene_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             try
             {
-                spScenes.Children.Add(new SceneSelection());
+                SceneSelection newScene = new SceneSelection();  // Build a new usercontrol
+                spScenes.Children.Add(newScene);  // add the new usercontrol the the stack panel
             }
             catch (Exception ex)
             {
@@ -98,8 +99,8 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
         /// <summary>
         /// This event listener will listen for when you press the button to browse for a blender file.
         /// </summary>
-        /// <param name="sender">The sender of the event.</param>
-        /// <param name="e">The event's information, I.E. a Routed Event.</param>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void btnBlendBrowse_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             try

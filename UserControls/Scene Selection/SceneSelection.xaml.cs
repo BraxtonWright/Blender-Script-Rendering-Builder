@@ -31,12 +31,12 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         /// <summary>
         /// Object to perform logic for the SceneSelection UserControl.
         /// </summary>
-        SceneSelectionLogic logic;
+        private SceneSelectionLogic logic;
 
         /// <summary>
         /// Object to contain all the data nessary for the scene
         /// </summary>
-        Scene sceneData;
+        private Scene sceneData;
         #endregion
 
         #region Constructor
