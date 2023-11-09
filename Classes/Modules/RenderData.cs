@@ -25,7 +25,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         #region Render info variables
         private string _renderType;
         /// <summary>
-        /// The type of render to be performed
+        /// The type of render to be performed, an animation or frames
         /// </summary>
         public string RenderType
         {
@@ -56,7 +56,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
 
         private string _customFrames;
         /// <summary>
-        /// A string that will represent any combination of frames using a ',' between entries and a '-' to represent a range of frames
+        /// A string that will represent any combination of frames using a ',' or ', ' between entries and a '-' to represent a range of frames (both start and end of the range are inclusive)
         /// </summary>
         public string CustomFrames
         {
@@ -64,7 +64,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _customFrames = value;
-                OnPropertyChanged(nameof(CustomFrames));
+                //OnPropertyChanged(nameof(CustomFrames));
             }
         }
         #endregion
@@ -91,8 +91,18 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _outputFileType = value;
-                OnPropertyChanged(nameof(OutputFileType));
+                //OnPropertyChanged(nameof(OutputFileType));
             }
+        }
+
+        private string _outputPathSelection;
+        /// <summary>
+        /// Whether  to choose to use what output folder blender uses or to browse for the folder
+        /// </summary>
+        public string OutputPathSelection
+        {
+            get { return _outputPathSelection; }
+            set { _outputPathSelection = value; }
         }
 
         private string _outputFullPath;
@@ -105,7 +115,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _outputFullPath = value;
-                OutputFolderName = GetFolderName(value);
+                OutputFolderName = GetFolderName(value);  // Set the property 'OutputFolderName" to be the name of the folder
             }
         }
 

@@ -156,7 +156,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
                         grdStartEndFrames.Visibility = System.Windows.Visibility.Visible;
                         grdCustomFrames.Visibility = System.Windows.Visibility.Collapsed;
                         break;
-                    case "Frames Custom":
+                    case "Custom Frames":
                         grdStartEndFrames.Visibility = System.Windows.Visibility.Collapsed;
                         grdCustomFrames.Visibility = System.Windows.Visibility.Visible;
                         break;
