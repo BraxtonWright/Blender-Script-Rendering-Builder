@@ -10,9 +10,9 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
-namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
+namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control
 {
-    class NumericUpDownLogic
+    class NumericEntryControlLogic
     {
         #region Class Variables
         #endregion
@@ -21,7 +21,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public NumericUpDownLogic()
+        public NumericEntryControlLogic()
         {
 
         }

@@ -1,4 +1,4 @@
-﻿using Blender_Script_Rendering_Builder.Classes.Shared;
+﻿using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Main;
 using Microsoft.VisualBasic.Logging;
 using System;

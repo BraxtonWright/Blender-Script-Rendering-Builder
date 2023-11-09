@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Render_Info"
-             xmlns:NUPC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down"
-             xmlns:Shared="clr-namespace:Blender_Script_Rendering_Builder.Classes.Shared"
-             x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Info.RenderInfo"
+             xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Render_Selection"
+             xmlns:NUPC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control"
+             xmlns:Shared="clr-namespace:Blender_Script_Rendering_Builder.Classes.Helpers"
+             x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Selection.RenderSelection"
              mc:Ignorable="d">
     <Grid ShowGridLines="True" Background="Blue">
         <!-- Define 4 columns and 2 rows for the data -->
@@ -35,11 +35,11 @@
 
                 <!-- Render type inputs-->
                 <Label Content="Type: " HorizontalAlignment="Right"/>
-                <ComboBox x:Name="cmbAnimationOrFrame" SelectionChanged="cmbAnimationOrFrame_SelectionChanged" Grid.Column="1" VerticalAlignment="Center"/>
+                <ComboBox x:Name="cmbAnimationOrFrame" SelectionChanged="cmbAnimationOrFrame_SelectionChanged" Grid.Column="1" VerticalAlignment="Center" SelectedItem="{Binding RenderType}"/>
 
                 <!-- Render type additional fields -->
                 <!-- Start/End frames -->
-                <Grid x:Name="grdStartEndFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid x:Name="grdStartEndFrames" Visibility="Visible" Grid.Row="1" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -50,31 +50,31 @@
                     </Grid.RowDefinitions>
 
                     <Label Content="Start Frame:" HorizontalAlignment="Right"/>
-                    <NUPC:NumericUpDown x:Name="nupStartFrame" Grid.Column="1"/>
+                    <NUPC:NumericEntryControl x:Name="nupStartFrame" Grid.Column="1"/>
 
                     <Label Content="End Frame:" Grid.Row="1" HorizontalAlignment="Right"/>
-                    <NUPC:NumericUpDown x:Name="nupEndFrame" Grid.Row="1" Grid.Column="1"/>
+                    <NUPC:NumericEntryControl x:Name="nupEndFrame" Grid.Row="1" Grid.Column="1"/>
                 </Grid>
                 <!-- Custom frames -->
                 <Grid x:Name="grdCustomFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="53*"/>
-                        <ColumnDefinition Width="56*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Custom Frame(s):" HorizontalAlignment="Right"/>
-                    <ScrollViewer x:Name="scrollViewer" Grid.Column="1" VerticalScrollBarVisibility="Disabled">
-                        <TextBox x:Name="txtCustomFrames" Text="{Binding CustomFrames}" LostFocus="txtCustomFrames_LostFocus" VerticalAlignment="Center" MaxWidth="{Binding ActualWidth, ElementName=scrollViewer, Mode=OneWay}"/>
-                    </ScrollViewer>
+                    <!-- We place the below items in the same grid so the label shows inside the textbox https://codingguides.quinnscomputing.com/2022/05/how-to-show-placeholder-text-in-wpf.html -->
+                    <TextBox x:Name="txtCustomFrames" Text="{Binding CustomFrames}" VerticalAlignment="Center" Grid.Column="1" LostFocus="txtCustomFrames_LostFocus" TextChanged="txtCustomFrames_TextChanged"/>
+                    <Label x:Name="lblCustomFramesPlacholder" Content="1, 3, 10-25, 30-35" Opacity="0.5" IsHitTestVisible="False" Grid.Column="1"/>
                 </Grid>
 
                 <!-- Rendering engine -->
-                <Label Content="Rendering Engine:" Grid.Row="2" HorizontalAlignment="Right"/>
+                <Label Content="Rendering Engine:" Grid.Row="2"/>
                 <ComboBox x:Name="cmbRenderEngine" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" SelectedItem="{Binding RenderEngine}"/>
             </Grid>
         </GroupBox>
 
-        <!-- Column 1 (Output info) -->
+        <!-- Column 2 (Output info) -->
         <GroupBox x:Name="gbRenderOutput" Header="Output Info" Grid.Column="1" MinWidth="230" Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -111,7 +111,7 @@
             </Grid>
         </GroupBox>
 
-        <!-- Column 2 (Delete button) -->
+        <!-- Column 2-3 (Delete button) -->
         <Button x:Name="btnRenderInfoDelete" Content="Delete Info" Padding="10,5,10,5" Click="btnRenderInfoDelete_Click" Grid.Column="1" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

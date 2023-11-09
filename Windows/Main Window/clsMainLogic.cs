@@ -11,10 +11,14 @@
  */
 
 using Blender_Script_Rendering_Builder.Classes.Modules;
+using Blender_Script_Rendering_Builder.UserControls.Blender_Selection;
 using Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
+using System.Windows.Controls;
 
 namespace Blender_Script_Rendering_Builder.Main
 {
@@ -73,6 +77,24 @@ namespace Blender_Script_Rendering_Builder.Main
             }
 
             return returnObject;
+        }
+
+        public void GenerateScriptFile(StackPanel spBlenderFiles)
+        {
+            try
+            {
+                
+                List<BlenderData> renderInfo = new List<BlenderData>();
+
+                foreach (BlenderSelection blenderUserControl in spBlenderFiles.Children)
+                {
+                    // WIP
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
         #endregion
     }

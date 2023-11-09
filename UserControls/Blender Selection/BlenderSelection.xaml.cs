@@ -11,12 +11,13 @@
  */
 
 using Blender_Script_Rendering_Builder.Classes.Modules;
-using Blender_Script_Rendering_Builder.Classes.Shared;
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.UserControls.Scene_Selection;
 using Microsoft.Win32;
 using System;
 using System.Reflection;
 using System.Windows.Controls;
+using System.Collections.Generic;
 
 namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
 {
@@ -34,7 +35,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
         /// <summary>
         /// Object to contain all the data nessary for the blender file
         /// </summary>
-        private Blender blendData;
+        private BlenderData blendData;
         #endregion
 
         #region Constructor
@@ -47,7 +48,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
             {
                 InitializeComponent();
                 logic = new BlenderSelectionLogic();
-                blendData = new Blender();
+                blendData = new BlenderData();
                 DataContext = blendData;
             }
             catch (Exception ex)

@@ -12,10 +12,11 @@
  */
 
 using System.Collections.Generic;
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 
 namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
-    public class Scene : INotifyPropertyChangedImplmented
+    public class SceneData : INotifyPropertyChangedImplmented
     {
         #region Class variables
         private string _sceneName;
@@ -34,14 +35,14 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <summary>
         /// A list of rendering information for the scene
         /// </summary>
-        public List<Render> renderInfo = new List<Render>();
+        public List<RenderData> renderInfo = new List<RenderData>();
         #endregion
 
         #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Scene()
+        public SceneData()
         {
             
         }
@@ -51,7 +52,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// </summary>
         /// <param name="sceneName">The name of the scene</param>
         /// <param name="renderInfo">A list of rendering information for the scene</param>
-        public Scene(string sceneName, List<Render> renderInfo)
+        public SceneData(string sceneName, List<RenderData> renderInfo)
         {
             SceneName = sceneName;
             this.renderInfo = renderInfo;

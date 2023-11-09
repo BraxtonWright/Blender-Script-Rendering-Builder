@@ -14,7 +14,7 @@
 
 using System.ComponentModel;
 
-namespace Blender_Script_Rendering_Builder.Classes.Modules
+namespace Blender_Script_Rendering_Builder.Classes.Helpers
 {
     public class INotifyPropertyChangedImplmented : INotifyPropertyChanged
     {

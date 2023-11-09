@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Scene_Selection"
-             xmlns:RIC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Render_Info"
+             xmlns:RIC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Render_Selection"
              mc:Ignorable="d">
     <!-- Set the property IsExpanded to false when building it or add code to collapse it when starting the program -->
     <Expander Background="green" IsExpanded="True">
@@ -32,7 +32,7 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel x:Name="spRenderingInfo" Grid.Row="0">
-                    <RIC:RenderInfo/>
+                    <RIC:RenderSelection/>
                 </StackPanel>
                 <Button x:Name="btnNewRenderInfo" Grid.Row="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Background="Blue" Content="Add new rendering info" Click="btnNewRenderInfo_Click"/>
             </Grid>

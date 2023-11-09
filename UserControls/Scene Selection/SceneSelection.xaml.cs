@@ -11,8 +11,8 @@
  */
 
 using Blender_Script_Rendering_Builder.Classes.Modules;
-using Blender_Script_Rendering_Builder.Classes.Shared;
-using Blender_Script_Rendering_Builder.UserControls.Render_Info;
+using Blender_Script_Rendering_Builder.Classes.Helpers;
+using Blender_Script_Rendering_Builder.UserControls.Render_Selection;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -36,7 +36,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         /// <summary>
         /// Object to contain all the data nessary for the scene
         /// </summary>
-        private Scene sceneData;
+        private SceneData sceneData;
         #endregion
 
         #region Constructor
@@ -49,7 +49,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
             {
                 InitializeComponent();
                 logic = new SceneSelectionLogic();
-                sceneData = new Scene();
+                sceneData = new SceneData();
                 DataContext = sceneData;
             }
             catch (Exception ex)
@@ -89,7 +89,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         {
             try
             {
-                spRenderingInfo.Children.Add(new RenderInfo());
+                spRenderingInfo.Children.Add(new Render_Selection.RenderSelection());
             }
             catch (Exception ex)
             {

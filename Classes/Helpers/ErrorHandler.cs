@@ -18,7 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Blender_Script_Rendering_Builder.Classes.Shared
+namespace Blender_Script_Rendering_Builder.Classes.Helpers
 {
     /// <summary>
     /// We make this an abstract class so that we don't need to make an instance of the class to call the below function

@@ -12,7 +12,7 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
-using Blender_Script_Rendering_Builder.Classes.Shared;
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using System;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -22,12 +22,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
+namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control
 {
     /// <summary>
     /// Interaction logic for NumericUpDown.xaml
     /// </summary>
-    public partial class NumericUpDown : UserControl
+    public partial class NumericEntryControl : UserControl
     {
         #region Variables
         private int _previousValue = 0;
@@ -36,7 +36,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
         /// <summary>
         /// Object to perform logic for the NumericUpDown UserControl.
         /// </summary>
-        NumericUpDownLogic logic;
+        NumericEntryControlLogic logic;
         #endregion
 
         #region Dispatch timers
@@ -45,10 +45,10 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
         private static int _repeatSpeed = Math.Max(1, System.Windows.SystemParameters.KeyboardSpeed);  // Grabs the keyboard's repeat rate from the OS
         #endregion
 
-        #region Properties
+        #region .Net property wrappers
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register("Value",
-            typeof(Int32), typeof(NumericUpDown),
+            typeof(Int32), typeof(NumericEntryControl),
             new PropertyMetadata(0));
 
         /*
@@ -66,12 +66,12 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
 
         public static readonly DependencyProperty IncrementProperty =
             DependencyProperty.Register("Increment",
-            typeof(Int32), typeof(NumericUpDown),
+            typeof(Int32), typeof(NumericEntryControl),
             new PropertyMetadata(1));
 
         public static readonly DependencyProperty LargeIncrementProperty =
             DependencyProperty.Register("LargeIncrement",
-            typeof(Int32), typeof(NumericUpDown),
+            typeof(Int32), typeof(NumericEntryControl),
             new PropertyMetadata(5));
 
         #region Getter and Setters for the above properties
@@ -113,7 +113,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public NumericUpDown()
+        public NumericEntryControl()
         {
             try
             {
@@ -136,8 +136,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
 
                 // Add an event lister to the DispatcherTimer for every tick it makes
                 _timer.Tick += new EventHandler(_timer_Tick);
-
-                DataContext = this;  //This makes it so regardless of where you use this UserControl, binding for this user control will stay inside here
             }
             catch (Exception ex)
             {
@@ -425,7 +423,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Up_Down
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine("DecrementValue function entered");
                 //Value = Math.Max(Value - Increment, MinValue);
                 Value -= Increment;
             }

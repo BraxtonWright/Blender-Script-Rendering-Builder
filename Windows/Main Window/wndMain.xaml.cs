@@ -16,13 +16,14 @@ using System;
 using System.Reflection;
 using System.Windows;
 using System.Configuration;
-using Blender_Script_Rendering_Builder.Classes.Shared;
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Classes.Modules;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Collections;
 using System.IO;
 using Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible;
+using System.Collections.Generic;
 
 namespace Blender_Script_Rendering_Builder
 {
@@ -67,6 +68,32 @@ namespace Blender_Script_Rendering_Builder
         #endregion
 
         #region Event Listeners
+        #region Menu event listeners
+        private void miLightMode_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AppTheme.ChangeTheme(new Uri("Themes/Light.xaml", UriKind.Relative));
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        private void miDarkMode_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AppTheme.ChangeTheme(new Uri("Themes/Dark.xaml", UriKind.Relative));
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+        #endregion
+
         /// <summary>
         /// This event listener will listen for when you press the button to add a new blender file to be processed.
         /// </summary>
@@ -94,7 +121,7 @@ namespace Blender_Script_Rendering_Builder
         {
             try
             {
-                // TBD
+                logic.GenerateScriptFile(spBlenderFiles);
             }
             catch (Exception ex)
             {

@@ -11,14 +11,14 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
-using Blender_Script_Rendering_Builder.Classes.Shared;
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
-    internal class Blender : INotifyPropertyChangedImplmented
+    internal class BlenderData : INotifyPropertyChangedImplmented
     {
         #region Class variables
         string _fullPath;
@@ -53,14 +53,14 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <summary>
         /// A list of scenes for the blender file
         /// </summary>
-        public List<Scene> scenes = new List<Scene>();
+        public List<SceneData> scenes = new List<SceneData>();
         #endregion
 
         #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Blender()
+        public BlenderData()
         {
             // do nothing
         }
@@ -70,7 +70,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// </summary>
         /// <param name="fullPath">The full path to the blender file</param>
         /// <param name="scenes">A list of scenes for the blender file</param>
-        public Blender(string fullPath, List<Scene> scenes)
+        public BlenderData(string fullPath, List<SceneData> scenes)
         {
             _fullPath = fullPath;
             this.scenes = scenes;

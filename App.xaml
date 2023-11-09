@@ -3,7 +3,4 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Blender_Script_Rendering_Builder"
              StartupUri="Windows/Main Window/wndMain.xaml">
-    <Application.Resources>
-
-    </Application.Resources>
 </Application>

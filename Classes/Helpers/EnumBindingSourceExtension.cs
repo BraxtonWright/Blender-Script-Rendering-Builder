@@ -14,7 +14,7 @@
 using System;
 using System.Windows.Markup;
 
-namespace Blender_Script_Rendering_Builder.Classes.Shared
+namespace Blender_Script_Rendering_Builder.Classes.Helpers
 {
     class EnumBindingSourceExtension : MarkupExtension
     {

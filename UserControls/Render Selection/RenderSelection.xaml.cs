@@ -16,11 +16,11 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
-using Blender_Script_Rendering_Builder.Classes.Shared;
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Classes.Modules;
 
 
-namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
+namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
 {
     #region Namespace Variables
     //The reason why we have these here is so that we can access them both in the below class and the binding them to the UI file as shown here https://youtu.be/uWsvh5rEMRI?t=15
@@ -77,31 +77,31 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
     /// <summary>
     /// Interaction logic for RenderInfo.xaml
     /// </summary>
-    public partial class RenderInfo : UserControl
+    public partial class RenderSelection : UserControl
     {
         #region Class Variables
         /// <summary>
         /// Object to perform logic for the RenderInfo UserControl.
         /// </summary>
-        private RenderInfoLogic logic;
+        private RenderSelectionLogic logic;
 
         /// <summary>
         /// Will contain all the data about the rendering info found on the UI
         /// </summary>
-        public Render renderData;
+        public RenderData renderData;
         #endregion
 
         #region Constructor
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public RenderInfo()
+        public RenderSelection()
         {
             try
             {
                 InitializeComponent();
-                logic = new RenderInfoLogic();  // Make a new instance of the logic class for this user control
-                renderData = new Render();  // make a new instance of the RenderModel class
+                logic = new RenderSelectionLogic();  // Make a new instance of the logic class for this user control
+                renderData = new Classes.Modules.RenderData();  // make a new instance of the RenderModel class
                 FillComboBoxes();
                 DataContext = renderData;
             }
@@ -213,27 +213,54 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             }
         }
 
+        private void txtCustomFrames_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                if(txtCustomFrames.Text.Length <= 0)
+                {
+                    lblCustomFramesPlacholder.Visibility = System.Windows.Visibility.Visible;
+                }
+                else
+                {
+                    lblCustomFramesPlacholder.Visibility = System.Windows.Visibility.Hidden;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
         private void txtCustomFrames_LostFocus(object sender, System.Windows.RoutedEventArgs e)
         {
-            // If the text in the textbox matches the following regex pattern
-            // One or more digites at the start
-            // followed by ",'one or more digits'" OR ", 'one or more digits'" OR "-'one or more digits'" zero or more times and the string ends
-            Match regexResults = Regex.Match(txtCustomFrames.Text, "^\\d+(?:,\\d+|, \\d+|-\\d+)*$");
+            try
+            {
+                // If the text in the textbox matches the following regex pattern
+                // One or more digites at the start
+                // followed by ",'one or more digits'" OR ", 'one or more digits'" OR "-'one or more digits'" zero or more times and the string ends
+                Match regexResults = Regex.Match(txtCustomFrames.Text, "^\\d+(?:,\\d+|, \\d+|-\\d+)*$");
 
-            // The input is valid
-            if (regexResults.Success)
-            {
-                txtCustomFrames.Background = Brushes.White;
+                // The input is valid
+                if (regexResults.Success)
+                {
+                    txtCustomFrames.Background = Brushes.White;
+                }
+                // The input is invalid
+                else
+                {
+                    txtCustomFrames.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));
+                }
             }
-            // The input is invalid
-            else
+            catch (Exception ex)
             {
-                txtCustomFrames.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
         #endregion
 
-        #region Helper Functions
+        #region Functions
+        #region Combobox fillers
         private void FillComboBoxes()
         {
             FillAnimationOrFrameCombobox();
@@ -249,7 +276,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
                 "Use Blender configs",
                 "Animation",
                 "Frame Range",
-                "Frames Custom"
+                "Custom Frames"
             };
 
             cmbAnimationOrFrame.ItemsSource = list;
@@ -296,6 +323,16 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Info
             };
 
             cmbOutputFolder.ItemsSource = list;
+        }
+        #endregion
+
+        /// <summary>
+        /// Grab all the nessary information required for the rendering information
+        /// </summary>
+        /// <returns>An instance of the class RenderData containing all the nessary information required for the render</returns>
+        public RenderData GetRenderInfo()
+        {
+            return new RenderData();
         }
         #endregion
     }

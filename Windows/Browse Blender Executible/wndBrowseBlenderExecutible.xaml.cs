@@ -10,7 +10,7 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
-using Blender_Script_Rendering_Builder.Classes.Shared;
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using System;
 using System.Reflection;
 using System.Windows;

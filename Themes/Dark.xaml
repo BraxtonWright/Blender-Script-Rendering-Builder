@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- Color styles -->
+    <Color x:Key="AppColor">#FF393939</Color>
+
+    <!-- Brush styles -->
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource AppColor}"/>
+
+    <!-- Styles -->
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
+    </Style>
+</ResourceDictionary>

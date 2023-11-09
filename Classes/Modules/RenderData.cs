@@ -11,7 +11,7 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
-using Blender_Script_Rendering_Builder.Classes.Shared;
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using System;
 using System.ComponentModel;
 using System.Reflection;
@@ -19,9 +19,21 @@ using System.Text.RegularExpressions;
 
 namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
-    public class Render : INotifyPropertyChangedImplmented
+    public class RenderData : INotifyPropertyChangedImplmented
     {
         #region Class variables
+        #region Render info variables
+        private string _renderType;
+        /// <summary>
+        /// The type of render to be performed
+        /// </summary>
+        public string RenderType
+        {
+            get { return _renderType; }
+            set { _renderType = value; }
+        }
+
+        #region Frame varaibles
         private int _startFrame;
         /// <summary>
         /// The starting frame for the render
@@ -63,7 +75,20 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
                 OnPropertyChanged(nameof(CustomFrames));
             }
         }
+        #endregion
 
+        private string _renderEngine;
+        /// <summary>
+        /// The rendering engine that will be used to make the render
+        /// </summary>
+        public string RenderEngine
+        {
+            get { return _renderEngine; }
+            set { _renderEngine = value; }
+        }
+        #endregion
+
+        #region Output info variables
         private string _outputFileType;
         /// <summary>
         /// The file type that the render will output
@@ -80,7 +105,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
 
         private string _outputFullPath;
         /// <summary>
-        /// The full path to the output folder
+        /// The full path to the folder that the renders will be outputed to
         /// </summary>
         public string OutputFullPath
         {
@@ -88,12 +113,14 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _outputFullPath = value;
-                OnPropertyChanged(nameof(OutputFullPath));
                 OutputFolderName = GetFolderName(value);
             }
         }
 
         private string _outputFolderName;
+        /// <summary>
+        /// The name of the folder that the renders will be outputed to
+        /// </summary>
         public string OutputFolderName
         {
             get { return _outputFolderName; }
@@ -103,27 +130,14 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
                 OnPropertyChanged(nameof(OutputFolderName));
             }
         }
-
-        private string _renderEngine;
-        /// <summary>
-        /// The rendering engine that will be used to make the render
-        /// </summary>
-        public string RenderEngine
-        {
-            get { return _renderEngine; }
-            set
-            {
-                _renderEngine = value;
-                OnPropertyChanged(nameof(RenderEngine));
-            }
-        }
+        #endregion
         #endregion
 
         #region Constructors
         /// <summary>
         /// Default Constructor
         /// </summary>
-        public Render()
+        public RenderData()
         {
 
         }
@@ -134,7 +148,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <param name="outputFileType">The output file type</param>
         /// <param name="outputFullPath">The output folder path</param>
         /// <param name="renderEngine">The render engine to use</param>
-        private Render(string outputFileType, string outputFullPath, string renderEngine)
+        private RenderData(string outputFileType, string outputFullPath, string renderEngine)
         {
             try
             {
@@ -156,7 +170,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <param name="outputFileType">The output file type</param>
         /// <param name="outputFullPath">The output folder path</param>
         /// <param name="renderEngine">The render engine to use</param>
-        public Render(int startFrame, int endFrame, string outputFileType, string outputFullPath, string renderEngine) : this(outputFileType, outputFullPath, renderEngine)
+        public RenderData(int startFrame, int endFrame, string outputFileType, string outputFullPath, string renderEngine) : this(outputFileType, outputFullPath, renderEngine)
         {
             try
             {
@@ -176,7 +190,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <param name="outputFileType">The output file type</param>
         /// <param name="outputFullPath">The output folder path</param>
         /// <param name="renderEngine">The render engine to use</param>
-        public Render(string customFrames, string outputFileType, string outputFullPath, string renderEngine) : this(outputFileType, outputFullPath, renderEngine)
+        public RenderData(string customFrames, string outputFileType, string outputFullPath, string renderEngine) : this(outputFileType, outputFullPath, renderEngine)
         {
             try
             {
