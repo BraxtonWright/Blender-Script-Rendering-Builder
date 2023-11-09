@@ -237,8 +237,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             try
             {
                 // If the text in the textbox matches the following regex pattern
-                // One or more digites at the start
-                // followed by ",'one or more digits'" OR ", 'one or more digits'" OR "-'one or more digits'" zero or more times and the string ends
+                // One or more digites at the start of the string
+                // Followed by ",'one or more digits'" OR ", 'one or more digits'" OR "-'one or more digits'" zero or more times
+                // The the string ends
                 Match regexResults = Regex.Match(txtCustomFrames.Text, "^\\d+(?:,\\d+|, \\d+|-\\d+)*$");
 
                 // The input is valid
@@ -332,7 +333,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         /// <returns>An instance of the class RenderData containing all the nessary information required for the render</returns>
         public RenderData GetRenderInfo()
         {
-            return new RenderData();
+            return renderData;
         }
         #endregion
     }

@@ -39,7 +39,7 @@
 
                 <!-- Render type additional fields -->
                 <!-- Start/End frames -->
-                <Grid x:Name="grdStartEndFrames" Visibility="Visible" Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid x:Name="grdStartEndFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -50,10 +50,10 @@
                     </Grid.RowDefinitions>
 
                     <Label Content="Start Frame:" HorizontalAlignment="Right"/>
-                    <NUPC:NumericEntryControl x:Name="nupStartFrame" Grid.Column="1"/>
+                    <NUPC:NumericEntryControl x:Name="nupStartFrame" Grid.Column="1" Value="{Binding StartFrame, Mode=TwoWay}"/>
 
                     <Label Content="End Frame:" Grid.Row="1" HorizontalAlignment="Right"/>
-                    <NUPC:NumericEntryControl x:Name="nupEndFrame" Grid.Row="1" Grid.Column="1"/>
+                    <NUPC:NumericEntryControl x:Name="nupEndFrame" Grid.Row="1" Grid.Column="1" Value="{Binding EndFrame, Mode=TwoWay}"/>
                 </Grid>
                 <!-- Custom frames -->
                 <Grid x:Name="grdCustomFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False">

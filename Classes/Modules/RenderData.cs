@@ -41,11 +41,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         public int StartFrame
         {
             get { return _startFrame; }
-            set
-            {
-                _startFrame = value;
-                OnPropertyChanged(nameof(StartFrame));
-            }
+            set { _startFrame = value; }
         }
 
         private int _endFrame;
@@ -55,11 +51,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         public int EndFrame
         {
             get { return _endFrame; }
-            set
-            {
-                _endFrame = value;
-                OnPropertyChanged(nameof(EndFrame));
-            }
+            set { _endFrame = value; }
         }
 
         private string _customFrames;
