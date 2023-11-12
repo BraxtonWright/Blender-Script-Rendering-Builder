@@ -1,12 +1,12 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder UserControl RenderInfo
+ * Blender Script Rendering Builder UserControl RenderSelection
  * Dr. Nichole Anderson
  * Due: 12/6/2023
  * Version: 0.5
  *  ----------------------------------------------------------------------------------------------------------
- * This file contains the required event listeners for the UserControl RenderInfo.
+ * This file contains the required event listeners for the UserControl RenderSelection.
  * -----------------------------------------------------------------------------------------------------------
  */
 
@@ -25,63 +25,16 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
     #region Namespace Variables
     //The reason why we have these here is so that we can access them both in the below class and the binding them to the UI file as shown here https://youtu.be/uWsvh5rEMRI?t=15
 
-    /// <summary>
-    /// A list of options that are valid for the type of render for the render data
-    /// </summary>
-    public enum enumAnimationOrFrameOptions
-    {
-        UseBlender,
-        Animation,
-        FrameRange,
-        FrameCustom
-    }
-
-    /// <summary>
-    /// A list of valid options to define what output file type they want to output.
-    /// </summary>
-    public enum enumOutputFileOptions
-    {
-        UseBlender,
-        AVIJPEG,
-        AVIRAW,
-        BMP,
-        IRIS,
-        IRIZ,
-        JPEG,
-        PNG,
-        RAWTGA,
-        TGA
-    }
-
-    /// <summary>
-    /// A list of valid options to define what rendering engine they want to use.
-    /// </summary>
-    public enum enumRenderEngineOptions
-    {
-        UseBlender,
-        Cycles,
-        Eevee,
-        Workbench
-    }
-
-    /// <summary>
-    /// A list of valid options to define what output folder they want to use.
-    /// </summary>
-    public enum enumOutputFolderOptions
-    {
-        UseBlender,
-        Browse
-    }
     #endregion
 
     /// <summary>
-    /// Interaction logic for RenderInfo.xaml
+    /// Interaction logic for RenderSelection.xaml
     /// </summary>
     public partial class RenderSelection : UserControl
     {
         #region Class Variables
         /// <summary>
-        /// Object to perform logic for the RenderInfo UserControl.
+        /// Object to perform logic for the RenderSelection UserControl.
         /// </summary>
         private RenderSelectionLogic logic;
 
@@ -101,7 +54,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             {
                 InitializeComponent();
                 logic = new RenderSelectionLogic();  // Make a new instance of the logic class for this user control
-                renderData = new Classes.Modules.RenderData();  // make a new instance of the RenderModel class
+                renderData = new RenderData();  // make a new instance of the RenderModel class
                 FillComboBoxes();
                 DataContext = renderData;
             }
@@ -185,7 +138,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
                 switch (selectedItem)
                 {
                     case "Use Blender configs":
-                        grdOutputFolderInfo.Visibility = System.Windows.Visibility.Collapsed;
+                        lblOutputFolder.Visibility = System.Windows.Visibility.Collapsed;
                         break;
                     case "Browse for folder":
                         try
@@ -201,7 +154,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
                             ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
                         }
 
-                        grdOutputFolderInfo.Visibility = System.Windows.Visibility.Visible;
+                        lblOutputFolder.Visibility = System.Windows.Visibility.Visible;
                         break;
                     default:
                         throw new Exception("There is no option with the name " + selectedItem);
@@ -213,6 +166,11 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             }
         }
 
+        /// <summary>
+        /// This event listener listens for when the you change the text in a texbox to hide/show the placeholder text for the textbox
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Text Changed Event</param>
         private void txtCustomFrames_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -232,6 +190,11 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             }
         }
 
+        /// <summary>
+        /// This event listener listens for when the textbox looses focus so it can determin if the input is a valid string
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void txtCustomFrames_LostFocus(object sender, System.Windows.RoutedEventArgs e)
         {
             try
@@ -262,6 +225,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
 
         #region Functions
         #region Combobox fillers
+        /// <summary>
+        /// Fills the comboboxes for the render type, engine, file output type, and output folder.
+        /// </summary>
         private void FillComboBoxes()
         {
             FillAnimationOrFrameCombobox();
@@ -270,6 +236,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             FillOutputFolderComboBox();
         }
 
+        /// <summary>
+        /// Fills the combobox for the type of render
+        /// </summary>
         private void FillAnimationOrFrameCombobox()
         {
             List<string> list = new List<string>
@@ -283,6 +252,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             cmbAnimationOrFrame.ItemsSource = list;
         }
 
+        /// <summary>
+        /// Fills the combobox for the render engine
+        /// </summary>
         private void FillRenderEngineCombobox()
         {
             List<string> list = new List<string>
@@ -296,6 +268,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             cmbRenderEngine.ItemsSource = list;
         }
 
+        /// <summary>
+        /// Fills the combobox for the output file type
+        /// </summary>
         private void FillOutputFileTypeComboBox()
         {
             List<string> list = new List<string>
@@ -315,6 +290,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             cmbOutputFileType.ItemsSource = list;
         }
 
+        /// <summary>
+        /// Fills the combobox for the output folder for the render
+        /// </summary>
         private void FillOutputFolderComboBox()
         {
             List<string> list = new List<string>
@@ -328,10 +306,10 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         #endregion
 
         /// <summary>
-        /// Grab all the nessary information required for the rendering information
+        /// Grab all the necessary information required for rendering
         /// </summary>
-        /// <returns>An instance of the class RenderData containing all the nessary information required for the render</returns>
-        public RenderData GetRenderInfo()
+        /// <returns>A reference to a internal variable of the class RenderData containing all the necessary information required for the render</returns>
+        public RenderData GetRenderingInfo()
         {
             return renderData;
         }

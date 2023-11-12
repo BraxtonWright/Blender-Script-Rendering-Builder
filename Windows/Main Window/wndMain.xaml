@@ -52,7 +52,7 @@
                 </CheckBox>
                 <DockPanel x:Name="dpShutdown" Visibility="Collapsed">
                     <Label Content="Wait to shutdow (minutes)"/>
-                    <NUPC:NumericEntryControl Width="125" HorizontalAlignment="Left" />
+                    <NUPC:NumericEntryControl x:Name="necShutdownTime" Width="125" HorizontalAlignment="Left" />
                 </DockPanel>
             </StackPanel>
             <Button x:Name="btnCreateScriptFile" Grid.Row="4" Padding="5" Background="Red" Content="Build script file" Click="btnCreateScriptFile_Click" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Top"/>

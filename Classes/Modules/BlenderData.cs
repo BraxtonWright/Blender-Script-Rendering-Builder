@@ -18,7 +18,7 @@ using System.Reflection;
 
 namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
-    internal class BlenderData : INotifyPropertyChangedImplmented
+    public class BlenderData : INotifyPropertyChangedImplmented
     {
         #region Class variables
         string _fullPath;
@@ -53,7 +53,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <summary>
         /// A list of scenes for the blender file
         /// </summary>
-        public List<SceneData> scenes = new List<SceneData>();
+        public List<SceneData> scenesInfo = new List<SceneData>();
         #endregion
 
         #region Constructors
@@ -73,7 +73,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         public BlenderData(string fullPath, List<SceneData> scenes)
         {
             _fullPath = fullPath;
-            this.scenes = scenes;
+            this.scenesInfo = scenes;
         }
         #endregion
 

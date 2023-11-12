@@ -11,14 +11,13 @@
  */
 
 using Blender_Script_Rendering_Builder.Classes.Modules;
-using Blender_Script_Rendering_Builder.UserControls.Blender_Selection;
-using Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Windows.Controls;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Blender_Script_Rendering_Builder.Main
 {
@@ -33,7 +32,7 @@ namespace Blender_Script_Rendering_Builder.Main
         /// </summary>
         public clsMainLogic()
         {
-        
+
         }
         #endregion
 
@@ -44,52 +43,153 @@ namespace Blender_Script_Rendering_Builder.Main
         /// <returns>An instance of the class BrowseBlenderExe with properties containing information how to preced</returns>
         public BrowseBlenderExe ShouldOpenBlendApplictionWindow()
         {
-            BrowseBlenderExe returnObject = new BrowseBlenderExe();
-
-            string blenderApplicationPath = Properties.Settings.Default.BlenderApplicationPath;
-
-            //blenderApplicationPath = "C:\\bad";  // For simply testing each condition the window can be in
-
-            // It is the first time opening the application
-            if (String.IsNullOrEmpty(blenderApplicationPath))
+            try
             {
-                Trace.WriteLine("Open the \"Please read\" window because this is the first time launching the applcation");
+                BrowseBlenderExe returnObject = new BrowseBlenderExe();
 
-                returnObject.needToOpenWindow = true;
-                returnObject.windowTitle = "Please read";
-                returnObject.windowMessage = "Before you can use this program, it has to know where your Blender executible is located.  Press the browse button for you to locate it.  This can be changed in the future by pressing the Config tab in the main application window.";
+                string blenderApplicationPath = Properties.Settings.Default.BlenderApplicationPath;
+
+                //blenderApplicationPath = "C:\\bad";  // For simply testing each condition the window can be in
+
+                // It is the first time opening the application
+                if (String.IsNullOrEmpty(blenderApplicationPath))
+                {
+                    Trace.WriteLine("Open the \"Please read\" window because this is the first time launching the applcation");
+
+                    returnObject.needToOpenWindow = true;
+                    returnObject.windowTitle = "Please read";
+                    returnObject.windowMessage = "Before you can use this program, it has to know where your Blender executible is located.  Press the browse button for you to locate it.  This can be changed in the future by pressing the Config tab in the main application window.";
+                }
+                // The application path is no longer there
+                else if (!File.Exists(blenderApplicationPath))
+                {
+                    Trace.WriteLine("Open the \"Executible location changed\" window because the application path has been moves/removed");
+
+                    returnObject.needToOpenWindow = true;
+                    returnObject.windowTitle = "Executible location changed";
+                    returnObject.windowMessage = "This program has discovered that the exeuctible defined previously has either been moved or removed.  Please redefine where the executible is to continue using this program.";
+                }
+                // Everything is valid
+                else
+                {
+                    Trace.WriteLine("Do nothing");
+
+                    returnObject.needToOpenWindow = false;
+                }
+
+                return returnObject;
             }
-            // The application path is no longer there
-            else if(!File.Exists(blenderApplicationPath))
+            catch (Exception ex)
             {
-                Trace.WriteLine("Open the \"Executible location changed\" window because the application path has been moves/removed");
-
-                returnObject.needToOpenWindow = true;
-                returnObject.windowTitle = "Executible location changed";
-                returnObject.windowMessage = "This program has discovered that the exeuctible defined previously has either been moved or removed.  Please redefine where the executible is to continue using this program.";
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-            // Everything is valid
-            else
-            {
-                Trace.WriteLine("Do nothing");
-
-                returnObject.needToOpenWindow = false;
-            }
-
-            return returnObject;
         }
 
-        public void GenerateScriptFile(StackPanel spBlenderFiles)
+        /// <summary>
+        /// Generate a .bat file containing the necessary information for rendering
+        /// </summary>
+        /// <param name="renderInformation">A list of BlenderData containing everything required for generateing the script</param>
+        /// <param name="saveFilePath">The full path to a file where they want save the script to</param>
+        /// <param name="shutdownTime">The number of minutes to wait until shuting down the PC</param>
+        /// <exception cref="Exception">Catches any exceptions that this method might come across.</exception>
+        public void GenerateScriptFile(List<BlenderData> renderInformation, string saveFilePath, bool shutdown, int shutdownTime)
         {
             try
             {
-                
-                List<BlenderData> renderInfo = new List<BlenderData>();
+                string blenderApplicationPath = Path.GetDirectoryName(Properties.Settings.Default.BlenderApplicationPath);
+                string blenderApplicationName = Path.GetFileName(Properties.Settings.Default.BlenderApplicationPath);
 
-                foreach (BlenderSelection blenderUserControl in spBlenderFiles.Children)
+                //Create the stream writer
+                //StreamWriter MyWriter = File.CreateText(sFile);
+                //or
+                using (StreamWriter MyWriter = new StreamWriter(saveFilePath))
                 {
-                    // WIP
+                    // --background == -b
+                    // --scene == -S
+                    // --render-output == -o
+                    // --render-format == -F
+                    // --engine -E
+                    // --render-anim -a
+                    // --render-frame -f
+                    // --frame-start == -s
+                    // --frame-end == -e
+                    MyWriter.WriteLine($"cd \"{blenderApplicationPath}\"\n");
+
+                    // Foreach blender file
+                    foreach (BlenderData blendData in renderInformation)
+                    {
+                        // Foreach scene
+                        foreach (SceneData sceneData in blendData.scenesInfo)
+                        {
+                            MyWriter.Write($"{blenderApplicationName} --background \"{blendData.FullPath}\" --scene {sceneData.SceneName}");
+
+                            // Foreach rendering information
+                            foreach (RenderData renderData in sceneData.rendersInfo)
+                            {
+                                // The user has defined a different folder to save the renders to
+                                if (renderData.OutputPathSelection == "Browse")
+                                {
+                                    MyWriter.Write($" --render-output \"{renderData.OutputFullPath}\"");
+                                }
+                                // The user has defined a different output file type for the renders
+                                if (renderData.OutputFileType != "Use Blender configs" && renderData.OutputFileType != "")
+                                {
+                                    MyWriter.Write($" --render-format {renderData.OutputFileType.ToUpper()}");
+                                }
+                                // The user has defined a different rendering engine for the renders
+                                if (renderData.RenderEngine != "Use Blender configs" && renderData.RenderEngine != "")
+                                {
+                                    MyWriter.Write(" --engine ");
+                                    switch (renderData.RenderEngine)
+                                    {
+                                        case "Cycles":
+                                            MyWriter.Write("CYCLES");
+                                            break;
+                                        case "Eevee":
+                                            MyWriter.Write("BLENDER_EEVEE");
+                                            break;
+                                        case "Workbench":
+                                            MyWriter.Write("BLENDER_WORKBENCH");
+                                            break;
+                                    }
+                                }
+                                // Depending on what is selected for the render type, process the results
+                                switch (renderData.RenderType)
+                                {
+                                    case "Use Blender configs":
+                                        MyWriter.Write(" --render-anim");
+                                        break;
+                                    case "Animation":
+                                        MyWriter.Write($" --frame-start {renderData.StartFrame} --frame-end {renderData.EndFrame} --render-anim");
+                                        break;
+                                    case "Frame Range":
+                                        MyWriter.Write($" --render-frame {renderData.StartFrame}..{renderData.EndFrame}");
+                                        break;
+                                    case "Custom Frames":
+                                        string processedRenderData = Regex.Replace(renderData.CustomFrames, " ", "");  // Remove any spaces from the data because spaces are not allowed
+                                        processedRenderData = Regex.Replace(processedRenderData, "-", "..");  // Replace any "-" with ".." because blender uses ".." to represent a range of frames
+
+                                        MyWriter.Write($" --render-frame {processedRenderData}");
+                                        break;
+                                }
+
+                                MyWriter.WriteLine("\n");  // Used to move to a new line and add some space between render jobs
+                            }
+                        }
+                    }
+
+                    if (shutdown)
+                    {
+                        MyWriter.WriteLine("Timeout /T " + 60 * shutdownTime);
+                        MyWriter.WriteLine("Shutdown \\s");
+                    }
+
+                    //Don't need to call "Close" because we use the "using" statement
+                    //The "using" statement is the same as a try/catch block and putting the "FileRead.Dispose" method call in the "finally" statment
+                    //FileRead.Close();
                 }
+
+                System.Windows.Forms.MessageBox.Show("Your script file has been generated and can be located here:\n" + saveFilePath, "File saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

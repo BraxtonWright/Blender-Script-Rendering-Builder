@@ -35,7 +35,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <summary>
         /// A list of rendering information for the scene
         /// </summary>
-        public List<RenderData> renderInfo = new List<RenderData>();
+        public List<RenderData> rendersInfo = new List<RenderData>();
         #endregion
 
         #region Constructors
@@ -55,7 +55,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         public SceneData(string sceneName, List<RenderData> renderInfo)
         {
             SceneName = sceneName;
-            this.renderInfo = renderInfo;
+            this.rendersInfo = renderInfo;
         }
         #endregion
 

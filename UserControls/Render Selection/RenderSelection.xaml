@@ -96,18 +96,7 @@
                 <ComboBox x:Name="cmbOutputFolder" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" SelectionChanged="cmbOutputFolder_SelectionChanged" SelectedItem="{Binding OutputPathSelection}"/>
 
                 <!-- Output folder type additional info -->
-                <Grid x:Name="grdOutputFolderInfo" Grid.Row="2" Grid.ColumnSpan="2" Visibility="Collapsed">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-
-                    <Label x:Name="lblOutputFolder" Content="{Binding OutputFolderName}" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
-                </Grid>
+                <Label x:Name="lblOutputFolder" Content="{Binding OutputFolderName}" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2" Visibility="Collapsed"/>
             </Grid>
         </GroupBox>
 

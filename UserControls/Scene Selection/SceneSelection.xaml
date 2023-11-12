@@ -25,7 +25,7 @@
         </Expander.Header>
         <Expander.Content>
             <Grid Margin="25,0,0,0">
-                <!-- Split the panel into 2 rows, the top for the UserControl RenderInfo and the bottom for the "Add new render info" button -->
+                <!-- Split the panel into 2 rows, the top for the UserControl RenderSelection and the bottom for the "Add new render info" button -->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>

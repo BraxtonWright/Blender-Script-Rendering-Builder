@@ -28,10 +28,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
         #endregion
 
         #region Functions
-        public void GenerateScriptFile()
-        {
-
-        }
         #endregion
     }
 }

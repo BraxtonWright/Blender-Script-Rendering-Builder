@@ -24,6 +24,7 @@ using System.Collections;
 using System.IO;
 using Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible;
 using System.Collections.Generic;
+using Microsoft.Win32;
 
 namespace Blender_Script_Rendering_Builder
 {
@@ -113,24 +114,6 @@ namespace Blender_Script_Rendering_Builder
         }
 
         /// <summary>
-        /// This event listener will listen for then you press the button to create the script file from the information you supplied
-        /// </summary>
-        /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Routed Event</param>
-        private void btnCreateScriptFile_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                logic.GenerateScriptFile(spBlenderFiles);
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                              MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        /// <summary>
         /// This event listener listens for when you press the menu item to change the Blender executible file location
         /// </summary>
         /// <param name="sender">The sender of the event</param>
@@ -170,6 +153,38 @@ namespace Blender_Script_Rendering_Builder
         private void checkShutdownPC_Unchecked(object sender, RoutedEventArgs e)
         {
             dpShutdown.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// This event listener will listen for then you press the button to create the script file from the information you supplied
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void btnCreateScriptFile_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveFileDailog = new SaveFileDialog();
+                saveFileDailog.Filter = "Batch file (*.bat)|*.bat";
+
+                // If the window has closed correctly, generate the script file
+                if (saveFileDailog.ShowDialog() == true)
+                {
+                    List<BlenderData> renderingInfo = new List<BlenderData>();
+
+                    foreach (BlenderSelection blenderUserControl in spBlenderFiles.Children)
+                    {
+                        renderingInfo.Add(blenderUserControl.GetRenderingInfo());
+                    }
+
+                    logic.GenerateScriptFile(renderingInfo, saveFileDailog.FileName, (bool)checkShutdownPC.IsChecked, necShutdownTime.Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                              MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
         #endregion
     }

@@ -34,7 +34,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         private SceneSelectionLogic logic;
 
         /// <summary>
-        /// Object to contain all the data nessary for the scene
+        /// Object to contain all the data necessary for the scene
         /// </summary>
         private SceneData sceneData;
         #endregion
@@ -147,6 +147,25 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
             {
                 ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
+        }
+        #endregion
+
+        #region Functions
+        /// <summary>
+        /// Grab all the necessary information required for rendering
+        /// </summary>
+        /// <returns>A new instance of the class SceneData containing all the necessary information required for the render</returns>
+        public SceneData GetRenderingInfo()
+        {
+            // The reason why we are creating a new instance of the object is because with the current implmentation of this program, I do not at runtime add/remove items from the "sceneData.rendersInfo".  If I were to simply set the variable "returnData" to be equal to the varaible "sceneData", it would create a reference to it and then when we would add items to the "rendersInfo" section inside "returnData", it would also add them to the "sceneData" varaible.  However, I also cannot simply make a new insance of the list of rendering information using the same method as the blender file's full path, it would still create a referece because it is a list.  So i create a new empty list of data and add to it.
+            SceneData returnData = new SceneData(sceneData.SceneName, new List<RenderData>());
+
+            foreach(RenderSelection renderSelection in spRenderingInfo.Children)
+            {
+                returnData.rendersInfo.Add(renderSelection.GetRenderingInfo());
+            }
+
+            return returnData;
         }
         #endregion
     }

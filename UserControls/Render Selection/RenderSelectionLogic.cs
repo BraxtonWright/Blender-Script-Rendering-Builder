@@ -1,12 +1,13 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder class RenderInfoLogic
+ * Blender Script Rendering Builder class RenderSelectionLogic
  * Dr. Nichole Anderson
  * Due: 12/6/2023
  * Version: 0.5
  *  ----------------------------------------------------------------------------------------------------------
- * This file contains the logistic for the UserControl RenderInfo so that the logistics is not behind the UI.
+ * This file contains the logistic for the UserControl RenderSelection so that the logistics is not behind the
+ * UI.
  * -----------------------------------------------------------------------------------------------------------
  */
 
