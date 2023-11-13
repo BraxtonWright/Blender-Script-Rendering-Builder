@@ -28,6 +28,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
 
         //This class immplment a custom enumeration (Enum) that we can use so we can use strings instead of numbers for the value stored inside the Enum.
         // This will also allow us to output the string if we for example console.log one the below options
+        // This method doesn't do what I want it to do see about implementing a struct of strings as shown here https://stackoverflow.com/a/59203775 or implmenting the topmost answer?
         /// <summary>
         /// A list of options that are valid for the type of render for the render data
         /// </summary>
