@@ -124,49 +124,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         }
 
         /// <summary>
-        /// This event listener will listen for when you change the item selected in the combo box and change the fields below it so it will use the desired fields
-        /// </summary>
-        /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Selection Changed Event</param>
-        private void cmbOutputFolder_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                ComboBox cb = sender as ComboBox;
-                Object selectedItem = cb.SelectedItem;
-
-                switch (selectedItem)
-                {
-                    case "Use Blender configs":
-                        lblOutputFolder.Visibility = System.Windows.Visibility.Collapsed;
-                        break;
-                    case "Browse for folder":
-                        try
-                        {
-                            System.Windows.Forms.FolderBrowserDialog outputPath = new System.Windows.Forms.FolderBrowserDialog();
-                            if (outputPath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                            {
-                                renderData.OutputFullPath = outputPath.SelectedPath;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-                        }
-
-                        lblOutputFolder.Visibility = System.Windows.Visibility.Visible;
-                        break;
-                    default:
-                        throw new Exception("There is no option with the name " + selectedItem);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        /// <summary>
         /// This event listener listens for when the you change the text in a texbox to hide/show the placeholder text for the textbox
         /// </summary>
         /// <param name="sender">The sender of the event</param>
@@ -214,6 +171,49 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
                 else
                 {
                     txtCustomFrames.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This event listener will listen for when you change the item selected in the combo box and change the fields below it so it will use the desired fields
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Selection Changed Event</param>
+        private void cmbOutputFolder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ComboBox cb = sender as ComboBox;
+                Object selectedItem = cb.SelectedItem;
+
+                switch (selectedItem)
+                {
+                    case "Use Blender configs":
+                        lblOutputFolder.Visibility = System.Windows.Visibility.Collapsed;
+                        break;
+                    case "Browse for folder":
+                        try
+                        {
+                            System.Windows.Forms.FolderBrowserDialog outputPath = new System.Windows.Forms.FolderBrowserDialog();
+                            if (outputPath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                            {
+                                renderData.OutputFullPath = outputPath.SelectedPath;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                        }
+
+                        lblOutputFolder.Visibility = System.Windows.Visibility.Visible;
+                        break;
+                    default:
+                        throw new Exception("There is no option with the name " + selectedItem);
                 }
             }
             catch (Exception ex)

@@ -26,21 +26,6 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         #region Class variables
         #region Render info variables
 
-        //This class immplment a custom enumeration (Enum) that we can use so we can use strings instead of numbers for the value stored inside the Enum.
-        // This will also allow us to output the string if we for example console.log one the below options
-        // This method doesn't do what I want it to do see about implementing a struct of strings as shown here https://stackoverflow.com/a/59203775 or implmenting the topmost answer?
-        /// <summary>
-        /// A list of options that are valid for the type of render for the render data
-        /// </summary>
-        public class RenderTypeOption : Enumeration
-        {
-            public static RenderTypeOption UseBlender => new(1, "Use Blender configs");
-            public static RenderTypeOption Animation => new(2, "Animation");
-            public static RenderTypeOption FrameRange => new(3, "Frame Range");
-            public static RenderTypeOption CustomFrames => new(4, "Custom Frames");
-
-            public RenderTypeOption(int id, string name) : base(id, name) { }
-        }
         private string _renderType;
         /// <summary>
         /// The type of render to be performed, an animation or frames
@@ -87,18 +72,6 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         }
         #endregion
 
-        /// <summary>
-        /// A list of valid options to define what rendering engine they want to use.
-        /// </summary>
-        public class RenderEngineOptions : Enumeration
-        {
-            public static RenderEngineOptions UseBlender => new(1, "Use Blender configs");
-            public static RenderEngineOptions Cycles => new(2, "Cycles");
-            public static RenderEngineOptions Eevee => new(3, "Eevee");
-            public static RenderEngineOptions Workbench => new(4, "Workbench");
-
-            public RenderEngineOptions(int id, string name) : base(id, name) { }
-        }
         private string _renderEngine;
         /// <summary>
         /// The rendering engine that will be used to make the render
@@ -111,24 +84,6 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         #endregion
 
         #region Output info variables
-        /// <summary>
-        /// A list of valid options to define what file type to output
-        /// </summary>
-        public class OutputFileOptions : Enumeration
-        {
-            public static OutputFileOptions UseBlender => new(1, "Use Blender configs");
-            public static OutputFileOptions AVIJPEG => new(2, "avijpeg");
-            public static OutputFileOptions AVIRAW => new(3, "aviraw");
-            public static OutputFileOptions BMP => new(4, "bmp");
-            public static OutputFileOptions IRIS => new(5, "iris");
-            public static OutputFileOptions IRIZ => new(6, "iriz");
-            public static OutputFileOptions JPEG => new(7, "jpeg");
-            public static OutputFileOptions PNG => new(8, "png");
-            public static OutputFileOptions RAWTGA => new(9, "rawtga");
-            public static OutputFileOptions TGA => new(10, "tga");
-
-            public OutputFileOptions(int id, string name) : base(id, name) { }
-        }
         private string _outputFileType;
         /// <summary>
         /// The file type that the render will output
@@ -143,16 +98,6 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             }
         }
 
-        /// <summary>
-        /// A list of valid options to define what output folder they want to use.
-        /// </summary>
-        public class OutputFolderOptions : Enumeration
-        {
-            public static OutputFolderOptions UseBlender => new(1, "Use Blender configs");
-            public static OutputFolderOptions Browse => new(2, "Browse for folder");
-
-            public OutputFolderOptions(int id, string name) : base(id, name) { }
-        }
         private string _outputPathSelection;
         /// <summary>
         /// Whether  to choose to use what output folder blender uses or to browse for the folder
