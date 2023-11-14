@@ -67,6 +67,19 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
 
         #region Event Listeners
         /// <summary>
+        /// This is ran when the user control is done being loaded so that we can set the default selected combobox items, I.E. use what is defined in the blender file
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. an Routed Event</param>
+        private void ucRenderSelection_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            cmbAnimationOrFrame.SelectedIndex = 0;
+            cmbRenderEngine.SelectedIndex = 0;
+            cmbOutputFileType.SelectedIndex = 0;
+            cmbOutputFolder.SelectedIndex = 0;
+        }
+
+        /// <summary>
         /// Deletes the user control from the parent's stack panel
         /// </summary>
         /// <param name="sender">The sender of the event</param>

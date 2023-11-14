@@ -112,11 +112,8 @@ namespace Blender_Script_Rendering_Builder.Main
                                 foreach (RenderData renderData in sceneData.rendersInfo)
                                 {
                                     // We inverse the return from Validators.StringEmpty() because it returns true if it is empty and we want it to be false if it is empty for this use case
-                                    isValid &= !Validators.StringEmpty(renderData.RenderType);
+                                    // We also don't check the combobox items to see if they are null or empty because we have them default to an option.
                                     if (renderData.RenderType == "Custom Frames") isValid &= Validators.CustomFramesValid(renderData.CustomFrames);
-                                    isValid &= !Validators.StringEmpty(renderData.RenderEngine);
-                                    isValid &= !Validators.StringEmpty(renderData.OutputFileType);
-                                    isValid &= !Validators.StringEmpty(renderData.OutputPathSelection);
                                     if (renderData.OutputPathSelection == "Browse") isValid &= !Validators.StringEmpty(renderData.OutputFullPath);
                                 }
                             }
@@ -151,6 +148,7 @@ namespace Blender_Script_Rendering_Builder.Main
                 //or
                 using (StreamWriter MyWriter = new StreamWriter(saveFilePath))
                 {
+                    // Equivalent switches for the below lines of code
                     // --background == -b
                     // --scene == -S
                     // --render-output == -o
