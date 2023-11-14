@@ -33,7 +33,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }*/
 
-        // Or we can use this shorthand method to achieve the same thing as the above code Source fo this code https://youtu.be/HYVXO_uV68w?t=441
+        // Or we can use this shorthand method to achieve the same thing as the above code. Source for this code https://youtu.be/HYVXO_uV68w?t=441
         protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

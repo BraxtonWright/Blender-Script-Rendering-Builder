@@ -130,17 +130,15 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         {
             try
             {
-                // The below regex command searches for spaces inside the text
-                Match regexResults = Regex.Match(txtSceneName.Text, " ");
-                // The input contains a space, so it is invalid
-                if (regexResults.Success)
-                {
-                    txtSceneName.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));
-                }
                 // The input is valid
-                else
+                if (Validators.SceneNameValid(txtSceneName.Text))
                 {
                     txtSceneName.Background = Brushes.White;
+                }
+                // The input is invalid
+                else
+                {
+                    txtSceneName.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));
                 }
             }
             catch (Exception ex)

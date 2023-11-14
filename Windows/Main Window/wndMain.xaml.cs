@@ -183,7 +183,14 @@ namespace Blender_Script_Rendering_Builder
                         renderingInfo.Add(blenderUserControl.GetRenderingInfo());
                     }
 
-                    logic.GenerateScriptFile(renderingInfo, saveFileDailog.FileName, (bool)checkShutdownPC.IsChecked, necShutdownTime.Value);
+                    if(logic.ScriptInfoValid(renderingInfo))
+                    {
+                        logic.GenerateScriptFile(renderingInfo, saveFileDailog.FileName, (bool)checkShutdownPC.IsChecked, necShutdownTime.Value);
+                    }
+                    else
+                    {
+                        // Display error message with the list of errors found
+                    }
                 }
             }
             catch (Exception ex)

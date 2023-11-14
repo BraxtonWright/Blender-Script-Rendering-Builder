@@ -156,18 +156,12 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         {
             try
             {
-                // If the text in the textbox matches the following regex pattern
-                // One or more digites at the start of the string
-                // Followed by ",'one or more digits'" OR ", 'one or more digits'" OR "-'one or more digits'" zero or more times
-                // The the string ends
-                Match regexResults = Regex.Match(txtCustomFrames.Text, "^\\d+(?:,\\d+|, \\d+|-\\d+)*$");
-
-                // The input is valid
-                if (regexResults.Success)
+                // It is a valid input
+                if (Validators.CustomFramesValid(txtCustomFrames.Text))
                 {
                     txtCustomFrames.Background = Brushes.White;
                 }
-                // The input is invalid
+                // It is invalid input
                 else
                 {
                     txtCustomFrames.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));

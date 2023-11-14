@@ -10,6 +10,7 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Classes.Modules;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Blender_Script_Rendering_Builder.Main
 {
@@ -78,6 +80,51 @@ namespace Blender_Script_Rendering_Builder.Main
                 }
 
                 return returnObject;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        public bool ScriptInfoValid(List<BlenderData> renderInformation)
+        {
+            try
+            {
+                bool isValid = true;  // This will be modified with the &= bitwise operator, this means that this and what comes after the &= have to be true for it to stay as true.  But if one of them is false, it stays false.
+
+                // Foreach blender file
+                foreach (BlenderData blendData in renderInformation)
+                {
+                    if (Validators.StringEmpty(blendData.FullPath)) isValid &= false;
+
+                    else
+                    {
+                        // Foreach scene
+                        foreach (SceneData sceneData in blendData.scenesInfo)
+                        {
+                            // The scene name is not valid
+                            if (!Validators.SceneNameValid(sceneData.SceneName)) isValid &= false;
+
+                            else
+                            {
+                                // Foreach rendering information
+                                foreach (RenderData renderData in sceneData.rendersInfo)
+                                {
+                                    // We inverse the return from Validators.StringEmpty() because it returns true if it is empty and we want it to be false if it is empty for this use case
+                                    isValid &= !Validators.StringEmpty(renderData.RenderType);
+                                    if (renderData.RenderType == "Custom Frames") isValid &= Validators.CustomFramesValid(renderData.CustomFrames);
+                                    isValid &= !Validators.StringEmpty(renderData.RenderEngine);
+                                    isValid &= !Validators.StringEmpty(renderData.OutputFileType);
+                                    isValid &= !Validators.StringEmpty(renderData.OutputPathSelection);
+                                    if (renderData.OutputPathSelection == "Browse") isValid &= !Validators.StringEmpty(renderData.OutputFullPath);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return isValid;
             }
             catch (Exception ex)
             {

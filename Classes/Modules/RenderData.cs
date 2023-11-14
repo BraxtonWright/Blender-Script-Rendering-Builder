@@ -219,7 +219,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         {
             try
             {
-                return System.IO.Path.GetFileName(FullPath);
+                return Path.GetFileName(FullPath);
             }
             catch (Exception ex)
             {
