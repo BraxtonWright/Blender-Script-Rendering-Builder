@@ -58,6 +58,12 @@ namespace Blender_Script_Rendering_Builder
                     wndBrowseBlenderExecutible wndBrowseBlenderExecutible = new wndBrowseBlenderExecutible(browseBlenderExe.windowTitle, browseBlenderExe.windowMessage);
 
                     wndBrowseBlenderExecutible.ShowDialog();  //open this new window and pause here in the code until the window is closed
+
+                    // If the user has not defined/redefined the application path, close/terminate this application
+                    if(!wndBrowseBlenderExecutible.Saved)
+                    {
+                        this.Close();
+                    }
                 }
             }
             catch (Exception ex)

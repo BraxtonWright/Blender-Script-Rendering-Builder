@@ -189,7 +189,7 @@ namespace Blender_Script_Rendering_Builder.Main
                     //FileRead.Close();
                 }
 
-                System.Windows.Forms.MessageBox.Show("Your script file has been generated and can be located here:\n" + saveFilePath, "File saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Your script file has been generated and can be located here:\n" + saveFilePath, "File saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
