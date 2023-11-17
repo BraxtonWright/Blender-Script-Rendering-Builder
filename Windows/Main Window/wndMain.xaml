@@ -34,7 +34,8 @@
                     </MenuItem>
                 </MenuItem>
                 <!-- For testing only -->
-                <!--<MenuItem x:Name="miLightMode" Header="_Light" IsCheckable="True" Checked="miLightMode_Checked" />
+                <!--<MenuItem Header="_View error window" Click="MenuItem_Click"/>
+                <MenuItem x:Name="miLightMode" Header="_Light" IsCheckable="True" Checked="miLightMode_Checked"/>
                 <MenuItem x:Name="miDarkMode" Header="_Dark" IsCheckable="True" Checked="miDarkMode_Checked"/>-->
             </Menu>
 

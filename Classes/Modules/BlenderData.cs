@@ -72,7 +72,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <param name="scenes">A list of scenes for the blender file</param>
         public BlenderData(string fullPath, List<SceneData> scenes)
         {
-            _fullPath = fullPath;
+            FullPath = fullPath;  // We save it to this public setter because it will so that it automatically update the variable "_fileName"
             this.scenesInfo = scenes;
         }
         #endregion

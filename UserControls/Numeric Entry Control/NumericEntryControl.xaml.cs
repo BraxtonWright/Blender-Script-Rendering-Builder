@@ -372,7 +372,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control
         /// </summary>
         /// <param name="text">The text we are making sure only contains numbers</param>
         /// <returns>True if all the characters are digits, other wise false</returns>
-        /// <exception cref="Exception">Catches any exceptions that this method might come across.</exception>
+        /// <exception cref="Exception">Catches any exceptions that this method might come across</exception>
         private bool IsNumericInput(string text)
         {
             try
@@ -401,7 +401,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control
         /// <summary>
         /// Increments the value stored by what is stored inside the "Increment" variable up to the value stored inside "MaxValue"
         /// </summary>
-        /// <exception cref="Exception">Catches any exceptions that this method might come across.</exception>
+        /// <exception cref="Exception">Catches any exceptions that this method might come across</exception>
         private void IncrementValue()
         {
             try
@@ -418,7 +418,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control
         /// <summary>
         /// Decrements the value stored by what is stored inside the "Increment" variable up to the value stored inside "MinValue"
         /// </summary>
-        /// <exception cref="Exception">Catches any exceptions that this method might come across.</exception>
+        /// <exception cref="Exception">Catches any exceptions that this method might come across</exception>
         private void DecrementValue()
         {
             try

@@ -15,16 +15,10 @@ using Blender_Script_Rendering_Builder.UserControls.Blender_Selection;
 using System;
 using System.Reflection;
 using System.Windows;
-using System.Configuration;
 using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Classes.Modules;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Collections;
-using System.IO;
 using Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible;
 using System.Collections.Generic;
-using Microsoft.Win32;
 
 namespace Blender_Script_Rendering_Builder
 {
@@ -75,50 +69,7 @@ namespace Blender_Script_Rendering_Builder
         #endregion
 
         #region Event Listeners
-        #region Menu event listeners
-        private void miLightMode_Checked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                AppTheme.ChangeTheme(new Uri("Themes/Light.xaml", UriKind.Relative));
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        private void miDarkMode_Checked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                AppTheme.ChangeTheme(new Uri("Themes/Dark.xaml", UriKind.Relative));
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-        #endregion
-
-        /// <summary>
-        /// This event listener will listen for when you press the button to add a new blender file to be processed.
-        /// </summary>
-        /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Routed Event</param>
-        private void btnAddNewBlenderFile_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                spBlenderFiles.Children.Add(new BlenderSelection());
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                 MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
+        #region Menu item event listeners
         /// <summary>
         /// This event listener listens for when you press the menu item to change the Blender executible file location
         /// </summary>
@@ -142,23 +93,91 @@ namespace Blender_Script_Rendering_Builder
         }
 
         /// <summary>
-        /// 
+        /// This event listener listens for you you check the "Light Mode" checkbox to enable light mode for the application
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void miLightMode_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AppTheme.ChangeTheme(new Uri("Themes/Light.xaml", UriKind.Relative));
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This event listener listens for you you check the "Dark Mode" checkbox to enable dark mode for the application
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void miDarkMode_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AppTheme.ChangeTheme(new Uri("Themes/Dark.xaml", UriKind.Relative));
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+        #endregion
+
+        #region Main UI event listeners
+        /// <summary>
+        /// This event listener will listen for when you press the button to add a new blender file to be processed.
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void btnAddNewBlenderFile_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                spBlenderFiles.Children.Add(new BlenderSelection());
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                 MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Shows the shutdown dockpanel containing the control for how long to wait until the PC shutsdown
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void checkShutdownPC_Checked(object sender, RoutedEventArgs e)
         {
-            dpShutdown.Visibility = Visibility.Visible;
+            try
+            {
+                dpShutdown.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Hides the shutdown dockpanel containing the control for how long to wait until the PC shutsdown
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
         private void checkShutdownPC_Unchecked(object sender, RoutedEventArgs e)
         {
-            dpShutdown.Visibility = Visibility.Collapsed;
+            try
+            {
+                dpShutdown.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -170,28 +189,14 @@ namespace Blender_Script_Rendering_Builder
         {
             try
             {
-                SaveFileDialog saveFileDailog = new SaveFileDialog();
-                saveFileDailog.Filter = "Batch file (*.bat)|*.bat";
+                List<BlenderData> renderingInfo = new List<BlenderData>();
 
-                // If the window has closed correctly, generate the script file
-                if (saveFileDailog.ShowDialog() == true)
+                foreach (BlenderSelection blenderUserControl in spBlenderFiles.Children)
                 {
-                    List<BlenderData> renderingInfo = new List<BlenderData>();
-
-                    foreach (BlenderSelection blenderUserControl in spBlenderFiles.Children)
-                    {
-                        renderingInfo.Add(blenderUserControl.GetRenderingInfo());
-                    }
-
-                    if(logic.ScriptInfoValid(renderingInfo))
-                    {
-                        logic.GenerateScriptFile(renderingInfo, saveFileDailog.FileName, (bool)checkShutdownPC.IsChecked, necShutdownTime.Value);
-                    }
-                    else
-                    {
-                        // Display error message with the list of errors found
-                    }
+                    renderingInfo.Add(blenderUserControl.GetRenderingInfo());
                 }
+
+                logic.GenerateScriptFileIfValid(renderingInfo, (bool)checkShutdownPC.IsChecked, necShutdownTime.Value);
             }
             catch (Exception ex)
             {
@@ -199,6 +204,7 @@ namespace Blender_Script_Rendering_Builder
                               MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+        #endregion
         #endregion
     }
 }

@@ -12,14 +12,18 @@
 
 using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Classes.Modules;
+using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
+using System.Threading;
 using System.Xml;
+using System.Windows.Forms;
+using Blender_Script_Rendering_Builder.Windows.Error_List;
+
 
 namespace Blender_Script_Rendering_Builder.Main
 {
@@ -87,16 +91,70 @@ namespace Blender_Script_Rendering_Builder.Main
             }
         }
 
-        public bool ScriptInfoValid(List<BlenderData> renderInformation)
+        /// <summary>
+        /// Determine if the rendering information is valid. If it is, then it will then generate a script file using the rendering information.
+        /// </summary>
+        /// <param name="renderingInfo">A list containing all the blender files, scenes, and rendering info required to generate the script</param>
+        /// <param name="shutdown">A boolean representing if the PC should shutdown after the script finishes</param>
+        /// <param name="shutdownTime">The time in minuites for the PC to shutdown after finishing rendering</param>
+        /// <exception cref="Exception">Catches any exceptions that this method might come across</exception>
+        public void GenerateScriptFileIfValid(List<BlenderData> renderingInfo, bool shutdown, int shutdownTime)
+        {
+            try
+            {
+                ScriptInfoValid scriptInfoValid = ScriptInfoIsValid(renderingInfo);
+
+                // Info is valid so allow the user to chose where to save the file
+                if (scriptInfoValid.Valid)
+                {
+                    SaveFileDialog saveFileDailog = new SaveFileDialog();
+                    saveFileDailog.Filter = "Batch file (*.bat)|*.bat";
+
+                    // If the window has closed correctly, I.E. the user has chosen where to save the file, generate the script file
+                    if (saveFileDailog.ShowDialog() == DialogResult.OK)
+                    {
+                        GenerateScriptFile(renderingInfo, saveFileDailog.FileName, shutdown, shutdownTime);
+                    }
+                }
+                // Info is isvalid so display a new window with the list of errors found
+                else
+                {
+                    wndErrorList wndErrorList = new wndErrorList(scriptInfoValid.Errors);
+
+                    wndErrorList.Show();  //open this new window and allow the user to continue to use the original window
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Determines if the script information is valid
+        /// </summary>
+        /// <param name="renderingInfo"></param>
+        /// <returns>An instance of the class ScriptInfoValid containing two properties "Valid" and optionally "Errors" if any were detected</returns>
+        /// <exception cref="Exception">Catches any exceptions that this method might come across</exception>
+        private ScriptInfoValid ScriptInfoIsValid(List<BlenderData> renderingInfo)
         {
             try
             {
                 bool isValid = true;  // This will be modified with the &= bitwise operator, this means that this and what comes after the &= have to be true for it to stay as true.  But if one of them is false, it stays false.
+                List<ErrorTreeBranch> tree = new List<ErrorTreeBranch>();  // This is a virtual tree of the any errors it discovers while going through the data
 
                 // Foreach blender file
-                foreach (BlenderData blendData in renderInformation)
+                foreach (BlenderData blendData in renderingInfo)
                 {
-                    if (Validators.StringEmpty(blendData.FullPath)) isValid &= false;
+                    // The blender file path is not defined
+                    if (Validators.StringEmpty(blendData.FullPath))
+                    {
+                        isValid &= false;
+                        // Add a error message
+                        ErrorTreeBranch blenderBranch = new ErrorTreeBranch("A Blender file is not supplied.");
+
+                        tree.Add(blenderBranch);
+                    }
 
                     else
                     {
@@ -104,24 +162,68 @@ namespace Blender_Script_Rendering_Builder.Main
                         foreach (SceneData sceneData in blendData.scenesInfo)
                         {
                             // The scene name is not valid
-                            if (!Validators.SceneNameValid(sceneData.SceneName)) isValid &= false;
+                            if (!Validators.SceneNameValid(sceneData.SceneName))
+                            {
+                                isValid &= false;
+                                // Add a error message
+                                ErrorTreeBranch sceneBranch = new ErrorTreeBranch("A scene has no name.");
+                                ErrorTreeBranch blenderBranch = new ErrorTreeBranch("File: " + blendData.FileName);
+                                blenderBranch.BranchErrors.Add(sceneBranch);
+
+                                tree.Add(blenderBranch);
+                            }
 
                             else
                             {
+                                // Create the two instances of the class ErrorTreeBranch and create a local variable to determin if these instances of the class should be added to the tree
+                                ErrorTreeBranch sceneBranch = new ErrorTreeBranch("Scene: " + sceneData.SceneName);
+                                ErrorTreeBranch blenderBranch = new ErrorTreeBranch("File: " + blendData.FileName);
+                                bool errorsDetected = false;  // This will be modified with the |= bitwise operator, this means that this or what comes after the |= has to be true for it to become true.  But once it beomces true, it stays true.
+
                                 // Foreach rendering information
                                 foreach (RenderData renderData in sceneData.rendersInfo)
                                 {
-                                    // We inverse the return from Validators.StringEmpty() because it returns true if it is empty and we want it to be false if it is empty for this use case
-                                    // We also don't check the combobox items to see if they are null or empty because we have them default to an option.
-                                    if (renderData.RenderType == "Custom Frames") isValid &= Validators.CustomFramesValid(renderData.CustomFrames);
-                                    if (renderData.OutputPathSelection == "Browse") isValid &= !Validators.StringEmpty(renderData.OutputFullPath);
+                                    // The custom frames combobox is not valid
+                                    if (renderData.RenderType == "Custom Frames" && !Validators.CustomFramesValid(renderData.CustomFrames))
+                                    {
+                                        isValid &= false;
+
+                                        // Add a error message
+                                        ErrorTreeBranch renderBranch = new ErrorTreeBranch("A custom frame range option is not formated correctly.");
+                                        sceneBranch.BranchErrors.Add(renderBranch);
+                                        errorsDetected |= true;
+                                    }
+                                    // The output folder has not been defined
+                                    if (renderData.OutputPathSelection == "Browse for folder" && Validators.StringEmpty(renderData.OutputFullPath))
+                                    {
+                                        isValid &= false;
+
+                                        // Add a error message (WIP)
+                                        ErrorTreeBranch renderBranch = new ErrorTreeBranch("An output folder is undefined.");
+                                        sceneBranch.BranchErrors.Add(renderBranch);
+                                        errorsDetected |= true;
+                                    }
+                                }
+
+                                // If some errors were detected, add the scene to the blenderBranch and then add the blenderBranch to the tree
+                                if(errorsDetected)
+                                {
+                                    blenderBranch.BranchErrors.Add(sceneBranch);
+                                    tree.Add(blenderBranch);
                                 }
                             }
                         }
                     }
                 }
 
-                return isValid;
+                if(isValid)
+                {
+                    return new ScriptInfoValid(isValid);
+                }
+                else
+                {
+                    return new ScriptInfoValid(isValid, tree);  // WIP (need to make the class accept a list of errors generated here)
+                }
             }
             catch (Exception ex)
             {
@@ -135,8 +237,8 @@ namespace Blender_Script_Rendering_Builder.Main
         /// <param name="renderInformation">A list of BlenderData containing everything required for generateing the script</param>
         /// <param name="saveFilePath">The full path to a file where they want save the script to</param>
         /// <param name="shutdownTime">The number of minutes to wait until shuting down the PC</param>
-        /// <exception cref="Exception">Catches any exceptions that this method might come across.</exception>
-        public void GenerateScriptFile(List<BlenderData> renderInformation, string saveFilePath, bool shutdown, int shutdownTime)
+        /// <exception cref="Exception">Catches any exceptions that this method might come across</exception>
+        private void GenerateScriptFile(List<BlenderData> renderInformation, string saveFilePath, bool shutdown, int shutdownTime)
         {
             try
             {

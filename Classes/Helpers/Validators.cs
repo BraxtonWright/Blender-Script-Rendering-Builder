@@ -39,11 +39,12 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
         /// <returns>True if it is valid, false otherwise</returns>
         internal static bool CustomFramesValid(string text)
         {
+            bool textEmpty = StringEmpty(text);
             // If the text matches the following regex pattern:
             // One or more digites at the start of the string
             // Followed by ",'one or more digits'" OR ", 'one or more digits'" OR "-'one or more digits'" zero or more times
             // The the string ends
-            Match regexResults = Regex.Match(text, "^\\d+(?:,\\d+|, \\d+|-\\d+)*$");
+            Match regexResults = Regex.Match(textEmpty ? "" : text, "^\\d+(?:,\\d+|, \\d+|-\\d+)*$");
 
             // The input is valid
             if (regexResults.Success)
