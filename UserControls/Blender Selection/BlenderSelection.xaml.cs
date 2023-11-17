@@ -60,6 +60,24 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
 
         #region Event Listeners
         /// <summary>
+        /// This evnet listener will listen for then the user control is finished being loaded and once it is done, it will collapse the expander named expBlender
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void ucBlenderSelection_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            try
+            {
+                expBlender.IsExpanded = false;
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+
+        /// <summary>
         /// Deletes the user control from the parent's stack panel
         /// </summary>
         /// <param name="sender">The sender of the event</param>

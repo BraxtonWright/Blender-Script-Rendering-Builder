@@ -1,11 +1,12 @@
-﻿<UserControl x:Class="Blender_Script_Rendering_Builder.UserControls.Blender_Selection.BlenderSelection"
+﻿<UserControl x:Name="ucBlenderSelection"
+             x:Class="Blender_Script_Rendering_Builder.UserControls.Blender_Selection.BlenderSelection"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Blender_Selection"
              xmlns:SSC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Scene_Selection"
-             mc:Ignorable="d">
+             mc:Ignorable="d" Loaded="ucBlenderSelection_Loaded">
     <!-- Set the property IsExpanded to false when building it or add code to collapse it when starting the program -->
     <Expander x:Name="expBlender" Background="Red" IsExpanded="True">
         <!-- The <Expander.Header></Expander.Header> will allow us to make a custom header for the <Expander></Expander> -->

@@ -61,7 +61,24 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
 
         #region Event Listeners
         /// <summary>
-        /// 
+        /// This evnet listener will listen for then the user control is finished being loaded and once it is done, it will collapse the expander named expScene
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void ucSceneSelection_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            try
+            {
+                expScene.IsExpanded = false;
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This event listener will listen for when the scene is being deleted
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
@@ -81,7 +98,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         }
 
         /// <summary>
-        /// 
+        /// This event listener will add a new section to add 
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
@@ -89,7 +106,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         {
             try
             {
-                spRenderingInfo.Children.Add(new Render_Selection.RenderSelection());
+                spRenderingInfo.Children.Add(new RenderSelection());
             }
             catch (Exception ex)
             {

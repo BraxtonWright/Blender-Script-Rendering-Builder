@@ -1,13 +1,14 @@
-﻿<UserControl x:Class="Blender_Script_Rendering_Builder.UserControls.Scene_Selection.SceneSelection"
+﻿<UserControl x:Name="ucSceneSelection"
+             x:Class="Blender_Script_Rendering_Builder.UserControls.Scene_Selection.SceneSelection"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Scene_Selection"
              xmlns:RIC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Render_Selection"
-             mc:Ignorable="d">
+             mc:Ignorable="d" Loaded="ucSceneSelection_Loaded">
     <!-- Set the property IsExpanded to false when building it or add code to collapse it when starting the program -->
-    <Expander Background="green" IsExpanded="True">
+    <Expander x:Name="expScene" Background="green" IsExpanded="True">
         <!-- The <Expander.Header></Expander.Header> will allow us to make a custom header for the <Expander></Expander> -->
         <Expander.Header>
             <!-- The below code will make it so that we can float the Delete button to the right side of the Expander.Header Source https://stackoverflow.com/a/17334355 -->
