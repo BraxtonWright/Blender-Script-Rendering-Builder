@@ -1,4 +1,17 @@
-﻿using Blender_Script_Rendering_Builder.Classes.Helpers;
+﻿/*
+ * Braxton Wright
+ * CS 3650
+ * Blender Script Rendering Builder class ErrorTreeBranch
+ * Dr. Nichole Anderson
+ * Due: 12/6/2023
+ * Version: 1.0
+ *  ----------------------------------------------------------------------------------------------------------
+ * This file represents either a branch or leave of a tree of errors that the program has discovered in the
+ * rendering information that has been supplied to it.
+ * -----------------------------------------------------------------------------------------------------------
+ */
+
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Windows.Error_List;
 using Microsoft.VisualBasic.Logging;
 using System;

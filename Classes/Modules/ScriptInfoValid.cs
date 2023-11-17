@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*
+ * Braxton Wright
+ * CS 3650
+ * Blender Script Rendering Builder class ScriptInfoValid
+ * Dr. Nichole Anderson
+ * Due: 12/6/2023
+ * Version: 0.5
+ * -----------------------------------------------------------------------------------------------------------
+ * This file contains the variables required to return an object from a function call so the program knows if
+ * the rendering information supplied is valid or not.  If it is not valid, this class will also contain a 
+ * list of errors that were detected.
+ * -----------------------------------------------------------------------------------------------------------
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
-    internal class ScriptInfoValid
+    public class ScriptInfoValid
     {
         #region Class variables
         /// <summary>

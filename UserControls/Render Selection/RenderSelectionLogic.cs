@@ -30,7 +30,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         #endregion
 
         #region Functions
-
         #endregion
     }
 }

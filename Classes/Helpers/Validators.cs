@@ -1,4 +1,16 @@
-﻿using System;
+﻿/*
+ * Braxton Wright
+ * CS 3650
+ * Blender Script Rendering Builder abstract class Validators
+ * Dr. Nichole Anderson
+ * Due: 12/6/2023
+ * Version: 1.0
+ *  ----------------------------------------------------------------------------------------------------------
+ * This file only contains the functions required for validation of the rendering information for the script.
+ * -----------------------------------------------------------------------------------------------------------
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
