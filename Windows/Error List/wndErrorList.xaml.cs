@@ -1,6 +1,7 @@
 ﻿using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Classes.Modules;
 using Blender_Script_Rendering_Builder.Main;
+using Blender_Script_Rendering_Builder.UserControls.Bulleted_Item;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -57,16 +58,51 @@ namespace Blender_Script_Rendering_Builder.Windows.Error_List
 
         #region Functions
         /// <summary>
-        /// Populates the error tree with the required 
+        /// Populates the error tree with the required information for the user to know what to do
         /// </summary>
-        /// <param name="errors">A list of instances of ErrorTreeBranch containing the information about the tree</param>
-        public void PopulateTree(List<ErrorTreeBranch> errors)
+        /// <param name="errorTree">A list of instances of ErrorTreeBranch containing the information about the tree</param>
+        public void PopulateTree(List<ErrorTreeBranch> errorTree)
         {
-            // WIP https://stackoverflow.com/questions/18842620/how-to-fill-treeview-in-wpf-dynamically or currenlty implmenting https://stackoverflow.com/a/36664659
-            foreach (ErrorTreeBranch branch in errors)
+            try
             {
-                TreeViewItem branchInfo = logic.GetBranchInfo(branch);
-                tvErrorTree.Items.Add(branchInfo);
+                // This will go through each branch in the list of ErrorTreeBranch and will populate the tree
+                foreach (ErrorTreeBranch blendBranch in errorTree)
+                {
+                    AddBulletPoint(blendBranch.DisplayName);
+                    foreach (ErrorTreeBranch sceneBranch in blendBranch.BranchErrors)
+                    {
+                        AddBulletPoint(sceneBranch.DisplayName, 1);
+
+                        foreach (ErrorTreeBranch dataBranch in sceneBranch.BranchErrors)
+                        {
+                            AddBulletPoint(dataBranch.DisplayName, 2);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Adds a bullet point to the stackpanel named spErrors
+        /// </summary>
+        /// <param name="bulletText">The text to be displayed on the bullet point</param>
+        /// <param name="tabOffset">An optional tab offset for the bullet point</param>
+        /// <exception cref="Exception">Catches any exceptions that this method might come across</exception>
+        private void AddBulletPoint(string bulletText, int tabOffset = 0)
+        {
+            try
+            {
+                BulletedItem bulletedItem = logic.GenerateBulletPoint(bulletText, tabOffset);
+
+                spErrors.Children.Add(bulletedItem);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
         #endregion

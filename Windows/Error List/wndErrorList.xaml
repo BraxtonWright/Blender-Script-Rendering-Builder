@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.Windows.Error_List"
+        xmlns:BulletedItem ="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Bulleted_Item"
         mc:Ignorable="d"
         Title="Errors Discovered" Height="450" Width="500">
     <Grid>
@@ -12,10 +13,10 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock TextWrapping="Wrap" IsEnabled="False">
+        <TextBlock TextWrapping="Wrap">
             The following issues were discovered with the information.<LineBreak/>
             Please fix these issues and try again.
         </TextBlock>
-        <TreeView x:Name="tvErrorTree" Grid.Row="1" BorderThickness="0,0,0,0" Background="Transparent"/>
+        <StackPanel x:Name="spErrors" Grid.Row="1" Margin="0,5,0,0"/>
     </Grid>
 </Window>

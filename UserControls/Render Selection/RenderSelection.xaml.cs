@@ -207,17 +207,22 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
                         try
                         {
                             System.Windows.Forms.FolderBrowserDialog outputPath = new System.Windows.Forms.FolderBrowserDialog();
+                            // The user has selected a folder, so save the path to said folder
                             if (outputPath.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
                                 renderData.OutputFullPath = outputPath.SelectedPath;
+                                lblOutputFolder.Visibility = System.Windows.Visibility.Visible;
+                            }
+                            // The user has closed the window without defining the folder, so reset the control back to what it was before altering
+                            else
+                            {
+                                cb.SelectedItem = e.RemovedItems[0];
                             }
                         }
                         catch (Exception ex)
                         {
                             ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
                         }
-
-                        lblOutputFolder.Visibility = System.Windows.Visibility.Visible;
                         break;
                     default:
                         throw new Exception("There is no option with the name " + selectedItem);

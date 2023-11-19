@@ -22,9 +22,11 @@
 
         <!-- Column 1 (Rendering Info) -->
         <GroupBox x:Name="gbRenderType" Header="Render Info" MinWidth="230" Margin="5,0,5,0" Grid.Row="1">
-            <Grid ShowGridLines="True">
+            <Grid ShowGridLines="false" Grid.IsSharedSizeScope="True">
+                <!-- The Grid.IsSharedSizeScope="True" enables us to have children grid share the same width for any item that shares the contents of "SharedSizeGroup" https://stackoverflow.com/questions/17914005/binding-grid-column-width-inside-usercontrol-to-parent-grid-column-width -->
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
+                    <!-- Any column that has has SharedSizeGroup="FirstColumn" inside it will inherit the above column width -->
+                    <ColumnDefinition Width="auto" SharedSizeGroup="FirstColumn"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -39,9 +41,9 @@
 
                 <!-- Render type additional fields -->
                 <!-- Start/End frames -->
-                <Grid x:Name="grdStartEndFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid x:Name="grdStartEndFrames" Visibility="collapsed" Grid.Row="1" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition SharedSizeGroup="FirstColumn"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -56,9 +58,9 @@
                     <NUPC:NumericEntryControl x:Name="nupEndFrame" Grid.Row="1" Grid.Column="1" Value="{Binding EndFrame, Mode=TwoWay}"/>
                 </Grid>
                 <!-- Custom frames -->
-                <Grid x:Name="grdCustomFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False">
+                <Grid x:Name="grdCustomFrames" Visibility="collapsed" Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition SharedSizeGroup="FirstColumn"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 

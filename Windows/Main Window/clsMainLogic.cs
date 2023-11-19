@@ -143,6 +143,16 @@ namespace Blender_Script_Rendering_Builder.Main
                 bool isValid = true;  // This will be modified with the &= bitwise operator, this means that this and what comes after the &= have to be true for it to stay as true.  But if one of them is false, it stays false.
                 List<ErrorTreeBranch> tree = new List<ErrorTreeBranch>();  // This is a virtual tree of the any errors it discovers while going through the data
 
+                // If no blender files have been defined
+                if (renderingInfo.Count <= 0)
+                {
+                    isValid &= false;
+                    // Add a error message
+                    ErrorTreeBranch blenderBranch = new ErrorTreeBranch("There is no information for the script, please click the \"Add a new Blender file\" and supply the required infomration and try again.");
+
+                    tree.Add(blenderBranch);
+                }
+
                 // Foreach blender file
                 foreach (BlenderData blendData in renderingInfo)
                 {
