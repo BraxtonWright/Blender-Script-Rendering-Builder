@@ -8,7 +8,7 @@
              xmlns:Shared="clr-namespace:Blender_Script_Rendering_Builder.Classes.Helpers"
              x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Selection.RenderSelection"
              mc:Ignorable="d" Loaded="ucRenderSelection_Loaded">
-    <Grid ShowGridLines="True" Background="Blue">
+    <Grid ShowGridLines="True">
         <!-- Define 4 columns and 2 rows for the data -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -41,7 +41,7 @@
 
                 <!-- Render type additional fields -->
                 <!-- Start/End frames -->
-                <Grid x:Name="grdStartEndFrames" Visibility="collapsed" Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid x:Name="grdStartEndFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="FirstColumn"/>
                         <ColumnDefinition Width="*"/>

@@ -8,7 +8,7 @@
              xmlns:RIC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Render_Selection"
              mc:Ignorable="d" Loaded="ucSceneSelection_Loaded">
     <!-- Set the property IsExpanded to false when building it or add code to collapse it when starting the program -->
-    <Expander x:Name="expScene" Background="green" IsExpanded="True">
+    <Expander x:Name="expScene" IsExpanded="True">
         <!-- The <Expander.Header></Expander.Header> will allow us to make a custom header for the <Expander></Expander> -->
         <Expander.Header>
             <!-- The below code will make it so that we can float the Delete button to the right side of the Expander.Header Source https://stackoverflow.com/a/17334355 -->
@@ -35,7 +35,7 @@
                 <StackPanel x:Name="spRenderingInfo" Grid.Row="0">
                     <RIC:RenderSelection/>
                 </StackPanel>
-                <Button x:Name="btnNewRenderInfo" Grid.Row="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Background="Blue" Content="Add new rendering info" Click="btnNewRenderInfo_Click"/>
+                <Button x:Name="btnNewRenderInfo" Grid.Row="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Content="Add new rendering info" Click="btnNewRenderInfo_Click"/>
             </Grid>
         </Expander.Content>
     </Expander>

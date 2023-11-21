@@ -24,7 +24,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="15px"/>
+                <RowDefinition Height="15"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
@@ -39,8 +39,8 @@
                 <BSC:BlenderSelection/>
             </StackPanel>
 
-            <Button x:Name="btnAddNewBlenderFile" Grid.Row="2" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Background="Red" Content="Add a new Blender file" Click="btnAddNewBlenderFile_Click" />
-            
+            <Button x:Name="btnAddNewBlenderFile" Grid.Row="2" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Content="Add a new Blender file" Click="btnAddNewBlenderFile_Click" />
+
             <Canvas Grid.Row="3" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Background="#FFC3C3C3"/>
 
             <StackPanel Grid.Row="4">
@@ -52,7 +52,7 @@
                     <NUPC:NumericEntryControl x:Name="necShutdownTime" Width="125" HorizontalAlignment="Left" />
                 </DockPanel>
             </StackPanel>
-            <Button x:Name="btnCreateScriptFile" Grid.Row="4" Padding="5" Background="Red" Content="Build script file" Click="btnCreateScriptFile_Click" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Top"/>
+            <Button x:Name="btnCreateScriptFile" Grid.Row="4" Padding="5" Content="Build script file" Click="btnCreateScriptFile_Click" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Top"/>
         </Grid>
     </ScrollViewer>
 </Window>
