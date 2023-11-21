@@ -31,7 +31,7 @@
             <Menu Grid.ColumnSpan="2" Background="#FF797979">
                 <MenuItem Header="_Config">
                     <MenuItem x:Name="miChangeBlendExeLocation" Header="_Blender execubile location" Click="miChangeBlendExeLocation_Click"/>
-                    <ComboBox x:Name="themes"  Width="150" SelectionChanged="themes_SelectionChanged" SelectedIndex="0"/>
+                    <ComboBox x:Name="themes"  Width="150" SelectionChanged="themes_SelectionChanged"/>
                 </MenuItem>
             </Menu>
 

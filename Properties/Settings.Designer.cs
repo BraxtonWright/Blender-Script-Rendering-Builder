@@ -12,7 +12,7 @@ namespace Blender_Script_Rendering_Builder.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.8.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -37,13 +37,13 @@ namespace Blender_Script_Rendering_Builder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool UseLightMode {
+        [global::System.Configuration.DefaultSettingValueAttribute("Light")]
+        public string currentTheme {
             get {
-                return ((bool)(this["UseLightMode"]));
+                return ((string)(this["currentTheme"]));
             }
             set {
-                this["UseLightMode"] = value;
+                this["currentTheme"] = value;
             }
         }
     }

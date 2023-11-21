@@ -33,6 +33,8 @@ namespace Blender_Script_Rendering_Builder
         /// Object to perform logic for this window.
         /// </summary>
         clsMainLogic logic;
+
+        string currentTheme;
         #endregion
 
         #region Constructor
@@ -96,7 +98,7 @@ namespace Blender_Script_Rendering_Builder
 
         #region Main UI event listeners
         /// <summary>
-        /// This event listener listens for when the window loads so that it can populate the "themes" combobox
+        /// This event listener listens for when the window loads so that it can populate the "themes" combobox and select the default theme selected from the settings file
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
@@ -104,7 +106,9 @@ namespace Blender_Script_Rendering_Builder
         {
             try
             {
-                themes.ItemsSource = ThemeManager.GetThemes();
+                themes.ItemsSource = ThemeManager.GetThemes();  // Set the item source for the combobox
+
+                themes.SelectedItem = Properties.Settings.Default.currentTheme;  // Set the default selected item
             }
             catch (Exception ex)
             {
@@ -129,7 +133,12 @@ namespace Blender_Script_Rendering_Builder
                     // this.ApplyTheme(theme);
 
                     // Application Level
-                    // Application.Current.ApplyTheme(theme);
+                    Application.Current.ApplyTheme(theme);
+
+                    // Save the theme selected so it persists after you close the application
+                    Properties.Settings.Default.currentTheme = theme;
+                    Properties.Settings.Default.Save();
+
                 }
             }
             catch (Exception ex)

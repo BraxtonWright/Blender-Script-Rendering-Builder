@@ -6,7 +6,7 @@
  * Due: 12/6/2023
  * Version: 0.5
  *  ----------------------------------------------------------------------------------------------------------
- * This file contains only one fuction to enable the user to change the theme of the app
+ * This file contains only one fuction to enable the user to change the theme of the app.
  * -----------------------------------------------------------------------------------------------------------
  */
 
@@ -40,8 +40,9 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
             // The names defined inside here have to match the name of the file inside the "Themes" folder
             string[] themes = new string[]
             {
-                "Dark", "Light"
-            };
+                "Light", "Dark"
+
+        };
             return themes;
         }
 
