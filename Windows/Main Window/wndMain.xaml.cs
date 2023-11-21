@@ -19,6 +19,7 @@ using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Classes.Modules;
 using Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible;
 using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace Blender_Script_Rendering_Builder
 {
@@ -91,43 +92,52 @@ namespace Blender_Script_Rendering_Builder
                               MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
-
-        /// <summary>
-        /// This event listener listens for you you check the "Light Mode" checkbox to enable light mode for the application
-        /// </summary>
-        /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Routed Event</param>
-        private void miLightMode_Checked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                AppTheme.ChangeTheme(new Uri("Themes/Light.xaml", UriKind.Relative));
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// This event listener listens for you you check the "Dark Mode" checkbox to enable dark mode for the application
-        /// </summary>
-        /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Routed Event</param>
-        private void miDarkMode_Checked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                AppTheme.ChangeTheme(new Uri("Themes/Dark.xaml", UriKind.Relative));
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
         #endregion
 
         #region Main UI event listeners
+        /// <summary>
+        /// This event listener listens for when the window loads so that it can populate the "themes" combobox
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void wndMain_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                themes.ItemsSource = ThemeManager.GetThemes();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This event listner listens for when the selection changes to change the theme of the application
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Selection Changed Event</param>
+        private void themes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (e.AddedItems.Count > 0)
+                {
+                    string theme = e.AddedItems[0].ToString();
+
+                    // Window Level
+                    // this.ApplyTheme(theme);
+
+                    // Application Level
+                    // Application.Current.ApplyTheme(theme);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
         /// <summary>
         /// This event listener will listen for when you press the button to add a new blender file to be processed.
         /// </summary>
