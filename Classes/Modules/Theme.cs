@@ -1,4 +1,18 @@
-﻿using Blender_Script_Rendering_Builder.Classes.Helpers;
+﻿/*
+ * Braxton Wright
+ * CS 3650
+ * Blender Script Rendering Builder class Theme
+ * Dr. Nichole Anderson
+ * Due: 12/6/2023
+ * Version: 1.0
+ *  ----------------------------------------------------------------------------------------------------------
+ * This file contains the variables and functions that are required make a theme instance so we can pass
+ * around an instance of this class to make multiple instances of MenuItems to allow the user to change the
+ * theme of the application.
+ * -----------------------------------------------------------------------------------------------------------
+ */
+
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
