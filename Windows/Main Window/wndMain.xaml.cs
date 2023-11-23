@@ -106,9 +106,27 @@ namespace Blender_Script_Rendering_Builder
         {
             try
             {
-                themes.ItemsSource = ThemeManager.GetThemes();  // Set the item source for the combobox
+                this.currentTheme = Properties.Settings.Default.currentTheme;  // Gets the current theme saved, and because the theme manager is bound to this variable, it applies the theme the the application
 
-                themes.SelectedItem = Properties.Settings.Default.currentTheme;  // Set the default selected item
+                // Populate the MenuItem by adding sub-MenuItems to contain a list of available themes for the application
+                foreach (Theme theme in ThemeManager.GetThemes())
+                {
+                    MenuItem item = new MenuItem();
+                    item.Header = theme.Name;
+                    item.IsCheckable = true;
+                    item.IsChecked = theme.Name == this.currentTheme;
+                    item.Checked += miTheme_Checked;  // Add a Checked event listener to the MenuItem
+
+                    if (theme.Name == this.currentTheme)
+                    {
+                        theme.IsChecked = true;
+                        // Application Level
+                        Application.Current.ApplyTheme(theme.Name);
+                    }
+
+                    miThemes.Items.Add(item);
+                }
+
             }
             catch (Exception ex)
             {
@@ -120,26 +138,24 @@ namespace Blender_Script_Rendering_Builder
         /// This event listner listens for when the selection changes to change the theme of the application
         /// </summary>
         /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Selection Changed Event</param>
-        private void themes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void miTheme_Checked(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (e.AddedItems.Count > 0)
-                {
-                    string theme = e.AddedItems[0].ToString();
+                MenuItem menuItem = sender as MenuItem;
 
-                    // Window Level
-                    // this.ApplyTheme(theme);
+                string theme = menuItem.Header.ToString();
 
-                    // Application Level
-                    Application.Current.ApplyTheme(theme);
+                // Window Level
+                // this.ApplyTheme(theme);
 
-                    // Save the theme selected so it persists after you close the application
-                    Properties.Settings.Default.currentTheme = theme;
-                    Properties.Settings.Default.Save();
+                // Application Level
+                Application.Current.ApplyTheme(theme);
 
-                }
+                // Save the theme selected so it persists after you close the application
+                Properties.Settings.Default.currentTheme = theme;
+                Properties.Settings.Default.Save();
             }
             catch (Exception ex)
             {

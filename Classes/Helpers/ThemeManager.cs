@@ -1,17 +1,22 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder class AppTheme
+ * Blender Script Rendering Builder class ThemeManager
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  *  ----------------------------------------------------------------------------------------------------------
- * This file contains only one fuction to enable the user to change the theme of the app.
+ * This file contains fuctions to enable the user to change the theme of the app.
+ * Original source for the code is found here
+ * https://github.com/mesta1/WPF.Themes/blob/master/WPF.Themes/ThemeManager.cs (also found inside my "Files For
+ * Students" zip folder from CS 3280)
  * -----------------------------------------------------------------------------------------------------------
  */
 
+using Blender_Script_Rendering_Builder.Classes.Modules;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -35,14 +40,15 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
             return null;
         }
 
-        public static string[] GetThemes()
+        // This is modified from the orignal so instead of using a combobox, we use a menuitem.  This idea for this modification was found here https://stackoverflow.com/questions/32791619/wpf-mvvm-checking-a-menuitem-based-on-string-match/32793843#32793843
+        public static ObservableCollection<Theme> GetThemes()
         {
-            // The names defined inside here have to match the name of the file inside the "Themes" folder
-            string[] themes = new string[]
+            // The names defined inside here have to match the name of the file inside the "Themes" folder.
+            ObservableCollection<Theme> themes = new ObservableCollection<Theme>
             {
-                "Light", "Dark"
-
-        };
+                new("Light", false),
+                new("Dark", false)
+            };
             return themes;
         }
 
