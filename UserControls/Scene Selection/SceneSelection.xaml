@@ -19,7 +19,7 @@
                 <Grid>
                     <!-- The data context is set inside the .xmal.cs file for this user control in the constructor -->
                     <TextBox x:Name="txtSceneName" Text="{Binding Path=SceneName}" VerticalAlignment="Center" Padding="1" MinWidth="100" TextChanged="txtSceneName_TextChanged" LostFocus="txtSceneName_LostFocus"/>
-                    <Label x:Name="lblSceneNamePlacholder" Content="Scene's name (spaces not allowed)..." Opacity="0.5" IsHitTestVisible="False"/>
+                    <Label x:Name="lblSceneNamePlacholder" Content="Scene's name (spaces not allowed)..." Opacity="0.5" IsHitTestVisible="False" VerticalAlignment="Center"/>
                 </Grid>
                 <Button x:Name="btnSceneDelete" Content="Delete Scene" HorizontalAlignment="Right" VerticalAlignment="Center" DockPanel.Dock="Right" Click="btnSceneDelete_Click" Margin="0,0,4,0"/>
             </DockPanel>

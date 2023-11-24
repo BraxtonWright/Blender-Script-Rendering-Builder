@@ -40,7 +40,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
             return null;
         }
 
-        // This is modified from the orignal so instead of using a combobox, we use a menuitem.  This idea for this modification was found here https://stackoverflow.com/questions/32791619/wpf-mvvm-checking-a-menuitem-based-on-string-match/32793843#32793843
+        // This is modified from the orignal so instead of using a combobox, we use a set of menuitems.  This idea for this modification was found here https://stackoverflow.com/questions/32791619/wpf-mvvm-checking-a-menuitem-based-on-string-match/32793843#32793843
         public static ObservableCollection<Theme> GetThemes()
         {
             // The names defined inside here have to match the name of the file inside the "Themes" folder.

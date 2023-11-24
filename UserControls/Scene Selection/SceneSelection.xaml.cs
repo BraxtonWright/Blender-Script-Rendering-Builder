@@ -19,6 +19,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Input.StylusPlugIns;
+using System.Windows;
 
 namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
 {
@@ -150,12 +152,12 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
                 // The input is valid
                 if (Validators.SceneNameValid(txtSceneName.Text))
                 {
-                    txtSceneName.Background = Brushes.White;
+                    txtSceneName.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // This searches the *.xmal file located in the "Themes" folder for the resource with the name of "ControlBackgroundBrush".  This will make it so if you switch theme's while there is data, and the background will be updated.  Uses a combiniation of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to achive this.
                 }
                 // The input is invalid
                 else
                 {
-                    txtSceneName.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));
+                    txtSceneName.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));  // Need to see about adding this just as the above resource so when we switch themes, the text inside the textbox is more readable.  It is currently, but it could be more readable.
                 }
             }
             catch (Exception ex)

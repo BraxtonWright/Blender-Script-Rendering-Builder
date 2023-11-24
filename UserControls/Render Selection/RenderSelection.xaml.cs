@@ -125,6 +125,11 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
                     case "Custom Frames":
                         grdStartEndFrames.Visibility = System.Windows.Visibility.Collapsed;
                         grdCustomFrames.Visibility = System.Windows.Visibility.Visible;
+                        // If the text for the textbox is empty, then reset the background color to be the default color
+                        if (Validators.StringEmpty(txtCustomFrames.Text))
+                        {
+                            txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // Reset the background color of the textbox so if you go back to it, it will be reset back to how it looks like when you first made the UserControl
+                        }
                         break;
                     default:
                         throw new Exception("There is no option with the name " + selectedItem);
@@ -172,12 +177,12 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
                 // It is a valid input
                 if (Validators.CustomFramesValid(txtCustomFrames.Text))
                 {
-                    txtCustomFrames.Background = Brushes.White;
+                    txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // This searches the *.xmal file located in the "Themes" folder for the resource with the name of "ControlBackgroundBrush".  This will make it so if you switch theme's while there is data, and the background will be updated.  Uses a combiniation of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to achive this.
                 }
                 // It is invalid input
                 else
                 {
-                    txtCustomFrames.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));
+                    txtCustomFrames.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));  // Need to see about adding this just as the above resource so when we switch themes, the text inside the textbox is more readable.  It is currently, but it could be more readable.
                 }
             }
             catch (Exception ex)

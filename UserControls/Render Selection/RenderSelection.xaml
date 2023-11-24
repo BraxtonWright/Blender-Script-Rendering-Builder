@@ -8,7 +8,7 @@
              xmlns:Shared="clr-namespace:Blender_Script_Rendering_Builder.Classes.Helpers"
              x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Selection.RenderSelection"
              mc:Ignorable="d" Loaded="ucRenderSelection_Loaded">
-    <Grid ShowGridLines="True">
+    <Grid ShowGridLines="False">
         <!-- Define 4 columns and 2 rows for the data -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -36,7 +36,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Render type inputs-->
-                <Label Content="Type: " HorizontalAlignment="Right"/>
+                <Label Content="Type: " HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 <ComboBox x:Name="cmbAnimationOrFrame" SelectionChanged="cmbAnimationOrFrame_SelectionChanged" Grid.Column="1" VerticalAlignment="Center" SelectedItem="{Binding RenderType}"/>
 
                 <!-- Render type additional fields -->
@@ -51,27 +51,27 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <Label Content="Start Frame:" HorizontalAlignment="Right"/>
-                    <NUPC:NumericEntryControl x:Name="nupStartFrame" Grid.Column="1" Value="{Binding StartFrame, Mode=TwoWay}"/>
+                    <Label Content="Start Frame:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <NUPC:NumericEntryControl x:Name="nupStartFrame" Grid.Column="1" Value="{Binding StartFrame, Mode=TwoWay}" VerticalAlignment="Center"/>
 
-                    <Label Content="End Frame:" Grid.Row="1" HorizontalAlignment="Right"/>
-                    <NUPC:NumericEntryControl x:Name="nupEndFrame" Grid.Row="1" Grid.Column="1" Value="{Binding EndFrame, Mode=TwoWay}"/>
+                    <Label Content="End Frame:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <NUPC:NumericEntryControl x:Name="nupEndFrame" Grid.Row="1" Grid.Column="1" Value="{Binding EndFrame, Mode=TwoWay}" VerticalAlignment="Center"/>
                 </Grid>
                 <!-- Custom frames -->
-                <Grid x:Name="grdCustomFrames" Visibility="collapsed" Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False">
+                <Grid x:Name="grdCustomFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="FirstColumn"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Content="Custom Frame(s):" HorizontalAlignment="Right"/>
+                    <Label Content="Custom Frame(s):" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     <!-- We place the below items in the same grid so the label shows inside the textbox https://codingguides.quinnscomputing.com/2022/05/how-to-show-placeholder-text-in-wpf.html -->
                     <TextBox x:Name="txtCustomFrames" Text="{Binding CustomFrames}" VerticalAlignment="Center" Grid.Column="1" LostFocus="txtCustomFrames_LostFocus" TextChanged="txtCustomFrames_TextChanged"/>
                     <Label x:Name="lblCustomFramesPlacholder" Content="1, 3, 10-25, 30-35" Opacity="0.5" IsHitTestVisible="False" Grid.Column="1"/>
                 </Grid>
 
                 <!-- Rendering engine -->
-                <Label Content="Rendering Engine:" Grid.Row="2"/>
+                <Label Content="Rendering Engine:" Grid.Row="2" VerticalAlignment="Center"/>
                 <ComboBox x:Name="cmbRenderEngine" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" SelectedItem="{Binding RenderEngine}"/>
             </Grid>
         </GroupBox>
@@ -90,11 +90,11 @@
                 </Grid.RowDefinitions>
 
                 <!-- Output file type -->
-                <Label Content="Output file type:" HorizontalAlignment="Right"/>
+                <Label Content="Output file type:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 <ComboBox x:Name="cmbOutputFileType" Grid.Column="1" VerticalAlignment="Center" SelectedItem="{Binding OutputFileType}"/>
 
                 <!-- Output folder type -->
-                <Label Content="Output folder:" Grid.Row="1" HorizontalAlignment="Right"/>
+                <Label Content="Output folder:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                 <ComboBox x:Name="cmbOutputFolder" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" SelectionChanged="cmbOutputFolder_SelectionChanged" SelectedItem="{Binding OutputPathSelection}"/>
 
                 <!-- Output folder type additional info -->
