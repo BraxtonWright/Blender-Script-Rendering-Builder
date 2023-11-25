@@ -174,15 +174,23 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         {
             try
             {
+                ValidatorsReturn results = Validators.CustomFramesValid(txtCustomFrames.Text);
+
                 // It is a valid input
-                if (Validators.CustomFramesValid(txtCustomFrames.Text))
+                if (results.Valid)
                 {
                     txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // This searches the *.xmal file located in the "Themes" folder for the resource with the name of "ControlBackgroundBrush".  This will make it so if you switch theme's while there is data, and the background will be updated.  Uses a combiniation of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to achive this.
+
+                    txtCustomFrames.ToolTip = null;  // Clear the tooltip from the textbox so the error message will no longer show when you hover over it
                 }
                 // It is invalid input
                 else
                 {
                     txtCustomFrames.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));  // Need to see about adding this just as the above resource so when we switch themes, the text inside the textbox is more readable.  It is currently, but it could be more readable.
+
+                    ToolTip errorTooltip = new ToolTip { Content = results.ErrorMessage };
+
+                    txtCustomFrames.ToolTip = errorTooltip;
                 }
             }
             catch (Exception ex)

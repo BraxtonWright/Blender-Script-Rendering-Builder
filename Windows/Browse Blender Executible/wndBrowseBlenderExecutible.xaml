@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible"
+        Background="{DynamicResource WindowBackgroundBrush}"
         mc:Ignorable="d"
         Title="Lorem ipsum" Height="250" Width="500" ResizeMode="NoResize" Closing="window_Closing">
     <Grid>

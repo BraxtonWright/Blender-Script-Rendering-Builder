@@ -171,12 +171,14 @@ namespace Blender_Script_Rendering_Builder.Main
                         // Foreach scene
                         foreach (SceneData sceneData in blendData.scenesInfo)
                         {
+                            ValidatorsReturn results = Validators.SceneNameValid(sceneData.SceneName);
+
                             // The scene name is not valid
-                            if (!Validators.SceneNameValid(sceneData.SceneName))
+                            if (!results.Valid)
                             {
                                 isValid &= false;
                                 // Add a error message
-                                ErrorTreeBranch sceneBranch = new ErrorTreeBranch("A scene has no name.");
+                                ErrorTreeBranch sceneBranch = new ErrorTreeBranch(results.ErrorMessage);
                                 ErrorTreeBranch blenderBranch = new ErrorTreeBranch("File: " + blendData.FileName);
                                 blenderBranch.BranchErrors.Add(sceneBranch);
 
@@ -193,23 +195,26 @@ namespace Blender_Script_Rendering_Builder.Main
                                 // Foreach rendering information
                                 foreach (RenderData renderData in sceneData.rendersInfo)
                                 {
+                                    ValidatorsReturn customFrameResults = Validators.CustomFramesValid(renderData.CustomFrames);
+
+
                                     // The custom frames combobox is not valid
-                                    if (renderData.RenderType == "Custom Frames" && !Validators.CustomFramesValid(renderData.CustomFrames))
+                                    if (renderData.RenderType == "Custom Frames" && !customFrameResults.Valid)
                                     {
                                         isValid &= false;
 
                                         // Add a error message
-                                        ErrorTreeBranch renderBranch = new ErrorTreeBranch("A custom frame range option is not formated correctly.");
+                                        ErrorTreeBranch renderBranch = new ErrorTreeBranch(customFrameResults.ErrorMessage);
                                         sceneBranch.BranchErrors.Add(renderBranch);
                                         errorsDetected |= true;
                                     }
-                                    // The output folder has not been defined
+                                    // The output folder has not been defined (this should no longer be possible because if they close the folder browse window, it sets the control to use the settings inside of blender)
                                     if (renderData.OutputPathSelection == "Browse for folder" && Validators.StringEmpty(renderData.OutputFullPath))
                                     {
                                         isValid &= false;
 
                                         // Add a error message (WIP)
-                                        ErrorTreeBranch renderBranch = new ErrorTreeBranch("An output folder is undefined.");
+                                        ErrorTreeBranch renderBranch = new ErrorTreeBranch("An output folder has not been defined");
                                         sceneBranch.BranchErrors.Add(renderBranch);
                                         errorsDetected |= true;
                                     }

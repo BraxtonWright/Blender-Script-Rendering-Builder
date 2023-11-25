@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.Windows.Error_List"
         xmlns:BulletedItem ="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Bulleted_Item"
+        Background="{DynamicResource WindowBackgroundBrush}"
         mc:Ignorable="d"
         Title="Errors Discovered" Height="450" Width="500">
     <Grid>

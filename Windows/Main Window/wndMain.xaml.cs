@@ -45,23 +45,10 @@ namespace Blender_Script_Rendering_Builder
         {
             try
             {
-                InitializeComponent();
-
+                // We change the order of this because inside the event listener "wndMain_Initialized" we use the logic variable and we populate the themes menu item with a list of themes and select a default theme (which also be done inside a "Loaded" event listener, but it would result in window wndBrowseBlenderExecutible in not having a theme)
                 logic = new clsMainLogic();
 
-                BrowseBlenderExe browseBlenderExe = logic.ShouldOpenBlendApplictionWindow();
-                if (browseBlenderExe.needToOpenWindow)
-                {
-                    wndBrowseBlenderExecutible wndBrowseBlenderExecutible = new wndBrowseBlenderExecutible(browseBlenderExe.windowTitle, browseBlenderExe.windowMessage);
-
-                    wndBrowseBlenderExecutible.ShowDialog();  //open this new window and pause here in the code until the window is closed
-
-                    // If the user has not defined/redefined the application path, close/terminate this application
-                    if(!wndBrowseBlenderExecutible.Saved)
-                    {
-                        this.Close();
-                    }
-                }
+                InitializeComponent();
             }
             catch (Exception ex)
             {
@@ -94,15 +81,34 @@ namespace Blender_Script_Rendering_Builder
                               MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Temporary event listener to be removed for final production of the application
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Properties.Settings.Default.BlenderApplicationPath = "";
+                Properties.Settings.Default.Save();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
         #endregion
 
         #region Main UI event listeners
         /// <summary>
-        /// This event listener listens for when the window loads so that it can populate the "themes" combobox and select the default theme selected from the settings file
+        /// This event listener is fired just after the function "InitializeComponent" finishes executing.  This event listener will then populate the "themes" MenuItem, select the default theme selected from the settings file, and will determine if the blender application file has been not defined or changed.
         /// </summary>
-        /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Routed Event</param>
-        private void wndMain_Loaded(object sender, RoutedEventArgs e)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void wndMain_Initialized(object sender, EventArgs e)
         {
             try
             {
@@ -127,6 +133,25 @@ namespace Blender_Script_Rendering_Builder
                     miThemes.Items.Add(item);
                 }
 
+                // Determine if the user has to define the blender application location
+                BrowseBlenderExe browseBlenderExe = logic.ShouldOpenBlendApplictionWindow();
+                if (browseBlenderExe.needToOpenWindow)
+                {
+                    wndBrowseBlenderExecutible wndBrowseBlenderExecutible = new wndBrowseBlenderExecutible(browseBlenderExe.windowTitle, browseBlenderExe.windowMessage);
+
+                    this.Hide();  //hide this window from the user
+                    wndBrowseBlenderExecutible.ShowDialog();  //open this new window and pause here in the code until the window is closed
+
+                    // If the user has not defined the application path, close/terminate this application
+                    if (!wndBrowseBlenderExecutible.Saved)
+                    {
+                        this.Close();
+                    }
+                    else
+                    {
+                        this.Show();  //shows this window to the user
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -240,6 +265,7 @@ namespace Blender_Script_Rendering_Builder
             }
         }
         #endregion
+
         #endregion
     }
 }

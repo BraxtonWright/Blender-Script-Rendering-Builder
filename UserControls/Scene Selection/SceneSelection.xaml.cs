@@ -149,15 +149,22 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         {
             try
             {
+                ValidatorsReturn results = Validators.SceneNameValid(txtSceneName.Text);
+
                 // The input is valid
-                if (Validators.SceneNameValid(txtSceneName.Text))
+                if (results.Valid)
                 {
                     txtSceneName.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // This searches the *.xmal file located in the "Themes" folder for the resource with the name of "ControlBackgroundBrush".  This will make it so if you switch theme's while there is data, and the background will be updated.  Uses a combiniation of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to achive this.
+
+                    txtSceneName.ToolTip = null;  // Clear the tooltip from the textbox so the error message will no longer show when you hover over it
                 }
                 // The input is invalid
                 else
                 {
                     txtSceneName.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));  // Need to see about adding this just as the above resource so when we switch themes, the text inside the textbox is more readable.  It is currently, but it could be more readable.
+                    ToolTip errorTooltip = new ToolTip { Content = results.ErrorMessage };
+
+                    txtSceneName.ToolTip = errorTooltip;
                 }
             }
             catch (Exception ex)

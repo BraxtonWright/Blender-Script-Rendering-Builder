@@ -10,12 +10,14 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
+using Blender_Script_Rendering_Builder.Classes.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Blender_Script_Rendering_Builder.Classes.Helpers
 {
@@ -31,15 +33,26 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
         /// </summary>
         /// <param name="name">The name of the scene to test</param>
         /// <returns>True if it is valid, false otherwise</returns>
-        internal static bool SceneNameValid(string name)
+        internal static ValidatorsReturn SceneNameValid(string name)
         {
             // The will check the text to see if it is empty and if it is not, then it will then check it for spaces inside it
             bool isEmptyString = StringEmpty(name);
             bool regexValid = isEmptyString ? false : Regex.Match(name, " ").Success;
 
-            bool returnBool = !(isEmptyString || regexValid); // We inverse the results because we only want to return true if the both the isEmptyString and RegexValid are false
+            bool valid = !(isEmptyString || regexValid); // We inverse the results because we only want to return true if the both the isEmptyString and RegexValid are false
 
-            return returnBool;
+            ValidatorsReturn returnObject = new ValidatorsReturn(valid);
+
+            if(isEmptyString)
+            {
+                returnObject.ErrorMessage += "The scene's name is required";
+            }
+            else if (regexValid)
+            {
+                returnObject.ErrorMessage += "The scene's name can't contain spaces";
+            }
+
+            return returnObject;
         }
         #endregion
 
@@ -49,25 +62,29 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
         /// </summary>
         /// <param name="text">The text to check</param>
         /// <returns>True if it is valid, false otherwise</returns>
-        internal static bool CustomFramesValid(string text)
+        internal static ValidatorsReturn CustomFramesValid(string text)
         {
-            bool textEmpty = StringEmpty(text);
+            bool isEmptyString = StringEmpty(text);
             // If the text matches the following regex pattern:
             // One or more digites at the start of the string
             // Followed by ",'one or more digits'" OR ", 'one or more digits'" OR "-'one or more digits'" zero or more times
             // The the string ends
-            Match regexResults = Regex.Match(textEmpty ? "" : text, "^\\d+(?:,\\d+|, \\d+|-\\d+)*$");
+            bool regexValid = isEmptyString ? false : Regex.Match(text, "^\\d+(?:,\\d+|, \\d+|-\\d+)*$").Success;
 
-            // The input is valid
-            if (regexResults.Success)
+            bool valid = !(isEmptyString || !regexValid); // We inverse the results because we only want to return true if the both the isEmptyString and RegexValid are false
+
+            ValidatorsReturn returnObject = new ValidatorsReturn(valid);
+
+            if (isEmptyString)
             {
-                return true;
+                returnObject.ErrorMessage = "The field is required";
             }
-            // The input is invalid
-            else
+            else if (!regexValid)
             {
-                return false;
+                returnObject.ErrorMessage = "The field doesn't match the required pattern";
             }
+
+            return returnObject;
         }
         #endregion
 

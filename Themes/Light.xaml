@@ -51,7 +51,6 @@
     <SolidColorBrush x:Key="DisabledBorderBrush" Color="#AAA" />
     <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFFFFFFF" />
 
-
     <!-- EXPRESSION COMMON VALUES -->
 
     <LinearGradientBrush x:Key="ShineBrush" EndPoint="0.5,0.971" StartPoint="0.5,0.042">
@@ -93,7 +92,7 @@
         <Setter Property="Background" Value="{DynamicResource NormalBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource NormalBorderBrush}" />
-<Setter Property="Template" Value="{DynamicResource ButtonTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource ButtonTemplate}" />
     </Style>
     
     <ControlTemplate x:Key="ButtonTemplate" TargetType="{x:Type Button}">
