@@ -28,7 +28,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Menu x:Name="miClearBlendExec" Grid.ColumnSpan="2" Background="#FF797979">
+            <Menu x:Name="miClearBlendExec" Grid.ColumnSpan="2">
                 <MenuItem Header="_Config">
                     <MenuItem x:Name="miChangeBlendExeLocation" Header="_Blender execubile location" Click="miChangeBlendExeLocation_Click"/>
                     <MenuItem x:Name="miThemes" Header="Theme">
@@ -49,7 +49,7 @@
 
             <Button x:Name="btnAddNewBlenderFile" Grid.Row="2" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Content="Add a new Blender file" Click="btnAddNewBlenderFile_Click" />
 
-            <Canvas Grid.Row="3" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Background="#FFC3C3C3"/>
+            <Canvas Grid.Row="3" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Background="{DynamicResource ShadeBrush}"/>
 
             <StackPanel Grid.Row="4">
                 <CheckBox x:Name="checkShutdownPC"  VerticalContentAlignment="Center" Checked="checkShutdownPC_Checked" Unchecked="checkShutdownPC_Unchecked">

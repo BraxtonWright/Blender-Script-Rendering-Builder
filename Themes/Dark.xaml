@@ -25,7 +25,7 @@
 
     <Color x:Key="BlackColor">#FF000000</Color>
     <Color x:Key="WhiteColor">#FFFFFFFF</Color>
-
+    
     <SolidColorBrush x:Key="TextBrush" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="NormalBrush" Color="{StaticResource MainColor}" />
     <SolidColorBrush x:Key="NormalBorderBrush" Color="#FF333333" />
@@ -75,6 +75,12 @@
 
     <SolidColorBrush x:Key="DefaultedBorderBrush" Color="{StaticResource DefaultColor}" />
     <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
+    
+    <!--#region Code Braxton added-->    
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    </Style>
+    <!--#endregion-->
 
     <Style x:Key="NuclearButtonFocusVisual">
         <Setter Property="Control.Template">
