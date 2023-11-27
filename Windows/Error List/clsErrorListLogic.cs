@@ -49,19 +49,19 @@ namespace Blender_Script_Rendering_Builder.Windows.Error_List
                 margin.Left += 15 * tabOffset;
                 bulletedItem.Margin = margin;
 
-                // Change the style of the bullet depending on what the tabOffset is
+                // Change the style of the bullet depending on what the tabOffset is.  The code for the SetResourceReference() was found here https://joshsmithonwpf.wordpress.com/2007/06/29/how-to-set-a-property-to-a-dynamicresource-reference-in-code/
                 switch (tabOffset)
                 {
                     case 0:
-                        // Keep the default style
+                        bulletedItem.SetResourceReference(BulletedItem.BulletFillProperty, "PrimaryBullitFillBrush");
                         break;
                     case 1:
-                        bulletedItem.BulletFill = new SolidColorBrush(Colors.Gray);
+                        bulletedItem.SetResourceReference(BulletedItem.BulletFillProperty, "SecondaryBullitFillBrush");
+                        //bulletedItem.BulletFill = new SolidColorBrush(Colors.Gray);
                         break;
                     case 2:
-                        bulletedItem.BulletFill = new SolidColorBrush(Colors.Transparent);
+                        bulletedItem.SetResourceReference(BulletedItem.BulletFillProperty, "TertiaryBullitFillBrush");
                         break;
-
                     default:
                         throw new Exception($"There is no switch condition for the tab offset of \"{tabOffset}\".");
                 }

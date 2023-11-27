@@ -7,17 +7,19 @@
         Background="{DynamicResource WindowBackgroundBrush}"
         mc:Ignorable="d"
         Title="Lorem ipsum" Height="250" Width="500" ResizeMode="NoResize" Closing="window_Closing">
-    <Grid>
+    <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <!-- The Height="*" makes it so that it fills up the remaining space that is left over after the remaining rows are filled up -->
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="tbMessage" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." Margin="15,0,15,0" FontSize="18"/>
-        <Grid>
+        
+        <Grid Grid.Row="1" ShowGridLines="True">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
             <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10,0,10" Click="btnBrowse_Click"/>

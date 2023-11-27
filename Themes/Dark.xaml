@@ -25,7 +25,16 @@
 
     <Color x:Key="BlackColor">#FF000000</Color>
     <Color x:Key="WhiteColor">#FFFFFFFF</Color>
-    
+
+    <!--#region Code Braxton added-->
+    <Color x:Key="LightGrayColor">#7f7f7f</Color>
+    <Color x:Key="TransparentColor">#00000000</Color>
+
+    <SolidColorBrush x:Key="PrimaryBullitFillBrush" Color="{StaticResource WhiteColor}"/>
+    <SolidColorBrush x:Key="SecondaryBullitFillBrush" Color="{StaticResource LightGrayColor}"/>
+    <SolidColorBrush x:Key="TertiaryBullitFillBrush" Color="{StaticResource TransparentColor}"/>
+    <!--#endregion-->
+
     <SolidColorBrush x:Key="TextBrush" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="NormalBrush" Color="{StaticResource MainColor}" />
     <SolidColorBrush x:Key="NormalBorderBrush" Color="#FF333333" />
