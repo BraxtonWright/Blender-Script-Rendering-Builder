@@ -29,39 +29,50 @@
             <MenuItem Header="_Clear Blender Executable Storage" Click="MenuItem_Click"/>
         </Menu>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <Grid ShowGridLines="False">
-                <!--Split the window into 4 parts, the top 2 for the rendering information and the bottom left for the "Add new Blender file" button and the bottom right for the "Create script file" button".-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="5,0,5,0">
+                <Grid ShowGridLines="False">
+                    <!--Split the window into 4 parts, the top 2 for the rendering information and the bottom left for the "Add new Blender file" button and the bottom right for the "Create script file" button".-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel x:Name="spBlenderFiles" Grid.ColumnSpan="2">
+                        <BSC:BlenderSelection/>
+                    </StackPanel>
+
+                    <Button x:Name="btnAddNewBlenderFile" Grid.Row="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Content="Add a new Blender file" Click="btnAddNewBlenderFile_Click" />
+                </Grid>
+            </ScrollViewer>
+
+            <Grid DockPanel.Dock="Bottom" Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
+                
+                <Canvas HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Background="{DynamicResource ShadeBrush}"/>
 
-                <StackPanel x:Name="spBlenderFiles" Grid.ColumnSpan="2">
-                    <BSC:BlenderSelection/>
-                </StackPanel>
-
-                <Button x:Name="btnAddNewBlenderFile" Grid.Row="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" Padding="5" Content="Add a new Blender file" Click="btnAddNewBlenderFile_Click" />
-
-                <Canvas Grid.Row="2" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Background="{DynamicResource ShadeBrush}"/>
-
-                <StackPanel Grid.Row="4">
-                    <CheckBox x:Name="checkShutdownPC"  VerticalContentAlignment="Center" Checked="checkShutdownPC_Checked" Unchecked="checkShutdownPC_Unchecked" Margin="5,5,0,10">
+                <StackPanel Grid.Row="2" Margin="5,5,0,5">
+                    <CheckBox x:Name="checkShutdownPC"  VerticalContentAlignment="Center" Checked="checkShutdownPC_Checked" Unchecked="checkShutdownPC_Unchecked" Margin="0,5,0,5">
                         <Label Content="Shutdown PC after rendering"/>
                     </CheckBox>
                     <DockPanel x:Name="dpShutdown" Visibility="Visible">
-                        <Label Content="Wait to shutdown (minutes):" Margin="0,0,15,0"/>
-                        <NEC:NumericEntryControl x:Name="necShutdownTime" Width="125" HorizontalAlignment="Left" />
+                        <Label Content="Wait to shutdown (minutes):"/>
+                        <NEC:NumericEntryControl x:Name="necShutdownTime" Width="125" HorizontalAlignment="Left" DockPanel.Dock="Right" />
                     </DockPanel>
                 </StackPanel>
-                <Button x:Name="btnCreateScriptFile" Grid.Row="4" Padding="5" Content="Build script file" Click="btnCreateScriptFile_Click" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Top" Margin="5,5,5,5"/>
+                <Button x:Name="btnCreateScriptFile" Grid.Row="2" Grid.Column="1" Padding="5" Content="Build script file" Click="btnCreateScriptFile_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,5,5,5"/>
             </Grid>
-        </ScrollViewer>
+        </Grid>
     </DockPanel>
 </Window>
