@@ -4,7 +4,7 @@
  * Blender Script Rendering Builder UserControl SceneSelection
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  *  ----------------------------------------------------------------------------------------------------------
  * This file contains the required event listeners for the UserControl SceneSelection.
  * -----------------------------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
 
         #region Event Listeners
         /// <summary>
-        /// This evnet listener will listen for then the user control is finished being loaded and once it is done, it will collapse the expander named expScene
+        /// This event listener will listen for then the user control is finished being loaded and once it is done, it will collapse the expander named expScene
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
@@ -117,7 +117,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         }
 
         /// <summary>
-        /// This event listener will hide or show the placeholder text for the textbox depending on if the textbox is empty
+        /// This event listener will hide or show the placeholder text for the text box depending on if the text box is empty
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Text Changed Event</param>
@@ -154,14 +154,14 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
                 // The input is valid
                 if (results.Valid)
                 {
-                    txtSceneName.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // This searches the *.xmal file located in the "Themes" folder for the resource with the name of "ControlBackgroundBrush".  This will make it so if you switch theme's while there is data, and the background will be updated.  Uses a combiniation of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to achive this.
+                    txtSceneName.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // This searches the *.xmal file located in the "Themes" folder for the resource with the name of "ControlBackgroundBrush".  This will make it so if you switch theme's while there is data, and the background will be updated.  Uses a combination of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to chive this.
 
-                    txtSceneName.ToolTip = null;  // Clear the tooltip from the textbox so the error message will no longer show when you hover over it
+                    txtSceneName.ToolTip = null;  // Removes the tool tip from the text box so the error message will no longer show when you hover over it
                 }
                 // The input is invalid
                 else
                 {
-                    txtSceneName.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));  // Need to see about adding this just as the above resource so when we switch themes, the text inside the textbox is more readable.  It is currently, but it could be more readable.
+                    txtSceneName.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));  // Need to see about adding this just as the above resource so when we switch themes, the text inside the text box is more readable.  It is currently, but it could be more readable.
                     ToolTip errorTooltip = new ToolTip { Content = results.ErrorMessage };
 
                     txtSceneName.ToolTip = errorTooltip;
@@ -181,7 +181,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
         /// <returns>A new instance of the class SceneData containing all the necessary information required for the render</returns>
         public SceneData GetRenderingInfo()
         {
-            // The reason why we are creating a new instance of the object is because with the current implmentation of this program, I do not at runtime add/remove items from the "sceneData.rendersInfo".  If I were to simply set the variable "returnData" to be equal to the varaible "sceneData", it would create a reference to it and then when we would add items to the "rendersInfo" section inside "returnData", it would also add them to the "sceneData" varaible.  However, I also cannot simply make a new insance of the list of rendering information using the same method as the blender file's full path, it would still create a referece because it is a list.  So i create a new empty list of data and add to it.
+            // The reason why we are creating a new instance of the object is because with the current implementation of this program, I do not at runtime add/remove items from the "sceneData.rendersInfo".  If I were to simply set the variable "returnData" to be equal to the variable "sceneData", it would create a reference to it and then when we would add items to the "rendersInfo" section inside "returnData", it would also add them to the "sceneData" variable.  However, I also cannot simply make a new insane of the list of rendering information using the same method as the blender file's full path, it would still create a referee because it is a list.  So i create a new empty list of data and add to it.
             SceneData returnData = new SceneData(sceneData.SceneName, new List<RenderData>());
 
             foreach(RenderSelection renderSelection in spRenderingInfo.Children)

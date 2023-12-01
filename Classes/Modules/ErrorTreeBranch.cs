@@ -32,7 +32,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         public string DisplayName { get; private set; }
 
         /// <summary>
-        /// A list of errors that are associoated with the branch
+        /// A list of errors that are associated with the branch
         /// </summary>
         public List<ErrorTreeBranch> BranchErrors { get; set; }
         #endregion
@@ -43,7 +43,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// </summary>
         private ErrorTreeBranch()
         {
-            BranchErrors = new List<ErrorTreeBranch>();  // Initalize the BranchErrors list so we can add to it.
+            BranchErrors = new List<ErrorTreeBranch>();  // Initializes the BranchErrors list so we can add to it.
         }
 
         /// <summary>

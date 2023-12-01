@@ -66,9 +66,9 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
         {
             bool isEmptyString = StringEmpty(text);
             // If the text matches the following regex pattern:
-            // One or more digites at the start of the string
+            // One or more digits at the start of the string
             // Followed by ",'one or more digits'" OR ", 'one or more digits'" OR "-'one or more digits'" zero or more times
-            // The the string ends
+            // The string ends
             bool regexValid = isEmptyString ? false : Regex.Match(text, "^\\d+(?:,\\d+|, \\d+|-\\d+)*$").Success;
 
             bool valid = !(isEmptyString || !regexValid); // We inverse the results because we only want to return true if the both the isEmptyString and RegexValid are false

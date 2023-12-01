@@ -37,7 +37,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Bulleted_Item
         #region .Net property wrappers
         private static readonly SolidColorBrush _defaultBrush = new SolidColorBrush(Colors.Black);
 
-        // The new UIPropertyMetadata() applies a default to the below properties if one is not defined https://stackoverflow.com/a/72543547
+        // The new UIPropertyMetadata() applies a default to the below properties if they are not defined or configured when this user control is created https://stackoverflow.com/a/72543547
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register("BulletText", typeof(string), typeof(BulletedItem));
         public static readonly DependencyProperty BulletFillProperty = DependencyProperty.Register("BulletFill", typeof(SolidColorBrush), typeof(BulletedItem), new UIPropertyMetadata(_defaultBrush));
         public static readonly DependencyProperty BulletOutlineProperty = DependencyProperty.Register("BulletOutline", typeof(SolidColorBrush), typeof(BulletedItem), new UIPropertyMetadata(_defaultBrush));
@@ -73,6 +73,9 @@ namespace Blender_Script_Rendering_Builder.UserControls.Bulleted_Item
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public BulletedItem()
         {
             InitializeComponent();

@@ -4,7 +4,7 @@
  * Blender Script Rendering Builder UserControl RenderSelection
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  *  ----------------------------------------------------------------------------------------------------------
  * This file contains the required event listeners for the UserControl RenderSelection.
  * -----------------------------------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
 
         #region Event Listeners
         /// <summary>
-        /// This is ran when the user control is done being loaded so that we can set the default selected combobox items, I.E. use what is defined in the blender file
+        /// This is ran when the user control is done being loaded so that we can set the default selected combo box items, I.E. use what is defined in the blender file
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. an Routed Event</param>
@@ -125,10 +125,10 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
                     case "Custom Frames":
                         grdStartEndFrames.Visibility = System.Windows.Visibility.Collapsed;
                         grdCustomFrames.Visibility = System.Windows.Visibility.Visible;
-                        // If the text for the textbox is empty, then reset the background color to be the default color
+                        // If the text for the text box is empty, then reset the background color to be the default color
                         if (Validators.StringEmpty(txtCustomFrames.Text))
                         {
-                            txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // Reset the background color of the textbox so if you go back to it, it will be reset back to how it looks like when you first made the UserControl
+                            txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // Reset the background color of the text box so if you go back to it, it will be reset back to how it looks like when you first made the UserControl
                         }
                         break;
                     default:
@@ -142,7 +142,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         }
 
         /// <summary>
-        /// This event listener listens for when the you change the text in a texbox to hide/show the placeholder text for the textbox
+        /// This event listener listens for when the you change the text in a textbook to hide/show the placeholder text for the text box
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Text Changed Event</param>
@@ -166,7 +166,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         }
 
         /// <summary>
-        /// This event listener listens for when the textbox looses focus so it can determin if the input is a valid string
+        /// This event listener listens for when the text box looses focus so it can determine if the input is a valid string
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
@@ -179,14 +179,14 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
                 // It is a valid input
                 if (results.Valid)
                 {
-                    txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // This searches the *.xmal file located in the "Themes" folder for the resource with the name of "ControlBackgroundBrush".  This will make it so if you switch theme's while there is data, and the background will be updated.  Uses a combiniation of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to achive this.
+                    txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // This searches the *.xmal file located in the "Themes" folder for the resource with the name of "ControlBackgroundBrush".  This will make it so if you switch theme's while there is data, and the background will be updated.  Uses a combination of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to chive this.
 
-                    txtCustomFrames.ToolTip = null;  // Clear the tooltip from the textbox so the error message will no longer show when you hover over it
+                    txtCustomFrames.ToolTip = null;  // Removes the tool tip from the text box so the error message will no longer show when you hover over it
                 }
                 // It is invalid input
                 else
                 {
-                    txtCustomFrames.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));  // Need to see about adding this just as the above resource so when we switch themes, the text inside the textbox is more readable.  It is currently, but it could be more readable.
+                    txtCustomFrames.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));  // Need to see about adding this just as the above resource so when we switch themes, the text inside the text box is more readable.  It is currently, but it could be more readable.
 
                     ToolTip errorTooltip = new ToolTip { Content = results.ErrorMessage };
 
@@ -251,7 +251,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         #region Functions
         #region Combobox fillers
         /// <summary>
-        /// Fills the comboboxes for the render type, engine, file output type, and output folder.
+        /// Fills the combo boxes for the render type, engine, file output type, and output folder.
         /// </summary>
         private void FillComboBoxes()
         {
@@ -262,7 +262,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         }
 
         /// <summary>
-        /// Fills the combobox for the type of render
+        /// Fills the combo box for the type of render
         /// </summary>
         private void FillAnimationOrFrameCombobox()
         {
@@ -278,7 +278,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         }
 
         /// <summary>
-        /// Fills the combobox for the render engine
+        /// Fills the combo box for the render engine
         /// </summary>
         private void FillRenderEngineCombobox()
         {
@@ -294,7 +294,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         }
 
         /// <summary>
-        /// Fills the combobox for the output file type
+        /// Fills the combo box for the output file type
         /// </summary>
         private void FillOutputFileTypeComboBox()
         {
@@ -316,7 +316,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
         }
 
         /// <summary>
-        /// Fills the combobox for the output folder for the render
+        /// Fills the combo box for the output folder for the render
         /// </summary>
         private void FillOutputFolderComboBox()
         {

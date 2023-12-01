@@ -1,4 +1,16 @@
-﻿using Blender_Script_Rendering_Builder.Classes.Helpers;
+﻿/*
+ * Braxton Wright
+ * CS 3650
+ * Blender Script Rendering Builder class clsErrorListLogic
+ * Dr. Nichole Anderson
+ * Due: 12/6/2023
+ * Version: 1.0
+ *  ----------------------------------------------------------------------------------------------------------
+ * This file contains the logistic for the error list window so that the logistics is not behind the UI.
+ * -----------------------------------------------------------------------------------------------------------
+ */
+
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Classes.Modules;
 using Blender_Script_Rendering_Builder.UserControls.Bulleted_Item;
 using System;
@@ -35,7 +47,7 @@ namespace Blender_Script_Rendering_Builder.Windows.Error_List
         /// </summary>
         /// <param name="bulletText">The text to be displayed on the bullet point</param>
         /// <param name="tabOffset">An optional tab offset for the bullet point</param>
-        /// <returns>A instance of the usercontrol BulletedItem for the item</returns>
+        /// <returns>A instance of the user control BulletedItem for the item</returns>
         /// <exception cref="Exception">Catches any exceptions that this method might come across</exception>
         public BulletedItem GenerateBulletPoint(string bulletText, int tabOffset = 0)
         {

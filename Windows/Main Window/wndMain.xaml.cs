@@ -1,10 +1,10 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder Window wndMain
+ * Blender Script Rendering Builder Window MainWindow
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  *  ----------------------------------------------------------------------------------------------------------
  * This file contains the required event listeners for the main window.
  * -----------------------------------------------------------------------------------------------------------
@@ -17,7 +17,7 @@ using System.Reflection;
 using System.Windows;
 using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Classes.Modules;
-using Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible;
+using Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executable;
 using System.Collections.Generic;
 using System.Windows.Controls;
 
@@ -61,7 +61,7 @@ namespace Blender_Script_Rendering_Builder
         #region Event Listeners
         #region Menu item event listeners
         /// <summary>
-        /// This event listener listens for when you press the menu item to change the Blender executible file location
+        /// This event listener listens for when you press the menu item to change the Blender executable file location
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
@@ -69,8 +69,8 @@ namespace Blender_Script_Rendering_Builder
         {
             try
             {
-                string windowMessage = "Here you can redefine where the Blender executiable file is located if you installed a new version of Blender or you mis-configured the setting.  If you wish to change it, click the browse button.";
-                wndBrowseBlenderExecutible browseBlenderExecutible = new wndBrowseBlenderExecutible("Change executible location", windowMessage);
+                string windowMessage = "Here you can redefine where the Blender executable file is located if you installed a new version of Blender or you mis-configured the setting.  If you wish to change it, click the browse button.";
+                wndBrowseBlenderExecutable browseBlenderExecutible = new wndBrowseBlenderExecutable("Change executable location", windowMessage);
                 browseBlenderExecutible.Owner = this;  //this sets it so that the search window owner is this window (so it loads where this window is currently)
 
                 browseBlenderExecutible.ShowDialog();  //open this new window and pause here in the code until the window is closed
@@ -106,8 +106,8 @@ namespace Blender_Script_Rendering_Builder
         /// <summary>
         /// This event listener is fired just after the function "InitializeComponent" finishes executing.  This event listener will then populate the "themes" MenuItem, select the default theme selected from the settings file, and will determine if the blender application file has been not defined or changed.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. an Event</param>
         private void wndMain_Initialized(object sender, EventArgs e)
         {
             try
@@ -137,7 +137,7 @@ namespace Blender_Script_Rendering_Builder
                 BrowseBlenderExe browseBlenderExe = logic.ShouldOpenBlendApplictionWindow();
                 if (browseBlenderExe.needToOpenWindow)
                 {
-                    wndBrowseBlenderExecutible wndBrowseBlenderExecutible = new wndBrowseBlenderExecutible(browseBlenderExe.windowTitle, browseBlenderExe.windowMessage);
+                    wndBrowseBlenderExecutable wndBrowseBlenderExecutible = new wndBrowseBlenderExecutable(browseBlenderExe.windowTitle, browseBlenderExe.windowMessage);
 
                     this.Hide();  //hide this window from the user
                     wndBrowseBlenderExecutible.ShowDialog();  //open this new window and pause here in the code until the window is closed
@@ -160,7 +160,7 @@ namespace Blender_Script_Rendering_Builder
         }
 
         /// <summary>
-        /// This event listner listens for when the selection changes to change the theme of the application
+        /// This event lister listens for when the selection changes to change the theme of the application
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
@@ -207,7 +207,7 @@ namespace Blender_Script_Rendering_Builder
         }
 
         /// <summary>
-        /// Shows the shutdown dockpanel containing the control for how long to wait until the PC shutsdown
+        /// Shows the shutdown dock panel containing the control for how long to wait until the PC shutdown
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
@@ -224,7 +224,7 @@ namespace Blender_Script_Rendering_Builder
         }
 
         /// <summary>
-        /// Hides the shutdown dockpanel containing the control for how long to wait until the PC shutsdown
+        /// Hides the shutdown dock panel containing the control for how long to wait until the PC shutdown
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
@@ -265,7 +265,6 @@ namespace Blender_Script_Rendering_Builder
             }
         }
         #endregion
-
         #endregion
     }
 }

@@ -1,10 +1,10 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder Window MainWindow
+ * Blender Script Rendering Builder window wndBrowseBlenderExecutable
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  *  ----------------------------------------------------------------------------------------------------------
  * This file contains the required event listeners for the main window.
  * -----------------------------------------------------------------------------------------------------------
@@ -16,12 +16,12 @@ using System.Reflection;
 using System.Windows;
 using Microsoft.Win32;
 
-namespace Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible
+namespace Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executable
 {
     /// <summary>
     /// Interaction logic for wndBrowseBlenderExecutible.xaml
     /// </summary>
-    public partial class wndBrowseBlenderExecutible : Window
+    public partial class wndBrowseBlenderExecutable : Window
     {
         #region Variables
         /// <summary>
@@ -30,7 +30,7 @@ namespace Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible
         private clsBrowseBlenderExecutibleLogic logic;
 
         /// <summary>
-        /// Used to temporarly save the path of the blender application file
+        /// Used to temporarily save the path of the blender application file
         /// </summary>
         private string _blenderApplicationPath;
 
@@ -51,7 +51,7 @@ namespace Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible
         /// </summary>
         /// <param name="windowTitle">The title of the window</param>
         /// <param name="windowMessage">The message to be displayed on the window</param>
-        public wndBrowseBlenderExecutible(string windowTitle, string windowMessage)
+        public wndBrowseBlenderExecutable(string windowTitle, string windowMessage)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible
         #endregion
 
         /// <summary>
-        /// This event listener will listen for when you press the button to browse for a blender application's executible.
+        /// This event listener will listen for when you press the button to browse for a blender application's executable.
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
@@ -80,7 +80,7 @@ namespace Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible
             try
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "Executible files (*.exe)|*.exe";
+                openFileDialog.Filter = "Executable files (*.exe)|*.exe";
                 if (openFileDialog.ShowDialog() == true)
                 {
                     _blenderApplicationPath = openFileDialog.FileName;
@@ -112,7 +112,6 @@ namespace Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executible
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
-
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // If the save button is enabled and the user has not press it

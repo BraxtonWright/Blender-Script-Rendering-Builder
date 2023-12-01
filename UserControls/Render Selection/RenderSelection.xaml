@@ -9,7 +9,7 @@
              x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Selection.RenderSelection"
              mc:Ignorable="d" Loaded="ucRenderSelection_Loaded">
     <Grid ShowGridLines="False">
-        <!-- Define 4 columns and 2 rows for the data -->
+        <!-- Define 3 columns and 2 rows for the data -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
@@ -25,7 +25,7 @@
             <Grid ShowGridLines="false" Grid.IsSharedSizeScope="True">
                 <!-- The Grid.IsSharedSizeScope="True" enables us to have children grid share the same width for any item that shares the contents of "SharedSizeGroup" https://stackoverflow.com/questions/17914005/binding-grid-column-width-inside-usercontrol-to-parent-grid-column-width -->
                 <Grid.ColumnDefinitions>
-                    <!-- Any column that has has SharedSizeGroup="FirstColumn" inside it will inherit the above column width -->
+                    <!-- Any column that has SharedSizeGroup="FirstColumn" inside it will inherit the above column width -->
                     <ColumnDefinition Width="auto" SharedSizeGroup="FirstColumn"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -65,7 +65,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Custom Frame(s):" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                    <!-- We place the below items in the same grid so the label shows inside the textbox https://codingguides.quinnscomputing.com/2022/05/how-to-show-placeholder-text-in-wpf.html -->
+                    <!-- We place the below items in the same grid so the label shows inside the text box https://codingguides.quinnscomputing.com/2022/05/how-to-show-placeholder-text-in-wpf.html -->
                     <TextBox x:Name="txtCustomFrames" Text="{Binding CustomFrames}" VerticalAlignment="Center" Grid.Column="1" LostFocus="txtCustomFrames_LostFocus" TextChanged="txtCustomFrames_TextChanged"/>
                     <Label x:Name="lblCustomFramesPlacholder" Content="1, 3, 10-25, 30-35" Opacity="0.5" IsHitTestVisible="False" Grid.Column="1"/>
                 </Grid>

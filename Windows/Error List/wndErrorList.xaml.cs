@@ -1,4 +1,16 @@
-﻿using Blender_Script_Rendering_Builder.Classes.Helpers;
+﻿/*
+ * Braxton Wright
+ * CS 3650
+ * Blender Script Rendering Builder window wndErrorList
+ * Dr. Nichole Anderson
+ * Due: 12/6/2023
+ * Version: 1.0
+ *  ----------------------------------------------------------------------------------------------------------
+ * This file contains the required event listeners for the error list window.
+ * -----------------------------------------------------------------------------------------------------------
+ */
+
+using Blender_Script_Rendering_Builder.Classes.Helpers;
 using Blender_Script_Rendering_Builder.Classes.Modules;
 using Blender_Script_Rendering_Builder.Main;
 using Blender_Script_Rendering_Builder.UserControls.Bulleted_Item;
@@ -87,7 +99,7 @@ namespace Blender_Script_Rendering_Builder.Windows.Error_List
         }
 
         /// <summary>
-        /// Adds a bullet point to the stackpanel named spErrors
+        /// Adds a bullet point to the stack panel named spErrors
         /// </summary>
         /// <param name="bulletText">The text to be displayed on the bullet point</param>
         /// <param name="tabOffset">An optional tab offset for the bullet point</param>

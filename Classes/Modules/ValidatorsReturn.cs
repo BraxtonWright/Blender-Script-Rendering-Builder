@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*
+ * Braxton Wright
+ * CS 3650
+ * Blender Script Rendering Builder class ValidatorsReturn
+ * Dr. Nichole Anderson
+ * Due: 12/6/2023
+ * Version: 1.0
+ *  ----------------------------------------------------------------------------------------------------------
+ * This file simply contains the variables required for the Validators class so we can return a custom data
+ * type to the calling function.
+ * -----------------------------------------------------------------------------------------------------------
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,7 +55,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// Overloaded constructor
         /// </summary>
         /// <param name="valid">A bool representing if the information is valid or not</param>
-        /// <param name="errorMessage">A string representing the error discovered in the validator</param>
+        /// <param name="errorMessage">A string representing the error discovered and to be displayed</param>
         public ValidatorsReturn(bool valid, string errorMessage) : this(valid)  // This constructor inherits from the above constructor so we don't need include the same code inside this constructor
         {
             string ErrorMessage = errorMessage;

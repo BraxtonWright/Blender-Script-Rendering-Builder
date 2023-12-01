@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="26" d:DesignWidth="200">
     <DockPanel d:LayoutOverrides="Width">
-        <!-- Add two buttons that are either side of the text box and set their actualHeight to be the height of the textbox "_textbox" and their width -->
+        <!-- Add two buttons that are either side of the text box and set their actualHeight to be the height of the text box "_textbox" and their width -->
         <Button x:Name="btnDecrement"
                 DockPanel.Dock="Left"
                 Content="-"

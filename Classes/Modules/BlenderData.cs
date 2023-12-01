@@ -1,10 +1,10 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder class Blender
+ * Blender Script Rendering Builder class BlenderData
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  * -----------------------------------------------------------------------------------------------------------
  * This file contains the variables and functions that are required make an Blender data for the UI when
  * outputting to a script file.
@@ -83,7 +83,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// Source https://forum.uipath.com/t/regex-getting-filename-out-from-filepath/190312/3
         /// </summary>
         /// <param name="FullPath">The full path to the file</param>
-        /// <returns>The name of the file including it's extention</returns>
+        /// <returns>The name of the file including it's extension</returns>
         private string GetFileName(string FullPath)
         {
             try

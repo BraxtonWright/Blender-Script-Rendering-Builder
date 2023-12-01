@@ -1,12 +1,12 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder abstract class MenuItemExtensions
+ * Blender Script Rendering Builder class MenuItemExtensions
  * Dr. Nichole Anderson
  * Due: 12/6/2023
  * Version: 1.0
  *  ----------------------------------------------------------------------------------------------------------
- * This file is an extension for the MenuItem control so that you can implment something similar to how the
+ * This file is an extension for the MenuItem control so that you can implement something similar to how the
  * radio button uses the GroupName property.
  * https://stackoverflow.com/a/3652980 and https://stackoverflow.com/a/18643222
  * -----------------------------------------------------------------------------------------------------------

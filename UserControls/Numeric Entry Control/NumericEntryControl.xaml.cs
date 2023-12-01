@@ -4,7 +4,7 @@
  * Blender Script Rendering Builder UserControl NumericUpDown
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  *  ----------------------------------------------------------------------------------------------------------
  * This file contains the required event listeners for the UserControl NumericUpDown.
  * Original source for this code with some modifications
@@ -132,6 +132,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control
                 btnDecrement.PreviewMouseLeftButtonDown += new MouseButtonEventHandler(btnDecrement_PreviewMouseLeftButtonDown);
                 btnDecrement.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(btnDecrement_PreviewMouseLeftButtonUp);
 
+                // Default value for the numeric entry user control
                 Value = 0;
 
                 // Add an event lister to the DispatcherTimer for every tick it makes

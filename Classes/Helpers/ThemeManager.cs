@@ -6,7 +6,7 @@
  * Due: 12/6/2023
  * Version: 1.0
  *  ----------------------------------------------------------------------------------------------------------
- * This file contains fuctions to enable the user to change the theme of the app.
+ * This file contains functions to enable the user to change the theme of the application.
  * Original source for the code is found here
  * https://github.com/mesta1/WPF.Themes/blob/master/WPF.Themes/ThemeManager.cs (also found inside my "Files For
  * Students" zip folder from CS 3280)
@@ -40,7 +40,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
             return null;
         }
 
-        // This is modified from the orignal so instead of using a combobox, we use a set of menuitems.  This idea for this modification was found here https://stackoverflow.com/questions/32791619/wpf-mvvm-checking-a-menuitem-based-on-string-match/32793843#32793843
+        // This is modified from the original so instead of using a combo box, we use a set of menu items.  This idea for this modification was found here https://stackoverflow.com/questions/32791619/wpf-mvvm-checking-a-menuitem-based-on-string-match/32793843#32793843
         public static ObservableCollection<Theme> GetThemes()
         {
             // The names defined inside here have to match the name of the file inside the "Themes" folder.

@@ -4,7 +4,7 @@
  * Blender Script Rendering Builder class clsBlenderSelectionLogic
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  *  ----------------------------------------------------------------------------------------------------------
  * This file contains the logistic for the UserControl BlenderSelection so that the logistics is not behind the UI.
  * -----------------------------------------------------------------------------------------------------------

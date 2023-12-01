@@ -4,10 +4,10 @@
  * Blender Script Rendering Builder class INotifyPropertyChangedImplmented
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  * -----------------------------------------------------------------------------------------------------------
- * This file simply contains everything needed to implment the INotifyPropertyChanged interface for any UI
- * elements that need to mirrored to a model.  To use it you simply inherite from this class in the desired
+ * This file simply contains everything needed to implement the INotifyPropertyChanged interface for any UI
+ * elements that need to mirrored to a model.  To use it you simply inherit from this class in the desired
  * model and then you can use the OnPropertyChanged() function in that class.
  * -----------------------------------------------------------------------------------------------------------
  */

@@ -4,10 +4,10 @@
  * Blender Script Rendering Builder class BrowseBlenderExe
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  * -----------------------------------------------------------------------------------------------------------
  * This file contains the variables that will allow us to return an object to the calling function for us to
- * use the browse for Blender executible.
+ * use the browse for Blender executable.
  * -----------------------------------------------------------------------------------------------------------
  */
 
@@ -23,7 +23,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
     {
         #region Class variables
         /// <summary>
-        /// Need to open the browse for Blender executible
+        /// Need to open the browse for Blender executable
         /// </summary>
         public bool needToOpenWindow { get; set; }
 
@@ -40,7 +40,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
 
         #region Constructors
         /// <summary>
-        /// Default contstructor
+        /// Default constructor
         /// </summary>
         public BrowseBlenderExe()
         {
@@ -50,7 +50,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <summary>
         /// Overloaded constructor for when you don't need to open the window
         /// </summary>
-        /// <param name="needToOpenWindow">A bool repersenting if we need to open the window</param>
+        /// <param name="needToOpenWindow">A bool representing if we need to open the window</param>
         public BrowseBlenderExe(bool needToOpenWindow)
         {
             this.needToOpenWindow = needToOpenWindow;
@@ -59,7 +59,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         /// <summary>
         /// Overloaded constructor for when you need to open the window
         /// </summary>
-        /// <param name="needToOpenWindow">A bool repersenting if we need to open the window</param>
+        /// <param name="needToOpenWindow">A bool representing if we need to open the window</param>
         /// <param name="windowTitle">The tile of the window</param>
         /// <param name="windowMessage">The message to be displayed</param>
         public BrowseBlenderExe(bool needToOpenWindow, string windowTitle, string windowMessage) : this(needToOpenWindow)  // This constructor inherits from the above constructor so we don't need include the same code inside this constructor

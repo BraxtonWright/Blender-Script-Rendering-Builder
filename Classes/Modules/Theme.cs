@@ -25,6 +25,9 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
     public class Theme : INotifyPropertyChangedImplmented
     {
         string _name;
+        /// <summary>
+        /// The name of the theme
+        /// </summary>
         public string Name
         {
             get { return _name; }
@@ -36,6 +39,9 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         }
 
         bool _isChecked;
+        /// <summary>
+        /// Is the theme selected/checked
+        /// </summary>
         public bool IsChecked
         {
             get { return _isChecked; }
@@ -46,12 +52,21 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             }
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="name">The name of the Scene</param>
+        /// <param name="isChecked">Is the theme selected</param>
         public Theme(string name, bool isChecked)
         {
             Name = name;
             IsChecked = isChecked;
         }
 
+        /// <summary>
+        /// Overloaded ToString() function for this class
+        /// </summary>
+        /// <returns>The Name property of this class, I.E. the name of the scene</returns>
         public override string ToString()
         {
             return Name;

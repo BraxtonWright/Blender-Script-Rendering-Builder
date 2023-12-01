@@ -4,7 +4,7 @@
  * Blender Script Rendering Builder UserControl BlenderSelection
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  *  ----------------------------------------------------------------------------------------------------------
  * This file contains the required event listeners for the UserControl BlenderSelection.
  * -----------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
 
         #region Event Listeners
         /// <summary>
-        /// This evnet listener will listen for then the user control is finished being loaded and once it is done, it will collapse the expander named expBlender
+        /// This event listener will listen for then the user control is finished being loaded and once it is done, it will collapse the expander named expBlender
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The event's information, I.E. a Routed Event</param>
@@ -106,8 +106,8 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
         {
             try
             {
-                SceneSelection newScene = new SceneSelection();  // Build a new usercontrol
-                spScenes.Children.Add(newScene);  // add the new usercontrol the the stack panel
+                SceneSelection newScene = new SceneSelection();  // Build a new user control
+                spScenes.Children.Add(newScene);  // add the new user control the stack panel
             }
             catch (Exception ex)
             {

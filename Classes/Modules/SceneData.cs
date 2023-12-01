@@ -1,10 +1,10 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder class Scene
+ * Blender Script Rendering Builder class SceneData
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  * -----------------------------------------------------------------------------------------------------------
  * This file contains the variables and functions that are required make the scene data for the UI when
  * outputting to a script file.

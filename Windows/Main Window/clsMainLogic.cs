@@ -4,7 +4,7 @@
  * Blender Script Rendering Builder class clsMainWindowLogic
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  *  ----------------------------------------------------------------------------------------------------------
  * This file contains the logistic for the main window so that the logistics is not behind the UI.
  * -----------------------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ namespace Blender_Script_Rendering_Builder.Main
         /// <summary>
         /// Determines if the window used to browse for the Blender application should be opened, and if so what should it display
         /// </summary>
-        /// <returns>An instance of the class BrowseBlenderExe with properties containing information how to preced</returns>
+        /// <returns>An instance of the class BrowseBlenderExe with properties containing information how to proceed</returns>
         public BrowseBlenderExe ShouldOpenBlendApplictionWindow()
         {
             try
@@ -60,20 +60,20 @@ namespace Blender_Script_Rendering_Builder.Main
                 // It is the first time opening the application
                 if (String.IsNullOrEmpty(blenderApplicationPath))
                 {
-                    Trace.WriteLine("Open the \"Please read\" window because this is the first time launching the applcation");
+                    Trace.WriteLine("Open the \"Please read\" window because this is the first time launching the application");
 
                     returnObject.needToOpenWindow = true;
                     returnObject.windowTitle = "Please read";
-                    returnObject.windowMessage = "Before you can use this program, it has to know where your Blender executible is located.  Press the browse button for you to locate it.  This can be changed in the future by pressing the Config tab in the main application window.";
+                    returnObject.windowMessage = "Before you can use this program, it has to know where your Blender executable is located.  Press the browse button for you to locate it.  This can be changed in the future by pressing the Config tab in the main application window.";
                 }
                 // The application path is no longer there
                 else if (!File.Exists(blenderApplicationPath))
                 {
-                    Trace.WriteLine("Open the \"Executible location changed\" window because the application path has been moves/removed");
+                    Trace.WriteLine("Open the \"Executable location changed\" window because the application path has been moves/removed");
 
                     returnObject.needToOpenWindow = true;
-                    returnObject.windowTitle = "Executible location changed";
-                    returnObject.windowMessage = "This program has discovered that the exeuctible defined previously has either been moved or removed.  Please redefine where the executible is to continue using this program.";
+                    returnObject.windowTitle = "Executable location changed";
+                    returnObject.windowMessage = "This program has discovered that the deductible defined previously has either been moved or removed.  Please redefine where the executable is to continue using this program.";
                 }
                 // Everything is valid
                 else
@@ -96,7 +96,7 @@ namespace Blender_Script_Rendering_Builder.Main
         /// </summary>
         /// <param name="renderingInfo">A list containing all the blender files, scenes, and rendering info required to generate the script</param>
         /// <param name="shutdown">A boolean representing if the PC should shutdown after the script finishes</param>
-        /// <param name="shutdownTime">The time in minuites for the PC to shutdown after finishing rendering</param>
+        /// <param name="shutdownTime">The time in minutes for the PC to shutdown after finishing rendering</param>
         /// <exception cref="Exception">Catches any exceptions that this method might come across</exception>
         public void GenerateScriptFileIfValid(List<BlenderData> renderingInfo, bool shutdown, int shutdownTime)
         {
@@ -116,7 +116,7 @@ namespace Blender_Script_Rendering_Builder.Main
                         GenerateScriptFile(renderingInfo, saveFileDailog.FileName, shutdown, shutdownTime);
                     }
                 }
-                // Info is isvalid so display a new window with the list of errors found
+                // Info is invalid so display a new window with the list of errors found
                 else
                 {
                     wndErrorList wndErrorList = new wndErrorList(scriptInfoValid.Errors);
@@ -148,7 +148,7 @@ namespace Blender_Script_Rendering_Builder.Main
                 {
                     isValid &= false;
                     // Add a error message
-                    ErrorTreeBranch blenderBranch = new ErrorTreeBranch("There is no information for the script, please click the \"Add a new Blender file\" and supply the required infomration and try again.");
+                    ErrorTreeBranch blenderBranch = new ErrorTreeBranch("There is no information for the script, please click the \"Add a new Blender file\" and supply the required information and try again.");
 
                     tree.Add(blenderBranch);
                 }
@@ -187,10 +187,10 @@ namespace Blender_Script_Rendering_Builder.Main
 
                             else
                             {
-                                // Create the two instances of the class ErrorTreeBranch and create a local variable to determin if these instances of the class should be added to the tree
+                                // Create the two instances of the class ErrorTreeBranch and create a local variable to determine if these instances of the class should be added to the tree
                                 ErrorTreeBranch sceneBranch = new ErrorTreeBranch("Scene: " + sceneData.SceneName);
                                 ErrorTreeBranch blenderBranch = new ErrorTreeBranch("File: " + blendData.FileName);
-                                bool errorsDetected = false;  // This will be modified with the |= bitwise operator, this means that this or what comes after the |= has to be true for it to become true.  But once it beomces true, it stays true.
+                                bool errorsDetected = false;  // This will be modified with the |= bitwise operator, this means that this or what comes after the |= has to be true for it to become true.  But once it becomes true, it stays true.
 
                                 // Foreach rendering information
                                 foreach (RenderData renderData in sceneData.rendersInfo)
@@ -198,7 +198,7 @@ namespace Blender_Script_Rendering_Builder.Main
                                     ValidatorsReturn customFrameResults = Validators.CustomFramesValid(renderData.CustomFrames);
 
 
-                                    // The custom frames combobox is not valid
+                                    // The custom frames combo box is not valid
                                     if (renderData.RenderType == "Custom Frames" && !customFrameResults.Valid)
                                     {
                                         isValid &= false;
@@ -237,7 +237,7 @@ namespace Blender_Script_Rendering_Builder.Main
                 }
                 else
                 {
-                    return new ScriptInfoValid(isValid, tree);  // WIP (need to make the class accept a list of errors generated here)
+                    return new ScriptInfoValid(isValid, tree);
                 }
             }
             catch (Exception ex)
@@ -249,9 +249,9 @@ namespace Blender_Script_Rendering_Builder.Main
         /// <summary>
         /// Generate a .bat file containing the necessary information for rendering
         /// </summary>
-        /// <param name="renderInformation">A list of BlenderData containing everything required for generateing the script</param>
+        /// <param name="renderInformation">A list of BlenderData containing everything required for generating the script</param>
         /// <param name="saveFilePath">The full path to a file where they want save the script to</param>
-        /// <param name="shutdownTime">The number of minutes to wait until shuting down the PC</param>
+        /// <param name="shutdownTime">The number of minutes to wait until shutting down the PC</param>
         /// <exception cref="Exception">Catches any exceptions that this method might come across</exception>
         private void GenerateScriptFile(List<BlenderData> renderInformation, string saveFilePath, bool shutdown, int shutdownTime)
         {
@@ -347,7 +347,7 @@ namespace Blender_Script_Rendering_Builder.Main
                     }
 
                     //Don't need to call "Close" because we use the "using" statement
-                    //The "using" statement is the same as a try/catch block and putting the "FileRead.Dispose" method call in the "finally" statment
+                    //The "using" statement is the same as a try/catch block and putting the "FileRead.Dispose" method call in the "finally" statement
                     //FileRead.Close();
                 }
 

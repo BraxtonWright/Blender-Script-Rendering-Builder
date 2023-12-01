@@ -1,10 +1,10 @@
 ﻿/*
  * Braxton Wright
  * CS 3650
- * Blender Script Rendering Builder class Render
+ * Blender Script Rendering Builder class RenderData
  * Dr. Nichole Anderson
  * Due: 12/6/2023
- * Version: 0.5
+ * Version: 1.0
  * -----------------------------------------------------------------------------------------------------------
  * This file contains the variables and functions that are required make the rendering data for the UI when
  * outputting to a script file.
@@ -67,7 +67,6 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _customFrames = value;
-                //OnPropertyChanged(nameof(CustomFrames));
             }
         }
         #endregion
@@ -94,7 +93,6 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set
             {
                 _outputFileType = value;
-                //OnPropertyChanged(nameof(OutputFileType));
             }
         }
 
@@ -110,7 +108,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
 
         private string _outputFullPath;
         /// <summary>
-        /// The full path to the folder that the renders will be outputed to
+        /// The full path to the folder that the renders will be outputted to
         /// </summary>
         public string OutputFullPath
         {
@@ -124,7 +122,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
 
         private string _outputFolderName;
         /// <summary>
-        /// The name of the folder that the renders will be outputed to
+        /// The name of the folder that the renders will be outputted to
         /// </summary>
         public string OutputFolderName
         {
@@ -148,7 +146,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         }
 
         /// <summary>
-        /// Private constructor so we simply inherite from it using the below two constructors for the common fields
+        /// Private constructor so we simply inherit from it using the below two constructors for the common fields
         /// </summary>
         /// <param name="outputFileType">The output file type</param>
         /// <param name="outputFullPath">The output folder path</param>
