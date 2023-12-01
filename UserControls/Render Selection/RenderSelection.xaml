@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Render_Selection"
-             xmlns:NUPC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control"
+             xmlns:NEC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control"
              xmlns:Shared="clr-namespace:Blender_Script_Rendering_Builder.Classes.Helpers"
              x:Class="Blender_Script_Rendering_Builder.UserControls.Render_Selection.RenderSelection"
              mc:Ignorable="d" Loaded="ucRenderSelection_Loaded">
@@ -52,10 +52,10 @@
                     </Grid.RowDefinitions>
 
                     <Label Content="Start Frame:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                    <NUPC:NumericEntryControl x:Name="nupStartFrame" Grid.Column="1" Value="{Binding StartFrame, Mode=TwoWay}" VerticalAlignment="Center"/>
+                    <NEC:NumericEntryControl x:Name="nupStartFrame" Grid.Column="1" Value="{Binding StartFrame, Mode=TwoWay}" VerticalAlignment="Center"/>
 
                     <Label Content="End Frame:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                    <NUPC:NumericEntryControl x:Name="nupEndFrame" Grid.Row="1" Grid.Column="1" Value="{Binding EndFrame, Mode=TwoWay}" VerticalAlignment="Center"/>
+                    <NEC:NumericEntryControl x:Name="nupEndFrame" Grid.Row="1" Grid.Column="1" Value="{Binding EndFrame, Mode=TwoWay}" VerticalAlignment="Center"/>
                 </Grid>
                 <!-- Custom frames -->
                 <Grid x:Name="grdCustomFrames" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="2" ShowGridLines="False">

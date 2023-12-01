@@ -9,7 +9,7 @@
         xmlns:Helpers="clr-namespace:Blender_Script_Rendering_Builder.Classes.Helpers"
         Helpers:ThemeManager.Theme="{Binding CurrentTheme}"
         xmlns:BSC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Blender_Selection"
-        xmlns:NUPC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control"
+        xmlns:NEC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control"
         Background="{DynamicResource WindowBackgroundBrush}"
         mc:Ignorable="d"
         Title="Blender Script Rendering Builder" Height="450" Width="800" Initialized="wndMain_Initialized">
@@ -57,7 +57,7 @@
                 </CheckBox>
                 <DockPanel x:Name="dpShutdown" Visibility="Collapsed">
                     <Label Content="Wait to shutdown (minutes):" Margin="0,0,15,0"/>
-                    <NUPC:NumericEntryControl x:Name="necShutdownTime" Width="125" HorizontalAlignment="Left" />
+                    <NEC:NumericEntryControl x:Name="necShutdownTime" Width="125" HorizontalAlignment="Left" />
                 </DockPanel>
             </StackPanel>
             <Button x:Name="btnCreateScriptFile" Grid.Row="4" Padding="5" Content="Build script file" Click="btnCreateScriptFile_Click" HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Top"/>
