@@ -23,6 +23,7 @@ using System.Threading;
 using System.Xml;
 using System.Windows.Forms;
 using Blender_Script_Rendering_Builder.Windows.Error_List;
+using static System.Formats.Asn1.AsnWriter;
 
 
 namespace Blender_Script_Rendering_Builder.Main
@@ -291,28 +292,34 @@ namespace Blender_Script_Rendering_Builder.Main
                     // Foreach blender file
                     foreach (BlenderData blendData in renderInformation)
                     {
+                        MyWriter.WriteLine($"{blenderApplicationName} --background \"{blendData.FullPath}\" ^");
+
+                        int numberOfSceneDataProcessed = 0;
                         // Foreach scene
                         foreach (SceneData sceneData in blendData.scenesInfo)
                         {
-                            MyWriter.Write($"{blenderApplicationName} --background \"{blendData.FullPath}\" --scene {sceneData.SceneName}");
+                            MyWriter.WriteLine($"\t--scene {sceneData.SceneName} ^");
 
+                            int numberOfRenderDataProcessed = 0;
                             // Foreach rendering information
                             foreach (RenderData renderData in sceneData.rendersInfo)
                             {
+                                MyWriter.Write($"\t\t");
+
                                 // The user has defined a different folder to save the renders to
-                                if (renderData.OutputPathSelection == "Browse")
+                                if (renderData.OutputPathSelection == "Browse for folder")
                                 {
-                                    MyWriter.Write($" --render-output \"{renderData.OutputFullPath}\"");
+                                    MyWriter.Write($"--render-output \"{renderData.OutputFullPath}\\####\" ");  // We add the extra \ at the end after the {OutputFullPath} is added because otherwise, it would create files with the name of the folder and not actually save the files to said folder and the #### will be replaced with the number of the frame
                                 }
                                 // The user has defined a different output file type for the renders
                                 if (renderData.OutputFileType != "Use Blender configs" && renderData.OutputFileType != "")
                                 {
-                                    MyWriter.Write($" --render-format {renderData.OutputFileType.ToUpper()}");
+                                    MyWriter.Write($"--render-format {renderData.OutputFileType.ToUpper()} ");
                                 }
                                 // The user has defined a different rendering engine for the renders
                                 if (renderData.RenderEngine != "Use Blender configs" && renderData.RenderEngine != "")
                                 {
-                                    MyWriter.Write(" --engine ");
+                                    MyWriter.Write("--engine ");
                                     switch (renderData.RenderEngine)
                                     {
                                         case "Cycles":
@@ -325,36 +332,44 @@ namespace Blender_Script_Rendering_Builder.Main
                                             MyWriter.Write("BLENDER_WORKBENCH");
                                             break;
                                     }
+                                    MyWriter.Write(" ");
                                 }
                                 // Depending on what is selected for the render type, process the results
                                 switch (renderData.RenderType)
                                 {
                                     case "Use Blender configs":
-                                        MyWriter.Write(" --render-anim");
+                                        MyWriter.Write("--render-anim");
                                         break;
                                     case "Animation":
-                                        MyWriter.Write($" --frame-start {renderData.StartFrame} --frame-end {renderData.EndFrame} --render-anim");
-                                        break;
-                                    case "Frame Range":
-                                        MyWriter.Write($" --render-frame {renderData.StartFrame}..{renderData.EndFrame}");
+                                        MyWriter.Write($"--frame-start {renderData.StartFrame} --frame-end {renderData.EndFrame} --render-anim");
                                         break;
                                     case "Custom Frames":
                                         string processedRenderData = Regex.Replace(renderData.CustomFrames, " ", "");  // Remove any spaces from the data because spaces are not allowed
                                         processedRenderData = Regex.Replace(processedRenderData, "-", "..");  // Replace any "-" with ".." because blender uses ".." to represent a range of frames
 
-                                        MyWriter.Write($" --render-frame {processedRenderData}");
+                                        MyWriter.Write($"--render-frame {processedRenderData}");
                                         break;
                                 }
 
-                                MyWriter.WriteLine("\n");  // Used to move to a new line and add some space between render jobs
+                                numberOfRenderDataProcessed++;
+                                // If the program has not gone through all the rendering info or all the scenes, then add a '^' at the end of the line to tell the script file to continue reading the current command on the next line as described here https://stackoverflow.com/a/69079
+                                if (numberOfRenderDataProcessed != sceneData.rendersInfo.Count || numberOfSceneDataProcessed != blendData.scenesInfo.Count - 1)
+                                {
+                                    MyWriter.WriteLine(" ^");
+                                }
                             }
+
+                            numberOfSceneDataProcessed++;
                         }
+
+                        MyWriter.WriteLine("\n");  // Used to separate the blender files from each other.
                     }
 
                     if (shutdown)
                     {
+                        // Might modify this code for the command explained here because it can be done all in one line https://www.windowscentral.com/how-use-shutdown-command-tool-windows-10
                         MyWriter.WriteLine("Timeout /T " + 60 * shutdownTime);
-                        MyWriter.WriteLine("Shutdown \\s");
+                        MyWriter.WriteLine("Shutdown /s");
                     }
 
                     //Don't need to call "Close" because we use the "using" statement

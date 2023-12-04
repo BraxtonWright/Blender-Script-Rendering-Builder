@@ -118,17 +118,16 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
                         grdCustomFrames.Visibility = System.Windows.Visibility.Collapsed;
                         break;
                     case "Animation":
-                    case "Frame Range":
                         grdStartEndFrames.Visibility = System.Windows.Visibility.Visible;
                         grdCustomFrames.Visibility = System.Windows.Visibility.Collapsed;
                         break;
                     case "Custom Frames":
                         grdStartEndFrames.Visibility = System.Windows.Visibility.Collapsed;
                         grdCustomFrames.Visibility = System.Windows.Visibility.Visible;
-                        // If the text for the text box is empty, then reset the background color to be the default color
+                        // If the text for the text box is empty, then reset the background color of the text box so if you go back to it, it looks like when you first made the UserControl
                         if (Validators.StringEmpty(txtCustomFrames.Text))
                         {
-                            txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // Reset the background color of the text box so if you go back to it, it will be reset back to how it looks like when you first made the UserControl
+                            txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");
                         }
                         break;
                     default:
@@ -270,7 +269,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             {
                 "Use Blender configs",
                 "Animation",
-                "Frame Range",
                 "Custom Frames"
             };
 
