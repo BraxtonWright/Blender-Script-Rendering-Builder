@@ -41,10 +41,10 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
         }
 
         // This is modified from the original so instead of using a combo box, we use a set of menu items.  This idea for this modification was found here https://stackoverflow.com/questions/32791619/wpf-mvvm-checking-a-menuitem-based-on-string-match/32793843#32793843
-        public static ObservableCollection<Theme> GetThemes()
+        public static List<Theme> GetThemes()
         {
             // The names defined inside here have to match the name of the file inside the "Themes" folder.
-            ObservableCollection<Theme> themes = new ObservableCollection<Theme>
+            List<Theme> themes = new List<Theme>
             {
                 new("Light", false),
                 new("Dark", false)

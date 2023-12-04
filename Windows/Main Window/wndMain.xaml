@@ -66,8 +66,8 @@
                     <CheckBox x:Name="checkShutdownPC"  VerticalContentAlignment="Center" Checked="checkShutdownPC_Checked" Unchecked="checkShutdownPC_Unchecked" Margin="0,5,0,5">
                         <Label Content="Shutdown PC after rendering"/>
                     </CheckBox>
-                    <DockPanel x:Name="dpShutdown" Visibility="Visible">
-                        <Label Content="Wait to shutdown (minutes):"/>
+                    <DockPanel x:Name="dpShutdown" Visibility="Collapsed">
+                        <Label Content="Wait to shutdown (minutes):" Margin="0,0,5,0"/>
                         <NEC:NumericEntryControl x:Name="necShutdownTime" Width="125" HorizontalAlignment="Left" DockPanel.Dock="Right" />
                     </DockPanel>
                 </StackPanel>

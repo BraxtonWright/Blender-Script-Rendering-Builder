@@ -27,12 +27,15 @@
     <Color x:Key="WhiteColor">#FFFFFFFF</Color>
 
     <!--#region Code Braxton added-->
-    <Color x:Key="LightGrayColor">#7f7f7f</Color>
+    <Color x:Key="LightGrayColor">#c6c6c6</Color>
     <Color x:Key="TransparentColor">#00000000</Color>
 
     <SolidColorBrush x:Key="PrimaryBullitFillBrush" Color="{StaticResource WhiteColor}"/>
     <SolidColorBrush x:Key="SecondaryBullitFillBrush" Color="{StaticResource LightGrayColor}"/>
     <SolidColorBrush x:Key="TertiaryBullitFillBrush" Color="{StaticResource TransparentColor}"/>
+
+    <Color x:Key="ErrorColor">#c1001f</Color>
+    <SolidColorBrush x:Key="ErrorFillBrush" Color="{StaticResource ErrorColor}"/>
     <!--#endregion-->
 
     <SolidColorBrush x:Key="TextBrush" Color="#FFFFFFFF" />
@@ -88,6 +91,11 @@
     <!--#region Code Braxton added-->    
     <Style TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    </Style>
+
+    <Style TargetType="{x:Type ToolTip}">
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
     </Style>
     <!--#endregion-->
 

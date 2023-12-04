@@ -176,20 +176,20 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             {
                 ValidatorsReturn results = Validators.CustomFramesValid(txtCustomFrames.Text);
 
+                // The SetResourceReference will search the *.xmal file located in the "Themes" folder for the resource with the name defined in the second argument.  This will make it so if you switch theme's while there is data, and the background color will be updated.  Uses a combination of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to achieve this.
                 // It is a valid input
                 if (results.Valid)
                 {
-                    txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // This searches the *.xmal file located in the "Themes" folder for the resource with the name of "ControlBackgroundBrush".  This will make it so if you switch theme's while there is data, and the background will be updated.  Uses a combination of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to chive this.
+                    txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");
 
                     txtCustomFrames.ToolTip = null;  // Removes the tool tip from the text box so the error message will no longer show when you hover over it
                 }
                 // It is invalid input
                 else
                 {
-                    txtCustomFrames.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));  // Need to see about adding this just as the above resource so when we switch themes, the text inside the text box is more readable.  It is currently, but it could be more readable.
+                    txtCustomFrames.SetResourceReference(Control.BackgroundProperty, "ErrorFillBrush");
 
                     ToolTip errorTooltip = new ToolTip { Content = results.ErrorMessage };
-
                     txtCustomFrames.ToolTip = errorTooltip;
                 }
             }

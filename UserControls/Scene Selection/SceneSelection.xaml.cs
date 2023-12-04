@@ -151,19 +151,20 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
             {
                 ValidatorsReturn results = Validators.SceneNameValid(txtSceneName.Text);
 
+                // The SetResourceReference will search the *.xmal file located in the "Themes" folder for the resource with the name defined in the second argument.  This will make it so if you switch theme's while there is data, and the background color will be updated.  Uses a combination of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to achieve this.
                 // The input is valid
                 if (results.Valid)
                 {
-                    txtSceneName.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");  // This searches the *.xmal file located in the "Themes" folder for the resource with the name of "ControlBackgroundBrush".  This will make it so if you switch theme's while there is data, and the background will be updated.  Uses a combination of https://stackoverflow.com/a/1754658 and https://stackoverflow.com/a/53463353 to chive this.
+                    txtSceneName.SetResourceReference(Control.BackgroundProperty, "ControlBackgroundBrush");
 
                     txtSceneName.ToolTip = null;  // Removes the tool tip from the text box so the error message will no longer show when you hover over it
                 }
                 // The input is invalid
                 else
                 {
-                    txtSceneName.Background = new SolidColorBrush(Color.FromArgb(255, 255, 128, 128));  // Need to see about adding this just as the above resource so when we switch themes, the text inside the text box is more readable.  It is currently, but it could be more readable.
-                    ToolTip errorTooltip = new ToolTip { Content = results.ErrorMessage };
+                    txtSceneName.SetResourceReference(Control.BackgroundProperty, "ErrorFillBrush");
 
+                    ToolTip errorTooltip = new ToolTip { Content = results.ErrorMessage };
                     txtSceneName.ToolTip = errorTooltip;
                 }
             }

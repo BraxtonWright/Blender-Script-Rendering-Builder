@@ -161,7 +161,7 @@ namespace Blender_Script_Rendering_Builder.Main
                     {
                         isValid &= false;
                         // Add a error message
-                        ErrorTreeBranch blenderBranch = new ErrorTreeBranch("A Blender file is not supplied.");
+                        ErrorTreeBranch blenderBranch = new ErrorTreeBranch("A Blender file has not been supplied, please choose a blender file or remove the section.");
 
                         tree.Add(blenderBranch);
                     }
@@ -177,19 +177,25 @@ namespace Blender_Script_Rendering_Builder.Main
                             if (!results.Valid)
                             {
                                 isValid &= false;
+
+                                string errorMessage = "A scene's name has spaces when they are not allowed.";
+                                if(Validators.StringEmpty(sceneData.SceneName))
+                                {
+                                    errorMessage = "A scene has no name supplied, either supply the scene's name or remove the section.";
+                                }
+
                                 // Add a error message
-                                ErrorTreeBranch sceneBranch = new ErrorTreeBranch(results.ErrorMessage);
-                                ErrorTreeBranch blenderBranch = new ErrorTreeBranch("File: " + blendData.FileName);
+                                ErrorTreeBranch sceneBranch = new ErrorTreeBranch(errorMessage);
+                                ErrorTreeBranch blenderBranch = new ErrorTreeBranch("File:  " + blendData.FileName);
                                 blenderBranch.BranchErrors.Add(sceneBranch);
 
                                 tree.Add(blenderBranch);
                             }
-
                             else
                             {
                                 // Create the two instances of the class ErrorTreeBranch and create a local variable to determine if these instances of the class should be added to the tree
-                                ErrorTreeBranch sceneBranch = new ErrorTreeBranch("Scene: " + sceneData.SceneName);
-                                ErrorTreeBranch blenderBranch = new ErrorTreeBranch("File: " + blendData.FileName);
+                                ErrorTreeBranch sceneBranch = new ErrorTreeBranch("Scene:  " + sceneData.SceneName);
+                                ErrorTreeBranch blenderBranch = new ErrorTreeBranch("File:  " + blendData.FileName);
                                 bool errorsDetected = false;  // This will be modified with the |= bitwise operator, this means that this or what comes after the |= has to be true for it to become true.  But once it becomes true, it stays true.
 
                                 // Foreach rendering information
@@ -197,18 +203,23 @@ namespace Blender_Script_Rendering_Builder.Main
                                 {
                                     ValidatorsReturn customFrameResults = Validators.CustomFramesValid(renderData.CustomFrames);
 
-
                                     // The custom frames combo box is not valid
                                     if (renderData.RenderType == "Custom Frames" && !customFrameResults.Valid)
                                     {
                                         isValid &= false;
 
+                                        string errorMessage = "A input for a set of custom frames doesn't match the required pattern.";
+                                        if (Validators.StringEmpty(renderData.CustomFrames))
+                                        {
+                                            errorMessage = "A input for a set of custom frames is empty, either define the set of frames or change the type of render to something else.";
+                                        }
+
                                         // Add a error message
-                                        ErrorTreeBranch renderBranch = new ErrorTreeBranch(customFrameResults.ErrorMessage);
+                                        ErrorTreeBranch renderBranch = new ErrorTreeBranch(errorMessage);
                                         sceneBranch.BranchErrors.Add(renderBranch);
                                         errorsDetected |= true;
                                     }
-                                    // The output folder has not been defined (this should no longer be possible because if they close the folder browse window, it sets the control to use the settings inside of blender)
+                                    // The output folder has not been defined (this should no longer be possible because if they close the folder browse window, it sets the combobox to use the settings inside of the blender file)
                                     if (renderData.OutputPathSelection == "Browse for folder" && Validators.StringEmpty(renderData.OutputFullPath))
                                     {
                                         isValid &= false;

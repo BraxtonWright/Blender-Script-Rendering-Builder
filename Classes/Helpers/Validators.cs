@@ -32,7 +32,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
         /// Determines if the supplied scene name is valid
         /// </summary>
         /// <param name="name">The name of the scene to test</param>
-        /// <returns>True if it is valid, false otherwise</returns>
+        /// <returns>An object with two properties, a boolean Valid and a string ErrorMessage if errors occurred</returns>
         internal static ValidatorsReturn SceneNameValid(string name)
         {
             // The will check the text to see if it is empty and if it is not, then it will then check it for spaces inside it
@@ -61,7 +61,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
         /// This function will determine if the supplied text is a valid set of characters for the custom frames input
         /// </summary>
         /// <param name="text">The text to check</param>
-        /// <returns>True if it is valid, false otherwise</returns>
+        /// <returns>An object with two properties, a boolean Valid and a string ErrorMessage if errors occurred</returns>
         internal static ValidatorsReturn CustomFramesValid(string text)
         {
             bool isEmptyString = StringEmpty(text);
@@ -77,7 +77,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
 
             if (isEmptyString)
             {
-                returnObject.ErrorMessage = "The field is required";
+                returnObject.ErrorMessage = "This field is required";
             }
             else if (!regexValid)
             {
