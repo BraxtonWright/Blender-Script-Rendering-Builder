@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <!-- Column 1 (Rendering Info) -->
-        <GroupBox x:Name="gbRenderType" Header="Render Info" MinWidth="230" Margin="5,0,5,0" Grid.Row="1">
+        <GroupBox x:Name="gbRenderType" Header="Render Info" MinWidth="230" Margin="5,0,0,0" Grid.Row="1">
             <Grid ShowGridLines="false" Grid.IsSharedSizeScope="True">
                 <!-- The Grid.IsSharedSizeScope="True" enables us to have children grid share the same width for any item that shares the contents of "SharedSizeGroup" https://stackoverflow.com/questions/17914005/binding-grid-column-width-inside-usercontrol-to-parent-grid-column-width -->
                 <Grid.ColumnDefinitions>
@@ -67,8 +67,9 @@
                     <Label Content="Custom Frame(s):" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     
                     <!-- We place the below items in the same grid so the label shows inside the text box https://codingguides.quinnscomputing.com/2022/05/how-to-show-placeholder-text-in-wpf.html -->
-                    <TextBox x:Name="txtCustomFrames" Text="{Binding CustomFrames}" VerticalAlignment="Center" Grid.Column="1" LostFocus="txtCustomFrames_LostFocus" TextChanged="txtCustomFrames_TextChanged"/>
-                    <Label x:Name="lblCustomFramesPlacholder" Content="1, 3, 10-25, 30-35" Opacity="0.5" IsHitTestVisible="False" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <!-- We Bind the MaxWidth property to be the actual width of the combobox cmbAnimationOrFrame so that it doesn't expand indefinitely if more text is added than it can handle -->
+                    <TextBox x:Name="txtCustomFrames" Text="{Binding CustomFrames}" VerticalAlignment="Center" Grid.Column="1" LostFocus="txtCustomFrames_LostFocus" TextChanged="txtCustomFrames_TextChanged" MaxWidth="{Binding ActualWidth, ElementName=cmbAnimationOrFrame}"/>
+                    <Label x:Name="lblCustomFramesPlacholder" Content="1, 3, 10-25, 30-35" Opacity="0.7" IsHitTestVisible="False" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </Grid>
 
                 <!-- Rendering engine -->
@@ -78,10 +79,10 @@
         </GroupBox>
 
         <!-- Column 2 (Output info) -->
-        <GroupBox x:Name="gbRenderOutput" Header="Output Info" Grid.Column="1" MinWidth="230" Grid.Row="1">
+        <GroupBox x:Name="gbRenderOutput" Header="Output Info" Grid.Column="1" MinWidth="230" Grid.Row="1" Margin="5,0,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -91,11 +92,11 @@
                 </Grid.RowDefinitions>
 
                 <!-- Output file type -->
-                <Label Content="Output file type: " HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <Label Content="Output file type:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
                 <ComboBox x:Name="cmbOutputFileType" Grid.Column="1" VerticalAlignment="Center" SelectedItem="{Binding OutputFileType}"/>
 
                 <!-- Output folder type -->
-                <Label Content="Output folder:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <Label Content="Output folder:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
                 <ComboBox x:Name="cmbOutputFolder" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" SelectionChanged="cmbOutputFolder_SelectionChanged" SelectedItem="{Binding OutputPathSelection}"/>
 
                 <!-- Output folder type additional info -->

@@ -284,10 +284,10 @@ namespace Blender_Script_Rendering_Builder.Main
                     // --render-output == -o
                     // --render-format == -F
                     // --engine -E
-                    // --render-anim -a
-                    // --render-frame -f
                     // --frame-start == -s
                     // --frame-end == -e
+                    // --render-anim -a
+                    // --render-frame -f
                     MyWriter.WriteLine($"cd \"{blenderApplicationPath}\"\n");
 
                     // Foreach blender file
@@ -356,7 +356,7 @@ namespace Blender_Script_Rendering_Builder.Main
                                 }
 
                                 numberOfRenderDataProcessed++;
-                                // If the program has not gone through all the rendering info or all the scenes, then add a '^' at the end of the line to tell the script file to continue reading the current command on the next line as described here https://stackoverflow.com/a/69079
+                                // If the program has not gone through all the rendering info or all the scenes, then add a ' ^' at the end of the line to tell the script file to continue reading the current command on the next line as described here https://stackoverflow.com/a/69079
                                 if (numberOfRenderDataProcessed != sceneData.rendersInfo.Count || numberOfSceneDataProcessed != blendData.scenesInfo.Count - 1)
                                 {
                                     MyWriter.WriteLine(" ^");

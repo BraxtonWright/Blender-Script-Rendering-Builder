@@ -191,6 +191,8 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
                     ToolTip errorTooltip = new ToolTip { Content = results.ErrorMessage };
                     txtCustomFrames.ToolTip = errorTooltip;
                 }
+
+                txtCustomFrames.Select(0, 0);  // This will snap the text to be what is at the very start of the textbox, I.E. move back to the start of the string https://learn.microsoft.com/en-us/dotnet/desktop/wpf/controls/position-the-cursor-at-the-beginning-or-end-of-text?view=netframeworkdesktop-4.8
             }
             catch (Exception ex)
             {
