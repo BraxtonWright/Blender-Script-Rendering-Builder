@@ -299,14 +299,14 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             List<string> list = new List<string>
             {
                 "Use Blender configs",
-                "avijpeg",
-                "aviraw",
+                "avijpeg (avi)",
+                "aviraw (avi)",
                 "bmp",
-                "iris",
-                "iriz",
+                "iris (rgb)",
+                "iriz (rgb)",
                 "jpeg",
                 "png",
-                "rawtga",
+                "rawtga (tga)",
                 "tga"
             };
 

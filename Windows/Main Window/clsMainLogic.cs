@@ -24,6 +24,7 @@ using System.Xml;
 using System.Windows.Forms;
 using Blender_Script_Rendering_Builder.Windows.Error_List;
 using static System.Formats.Asn1.AsnWriter;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace Blender_Script_Rendering_Builder.Main
@@ -314,7 +315,10 @@ namespace Blender_Script_Rendering_Builder.Main
                                 // The user has defined a different output file type for the renders
                                 if (renderData.OutputFileType != "Use Blender configs" && renderData.OutputFileType != "")
                                 {
-                                    MyWriter.Write($"--render-format {renderData.OutputFileType.ToUpper()} ");
+                                    // Grab only the first word in the output file type, this is because some of them have ' (extension name)' after the name of the file type
+                                    Match regexResults = Regex.Match(renderData.OutputFileType, "^\\S*");
+
+                                    MyWriter.Write($"--render-format {regexResults.Value.ToUpper()} ");
                                 }
                                 // The user has defined a different rendering engine for the renders
                                 if (renderData.RenderEngine != "Use Blender configs" && renderData.RenderEngine != "")
