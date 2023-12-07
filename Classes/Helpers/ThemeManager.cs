@@ -13,6 +13,12 @@
  * -----------------------------------------------------------------------------------------------------------
  */
 
+// Added by Braxton because the original file doesn't have this and I want to cover any instances of issues of not citing possible Copyrighted material
+// (c) Copyright Microsoft Corporation.
+// This source is subject to Microsoft Public License (Ms-PL).
+// Please see http://go.microsoft.com/fwlink/?LinkID=131993 for details.
+// All other rights reserved.
+
 using Blender_Script_Rendering_Builder.Classes.Modules;
 using System;
 using System.Collections.Generic;

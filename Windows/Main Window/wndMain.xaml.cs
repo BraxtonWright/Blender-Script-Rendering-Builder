@@ -59,50 +59,6 @@ namespace Blender_Script_Rendering_Builder
         #endregion
 
         #region Event Listeners
-        #region Menu item event listeners
-        /// <summary>
-        /// This event listener listens for when you press the menu item to change the Blender executable file location
-        /// </summary>
-        /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Routed Event</param>
-        private void miChangeBlendExeLocation_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                string windowMessage = "Here you can redefine where the Blender executable file is located if you installed a new version of Blender or you mis-configured the setting.  If you wish to change it, click the browse button.";
-                wndBrowseBlenderExecutable browseBlenderExecutible = new wndBrowseBlenderExecutable("Change executable location", windowMessage);
-                browseBlenderExecutible.Owner = this;  //this sets it so that the search window owner is this window (so it loads where this window is currently)
-
-                browseBlenderExecutible.ShowDialog();  //open this new window and pause here in the code until the window is closed
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                              MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Temporary event listener to be removed for final production of the application
-        /// </summary>
-        /// <param name="sender">The sender of the event</param>
-        /// <param name="e">The event's information, I.E. a Routed Event</param>
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Properties.Settings.Default.BlenderApplicationPath = "";
-                Properties.Settings.Default.Save();
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        #endregion
-
-        #region Main UI event listeners
         /// <summary>
         /// This event listener is fired just after the function "InitializeComponent" finishes executing.  This event listener will then populate the "themes" MenuItem, select the default theme selected from the settings file, and will determine if the blender application file has been not defined or changed.
         /// </summary>
@@ -159,6 +115,29 @@ namespace Blender_Script_Rendering_Builder
             }
         }
 
+        #region Menu item event listeners
+        /// <summary>
+        /// This event listener listens for when you press the menu item to change the Blender executable file location
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void miChangeBlendExeLocation_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string windowMessage = "Here you can redefine where the Blender executable file is located if you installed a new version of Blender or you mis-configured the setting.  If you wish to change it, click the browse button.";
+                wndBrowseBlenderExecutable browseBlenderExecutible = new wndBrowseBlenderExecutable("Change executable location", windowMessage);
+                browseBlenderExecutible.Owner = this;  //this sets it so that the search window owner is this window (so it loads where this window is currently)
+
+                browseBlenderExecutible.ShowDialog();  //open this new window and pause here in the code until the window is closed
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                              MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
         /// <summary>
         /// This event lister listens for when the selection changes to change the theme of the application
         /// </summary>
@@ -188,6 +167,27 @@ namespace Blender_Script_Rendering_Builder
             }
         }
 
+        /// <summary>
+        /// Temporary event listener to be removed for final production of the application or simply unhooked
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The event's information, I.E. a Routed Event</param>
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Properties.Settings.Default.BlenderApplicationPath = "";
+                Properties.Settings.Default.Save();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.HandleError(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Main UI event listeners
         /// <summary>
         /// This event listener will listen for when you press the button to add a new blender file to be processed.
         /// </summary>

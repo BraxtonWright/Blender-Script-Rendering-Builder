@@ -75,7 +75,7 @@ namespace Blender_Script_Rendering_Builder.Main
 
                     returnObject.needToOpenWindow = true;
                     returnObject.windowTitle = "Executable location changed";
-                    returnObject.windowMessage = "This program has discovered that the deductible defined previously has either been moved or removed.  Please redefine where the executable is to continue using this program.";
+                    returnObject.windowMessage = "This program has discovered that the Blender executable defined previously has either been moved or deleted.  Please redefine where the executable is to continue using this program.";
                 }
                 // Everything is valid
                 else
@@ -371,8 +371,7 @@ namespace Blender_Script_Rendering_Builder.Main
 
                     if (shutdown)
                     {
-                        // Might modify this code for the command explained here because it can be done all in one line https://www.windowscentral.com/how-use-shutdown-command-tool-windows-10
-                        MyWriter.WriteLine("Timeout /T " + 60 * shutdownTime);
+                        MyWriter.WriteLine("Timeout /T " + 60 * shutdownTime + " /nobreak");
                         MyWriter.WriteLine("Shutdown /s");
                     }
 

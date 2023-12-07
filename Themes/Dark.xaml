@@ -40,7 +40,8 @@
 
     <SolidColorBrush x:Key="TextBrush" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="NormalBrush" Color="{StaticResource MainColor}" />
-    <SolidColorBrush x:Key="NormalBorderBrush" Color="#FF333333" />
+    <!-- Code Braxton altered changed the color from "#FF333333" to "#FFb3b3b3" -->
+    <SolidColorBrush x:Key="NormalBorderBrush" Color="#FFb3b3b3" />
     <SolidColorBrush x:Key="HoverBrush" Color="{StaticResource HoverColor}" />
     <SolidColorBrush x:Key="GlyphBrush" Color="#FFD1D1D1" />
 
