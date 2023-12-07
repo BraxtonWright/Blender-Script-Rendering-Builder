@@ -34,11 +34,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
     {
         #region Class Variables
         /// <summary>
-        /// Object to perform logic for the RenderSelection UserControl.
-        /// </summary>
-        private RenderSelectionLogic logic;
-
-        /// <summary>
         /// Will contain all the data about the rendering info found on the UI
         /// </summary>
         public RenderData renderData;
@@ -53,7 +48,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Render_Selection
             try
             {
                 InitializeComponent();
-                logic = new RenderSelectionLogic();  // Make a new instance of the logic class for this user control
                 renderData = new RenderData();  // make a new instance of the RenderModel class
                 FillComboBoxes();
                 DataContext = renderData;

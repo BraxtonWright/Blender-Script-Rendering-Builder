@@ -43,8 +43,6 @@ namespace Blender_Script_Rendering_Builder.Windows.Error_List
         /// Object to perform logic for this window.
         /// </summary>
         private clsErrorListLogic logic;
-
-        private List<ErrorTreeBranch> errors;
         #endregion
 
         #region Constructor

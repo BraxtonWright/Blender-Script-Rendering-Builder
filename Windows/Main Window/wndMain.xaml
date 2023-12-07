@@ -7,7 +7,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Blender_Script_Rendering_Builder"
         xmlns:Helpers="clr-namespace:Blender_Script_Rendering_Builder.Classes.Helpers"
-        Helpers:ThemeManager.Theme="{Binding CurrentTheme}"
         xmlns:BSC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Blender_Selection"
         xmlns:NEC="clr-namespace:Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control"
         Background="{DynamicResource WindowBackgroundBrush}"

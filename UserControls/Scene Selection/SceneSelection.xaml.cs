@@ -31,11 +31,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
     {
         #region Variables
         /// <summary>
-        /// Object to perform logic for the SceneSelection UserControl.
-        /// </summary>
-        private SceneSelectionLogic logic;
-
-        /// <summary>
         /// Object to contain all the data necessary for the scene
         /// </summary>
         private SceneData sceneData;
@@ -50,7 +45,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Scene_Selection
             try
             {
                 InitializeComponent();
-                logic = new SceneSelectionLogic();
                 sceneData = new SceneData();
                 DataContext = sceneData;
             }

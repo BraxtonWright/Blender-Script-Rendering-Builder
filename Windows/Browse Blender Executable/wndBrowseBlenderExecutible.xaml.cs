@@ -25,11 +25,6 @@ namespace Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executable
     {
         #region Variables
         /// <summary>
-        /// Object to perform logic for this window.
-        /// </summary>
-        private clsBrowseBlenderExecutibleLogic logic;
-
-        /// <summary>
         /// Used to temporarily save the path of the blender application file
         /// </summary>
         private string _blenderApplicationPath;
@@ -59,8 +54,6 @@ namespace Blender_Script_Rendering_Builder.Windows.Browse_Blender_Executable
 
                 window.Title = windowTitle;
                 tbMessage.Text = windowMessage;
-
-                logic = new clsBrowseBlenderExecutibleLogic();
             }
             catch (Exception ex)
             {

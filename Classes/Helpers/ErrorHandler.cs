@@ -35,9 +35,9 @@ namespace Blender_Script_Rendering_Builder.Classes.Helpers
             {
                 // Would write to a file or database here.
                 // Show a message box for the path the error took
-                MessageBox.Show(ErrorMessage);
+                //MessageBox.Show(ErrorMessage);
                 // Show only the thing that caused the error and not show the path that was taken to make that error
-                // MessageBox.Show(ErrorMessage.Substring(ErrorMessage.LastIndexOf("-> ") + 3));
+                MessageBox.Show(ErrorMessage.Substring(ErrorMessage.LastIndexOf("-> ") + 3));
             }
             catch (Exception ex)
             {

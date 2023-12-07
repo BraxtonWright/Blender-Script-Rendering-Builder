@@ -33,8 +33,6 @@ namespace Blender_Script_Rendering_Builder
         /// Object to perform logic for this window.
         /// </summary>
         clsMainLogic logic;
-
-        string currentTheme;
         #endregion
 
         #region Constructor
@@ -45,7 +43,7 @@ namespace Blender_Script_Rendering_Builder
         {
             try
             {
-                // We change the order of this because inside the event listener "wndMain_Initialized" we use the logic variable and we populate the themes menu item with a list of themes and select a default theme (which also be done inside a "Loaded" event listener, but it would result in window wndBrowseBlenderExecutible in not having a theme)
+                // We change the order of this because inside the event listener "wndMain_Initialized" we use the logic variable and we populate the themes menu item with a list of themes and select a default theme (which also could be done inside a "Loaded" event listener, but it would result in window wndBrowseBlenderExecutible in not having a theme)
                 logic = new clsMainLogic();
 
                 InitializeComponent();
@@ -68,7 +66,7 @@ namespace Blender_Script_Rendering_Builder
         {
             try
             {
-                this.currentTheme = Properties.Settings.Default.currentTheme;  // Gets the current theme saved, and because the theme manager is bound to this variable, it applies the theme the the application
+                string currentTheme = Properties.Settings.Default.currentTheme;  // Gets the current theme saved from settings
 
                 // Populate the MenuItem by adding sub-MenuItems to contain a list of available themes for the application
                 foreach (Theme theme in ThemeManager.GetThemes())
@@ -76,10 +74,10 @@ namespace Blender_Script_Rendering_Builder
                     MenuItem item = new MenuItem();
                     item.Header = theme.Name;
                     item.IsCheckable = true;
-                    item.IsChecked = theme.Name == this.currentTheme;
+                    item.IsChecked = theme.Name == currentTheme;
                     item.Checked += miTheme_Checked;  // Add a Checked event listener to the MenuItem
 
-                    if (theme.Name == this.currentTheme)
+                    if (theme.Name == currentTheme)
                     {
                         theme.IsChecked = true;
                         // Application Level

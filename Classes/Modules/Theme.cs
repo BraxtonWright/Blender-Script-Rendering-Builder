@@ -24,6 +24,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
 {
     public class Theme : INotifyPropertyChangedImplmented
     {
+        #region Class variables
         string _name;
         /// <summary>
         /// The name of the theme
@@ -51,7 +52,9 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
                 OnPropertyChanged(nameof(IsChecked));
             }
         }
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -62,7 +65,9 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             Name = name;
             IsChecked = isChecked;
         }
+        #endregion
 
+        #region Overloaded Functions
         /// <summary>
         /// Overloaded ToString() function for this class
         /// </summary>
@@ -71,5 +76,6 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
         {
             return Name;
         }
+        #endregion
     }
 }

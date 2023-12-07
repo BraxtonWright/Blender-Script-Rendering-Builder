@@ -58,8 +58,5 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             this.rendersInfo = renderInfo;
         }
         #endregion
-
-        #region Functions
-        #endregion
     }
 }

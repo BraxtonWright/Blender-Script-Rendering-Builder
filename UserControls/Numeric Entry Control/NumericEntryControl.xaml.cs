@@ -32,11 +32,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Numeric_Entry_Control
         #region Variables
         private int _previousValue = 0;
         private bool _isIncrementing = false;
-
-        /// <summary>
-        /// Object to perform logic for the NumericUpDown UserControl.
-        /// </summary>
-        NumericEntryControlLogic logic;
         #endregion
 
         #region Dispatch timers

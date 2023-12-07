@@ -28,11 +28,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
     {
         #region Variables
         /// <summary>
-        /// Object to perform logic for the BlenderSelection UserControl.
-        /// </summary>
-        private BlenderSelectionLogic logic;
-
-        /// <summary>
         /// Object to contain all the data necessary for the blender file
         /// </summary>
         private BlenderData blendData;
@@ -47,7 +42,6 @@ namespace Blender_Script_Rendering_Builder.UserControls.Blender_Selection
             try
             {
                 InitializeComponent();
-                logic = new BlenderSelectionLogic();
                 blendData = new BlenderData();
                 DataContext = blendData;
             }

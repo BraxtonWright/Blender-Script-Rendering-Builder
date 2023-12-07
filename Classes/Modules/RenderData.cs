@@ -36,7 +36,7 @@ namespace Blender_Script_Rendering_Builder.Classes.Modules
             set { _renderType = value; }
         }
 
-        #region Frame varaibles
+        #region Frame variables
         private int _startFrame;
         /// <summary>
         /// The starting frame for the render
