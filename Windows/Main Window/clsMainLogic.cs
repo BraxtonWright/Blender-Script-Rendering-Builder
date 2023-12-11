@@ -288,7 +288,9 @@ namespace Blender_Script_Rendering_Builder.Main
                     // --frame-end == -e
                     // --render-anim -a
                     // --render-frame -f
-                    MyWriter.WriteLine($"cd \"{blenderApplicationPath}\"\n");
+
+                    // The /d in the below command makes it so that it can still move to the target directory, regardless on if it is on the same drive/drive letter or not.  Such as the blender executable is on drive C, but the script file is on drive D.  https://stackoverflow.com/a/5138524
+                    MyWriter.WriteLine($"cd /d \"{blenderApplicationPath}\"\n");
 
                     // Foreach blender file
                     foreach (BlenderData blendData in renderInformation)
